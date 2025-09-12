@@ -2,14 +2,17 @@
 import Image from "next/image";
 import { useState } from "react"
 import "./accueil.css"
+import { useRouter } from 'next/navigation'
 
 
 export default function Home() {
+    const router = useRouter()
   const [pseudo] = useState("$pseudo")
 
   const handleImageClick = (gameName) => {
     console.log(`Clicked on ${gameName}`)
     // Ajoutez ici la logique de navigation ou d'action
+    router.push('/accueiljeu1') // redirige vers la page d'accueil
   }
 
   const handleOptionsClick = () => {
@@ -22,9 +25,11 @@ export default function Home() {
     // Ajoutez ici la logique pour les infos joueur
   }
 
-  const handleDisconnectClick = () => {
-    console.log("Déconnexion clicked")
-    // Ajoutez ici la logique de déconnexion
+
+    const handleDisconnectClick = (e) => {
+      console.log("Déconnexion clicked")
+      // Ajoutez ici la logique de déconnexion
+      router.push('/login') // redirige vers la page d'accueil
   }
 
   return (
@@ -32,7 +37,7 @@ export default function Home() {
       {/* Header */}
       <header className="header">
         <div className="welcome">Bienvenue : {pseudo}</div>
-        <button className="disconnectBtn" onClick={handleDisconnectClick}>
+        <button className="disconnectBtn" type="submit" onClick={handleDisconnectClick}>
           Déconnexion
         </button>
       </header>
@@ -48,12 +53,12 @@ export default function Home() {
             <div className="gameTitle">The Austral Abyss</div>
           </div>
 
-          <div className="gameCard" onClick={() => handleImageClick("Dragon Academy")}>
+          <div className="gameCard indisponible" onClick={() => handleImageClick("Dragon Academy")}>
             <Image src="/dragon.jpg" alt="Dragon Academy" className="gameImage" width={200} height={200} />
             <div className="gameTitle">Dragon Academy</div>
           </div>
 
-          <div className="gameCard" onClick={() => handleImageClick("Storms")}>
+          <div className="gameCard indisponible" onClick={() => handleImageClick("Storms")}>
             <Image src="/storm.jpg" alt="Storms" className="gameImage" width={200} height={200}/>
             <div className="gameTitle">Storms</div>
           </div>

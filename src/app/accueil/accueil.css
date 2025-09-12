@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #87ceeb 0%, #4682b4 50%, #da70d6 100%);
+  background: linear-gradient(135deg, #526369 0%, #47545f 50%, #462945 100%);
   font-family: "Arial", sans-serif;
   padding: 0;
   margin: 0;
@@ -18,7 +18,7 @@
 .welcome {
   font-size: 18px;
   font-weight: bold;
-  color: #2c3e50;
+  color: #ffffff;
 }
 
 .disconnectBtn {
@@ -26,7 +26,7 @@
   border: none;
   font-size: 18px;
   font-weight: bold;
-  color: #2c3e50;
+  color: #ffffff;
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -45,7 +45,7 @@
 .title {
   font-size: 4rem;
   font-weight: bold;
-  color: #2c3e50;
+  color: #ffffff;
   margin-bottom: 60px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -72,6 +72,10 @@
 .gameCard:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.indisponible{
+    opacity: 0.4;
 }
 
 .gameImage {

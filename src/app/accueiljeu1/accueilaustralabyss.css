@@ -6,6 +6,10 @@
   font-family: "Arial", sans-serif;
 }
 
+.game-container1{
+width: 100%;
+}
+
 .game-background {
   width: 100%;
   height: 100vh;

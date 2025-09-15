@@ -2,25 +2,62 @@
 
 import { useState } from "react"
 import "./hero-creator.css"
+import Image from "next/image"
 
-export default function HeroCreator({onReturn, onFinish}) {
-  const [heroName, setHeroName] = useState("Sergueï")
-  const [remainingPoints, setRemainingPoints] = useState(5)
+export default function HeroSelector({onReturn}) {
+  const [heroName, setHeroName] = useState("Max")
   const [selectedAttribute, setSelectedAttribute] = useState("Magie")
+  const [selectedHero, setSelectedHero] = useState(0)
 
-  const handleReturn = () => {
+    const handleReturn = () => {
     console.log("Retour clicked")
     if (onReturn) onReturn()
   }
 
-  const [attributes, setAttributes] = useState({
-    Force: 5,
-    Perception: 5,
-    Endurance: 5,
-    Agilité: 5,
-    Intelligence: 5,
-    Magie: 5,
-  })
+  const predefinedHeroes = [
+    {
+      name: "Max",
+      image: "/max.jpg",
+      attributes: {
+        Force: 8,
+        Perception: 8,
+        Endurance: 7,
+        Agilité: 5,
+        Intelligence: 6,
+        Magie: 1,
+      },
+      specialAbility: "+2 Perception lors d'une attaque avec un pistolet.",
+    },
+    {
+      name: "Tom",
+      image: "/tom.jpg",
+      attributes: {
+        Force: 6,
+        Perception: 7,
+        Endurance: 8,
+        Agilité: 4,
+        Intelligence: 8,
+        Magie: 2,
+      },
+      specialAbility: "+1 Endurance lors des tests de résistance.",
+    },
+    {
+      name: "Otacon",
+      image: "/otacon.jpg",
+      attributes: {
+        Force: 4,
+        Perception: 6,
+        Endurance: 5,
+        Agilité: 8,
+        Intelligence: 8,
+        Magie: 4,
+      },
+      specialAbility: "+2 Agilité lors des actions furtives.",
+    },
+  ]
+
+  const currentHero = predefinedHeroes[selectedHero]
+  const attributes = currentHero.attributes
 
   const calculatedAttributes = {
     "Points de vie max": attributes.Endurance + attributes.Magie + 1,
@@ -46,24 +83,9 @@ export default function HeroCreator({onReturn, onFinish}) {
       "L'horreur maximum détermine la résistance mentale du héros face aux événements traumatisants. Cette valeur est calculée automatiquement en additionnant l'Intelligence + la Magie + 1. Une valeur élevée permet de mieux résister à la folie.",
   }
 
-  const incrementAttribute = (attr) => {
-    if (remainingPoints > 0) {
-      setAttributes((prev) => ({
-        ...prev,
-        [attr]: prev[attr] + 1,
-      }))
-      setRemainingPoints((prev) => prev - 1)
-    }
-  }
-
-  const decrementAttribute = (attr) => {
-    if (attributes[attr] > 0) {
-      setAttributes((prev) => ({
-        ...prev,
-        [attr]: prev[attr] - 1,
-      }))
-      setRemainingPoints((prev) => prev + 1)
-    }
+  const selectHero = (heroIndex) => {
+    setSelectedHero(heroIndex)
+    setHeroName(predefinedHeroes[heroIndex].name)
   }
 
   const selectAttribute = (attr) => {
@@ -75,7 +97,21 @@ export default function HeroCreator({onReturn, onFinish}) {
       <div className="hero-creator-container">
         <button className="close-button" onClick={handleReturn}>×</button>
 
-        <h1 className="title3">Créer un héros</h1>
+        <h1 className="title">Choisir un héros</h1>
+
+        <div className="hero-selection">
+          {predefinedHeroes.map((hero, index) => (
+            <div key={index} className="hero-option">
+              <div
+                className={`hero-portrait ${selectedHero === index ? "selected" : ""}`}
+                onClick={() => selectHero(index)}
+              >
+                <Image src={hero.image || "/placeholder.svg"} alt={hero.name} width={150} height={150} />
+              </div>
+              <span className="hero-name">{hero.name}</span>
+            </div>
+          ))}
+        </div>
 
         <div className="name-section">
           <label className="name-label">Nom :</label>
@@ -83,12 +119,11 @@ export default function HeroCreator({onReturn, onFinish}) {
         </div>
 
         <div className="attributes-section">
-          <h2 className="attributes-title">Aptitudes : Encore {remainingPoints} points</h2>
-          <p className="attributes-subtitle">Distribuez l`&apos`ensemble des points entre les diverses aptitudes.</p>
+          <h2 className="attributes-title">Aptitudes</h2>
 
           <div className="attributes-grid">
             {Object.entries(attributes).map(([attr, value]) => (
-              <div key={attr} className="attribute-item">
+              <div key={attr} className="attribute-item readonly">
                 <button
                   className={`attribute-button ${selectedAttribute === attr ? "selected" : ""}`}
                   onClick={() => selectAttribute(attr)}
@@ -96,17 +131,7 @@ export default function HeroCreator({onReturn, onFinish}) {
                   {attr}
                 </button>
                 <div className="attribute-controls">
-                  <button className="control-button" onClick={() => decrementAttribute(attr)} disabled={value <= 0 }>
-                    -
-                  </button>
                   <span className="attribute-value">{value}</span>
-                  <button
-                    className="control-button"
-                    onClick={() => incrementAttribute(attr)}
-                    disabled={remainingPoints <= 0 || value === 10}
-                  >
-                    +
-                  </button>
                 </div>
               </div>
             ))}
@@ -130,6 +155,11 @@ export default function HeroCreator({onReturn, onFinish}) {
         <div className="description-section">
           <h3 className="description-title">{selectedAttribute}</h3>
           <p className="description-text">{attributeDescriptions[selectedAttribute]}</p>
+        </div>
+
+        <div className="special-ability-section">
+          <h3 className="special-ability-title">Capacité spéciale</h3>
+          <p className="special-ability-text">{currentHero.specialAbility}</p>
         </div>
 
         <button className="next-button">Suivant &gt;</button>

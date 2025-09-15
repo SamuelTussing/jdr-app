@@ -1,13 +1,28 @@
 .hero-creator {
   min-height: 100vh;
-  background: linear-gradient(135deg, #4a6741 0%, #2d4a3a 50%, #1a2f2a 100%);
-  background-image: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+  background: linear-gradient(135deg, #020202 0%, #2d4a3a 50%, #050808 100%);
+  background-image: radial-gradient(circle at 20% 80%, rgba(2, 2, 17, 0.8)),
     radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.hero-selection{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.hero-portrait{
+opacity: .5;
+}
+
+.selected{
+  opacity: 1;
+  
 }
 
 .hero-creator-container {
@@ -41,7 +56,7 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.title {
+.title3 {
   text-align: center;
   font-size: 28px;
   font-weight: bold;

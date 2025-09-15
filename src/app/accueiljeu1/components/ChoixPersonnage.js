@@ -19,9 +19,9 @@ export default function ChoixPerso({ onCreate, onChoose, onReturn }) {
   }
 
   return (
-    <div className="container">
-      <div className="content">
-        <h1 className="title">Choisissez votre héros</h1>
+    <div className="container2">
+      <div className="content2">
+        <h1 className="title2">Choisissez votre héros</h1>
 
         <div className="buttonGroup">
           <button className="chooseButton" onClick={handleCreateHero}>

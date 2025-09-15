@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Accueil from './components/Accueil'
 import ChoixPerso from './components/ChoixPersonnage'
 import CreerPersonnage from './components/CreerPersonnage'
+import ChoixPersoPredef from "./components/ChoisirPersonnagePredef"
 
 /*PAGE MERE POUR LE JEU */
 
@@ -12,17 +13,30 @@ export default function JeuPage() {
 
   return (
     <div>
-      {step === "accueil" && <Accueil onNext={() => setStep("choix")} />}
+      {step === "accueil" && 
+      <Accueil 
+      onNext={() => setStep("choix")}
+      />}
 
       {step === "choix" && (
         <ChoixPerso
           onCreate={() => setStep("creer")}
-          onChoose={() => console.log("Choisir un perso existant")}
+          onChoose={() => setStep("choixpredef")}
           onReturn={() => setStep("accueil")}
         />
       )}
 
-      {step === "creer" && <CreerPersonnage onFinish={() => setStep("jeu")} />}
+      {step === "creer" && 
+      <CreerPersonnage
+      onFinish={() => setStep("jeu")} 
+      onReturn={() => setStep("accueil")}
+      />}
+
+      {step === "choixpredef" && 
+      <ChoixPersoPredef
+      onFinish={() => setStep("jeu")} 
+      onReturn={() => setStep("accueil")}
+      />}
     </div>
   )
 }

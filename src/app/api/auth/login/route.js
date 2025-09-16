@@ -35,33 +35,30 @@ export async function POST(req) {
       return NextResponse.json({ error: "Mot de passe incorrect" }, { status: 401 })
     }
 
-    // Générer un JWT (ne jamais mettre le mot de passe dedans)
+    // Générer le JWT
+    if (!process.env.JWT_SECRET) {
+      console.error("❌ JWT_SECRET manquant dans les variables d'environnement")
+      return NextResponse.json({ error: "Erreur de configuration" }, { status: 500 })
+    }
+
     const token = jwt.sign(
-      { id: user._id.toString(), username: user.username },
+      { userId: user._id, username: user.username },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "7d" }
     )
 
-    // Supprimer le mot de passe avant envoi
-    const { password: _, ...userWithoutPassword } = user.toObject()
-
-    // Réponse avec cookie sécurisé
-    const res = NextResponse.json(
-      { message: "Connexion réussie", user: userWithoutPassword },
-      { status: 200 }
-    )
-
+    // Définir un cookie HttpOnly
+    const res = NextResponse.json({ message: "Connexion réussie" })
     res.cookies.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 60 * 60, // 1 heure
+      maxAge: 60 * 60 * 24 * 7, // 7 jours
       path: "/",
     })
 
     return res
   } catch (error) {
-    console.error("Erreur login:", error)
+    console.error("❌ Erreur login:", error)
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 })
   }
 }

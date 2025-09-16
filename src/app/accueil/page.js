@@ -26,10 +26,10 @@ export default function Home() {
   }
 
 
-    const handleDisconnectClick = (e) => {
+    const handleDisconnectClick = async () => {
       console.log("Déconnexion clicked")
-      // Ajoutez ici la logique de déconnexion
-      router.push('/login') // redirige vers la page d'accueil
+      await fetch("/api/auth/logout", { method: "POST" })
+      router.push("/login")
   }
 
   return (

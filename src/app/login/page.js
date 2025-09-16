@@ -20,26 +20,29 @@ export default function LoginPage() {
   // Connexion
   const handleLogin = async (e) => {
     e.preventDefault()
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginData)
-      })
 
-      const data = await res.json()
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginData),
+    })
 
-      if (res.ok) {
-        console.log("✅ Login success:", data)
-        router.push("/accueil") // redirige vers la page d'accueil
-      } else {
-        alert(data.error || "Erreur lors de la connexion")
-      }
-    } catch (err) {
-      console.error("❌ Login error:", err)
-      alert("Erreur serveur")
+    const data = await res.json()
+
+    if (!res.ok) {
+      alert(data.error || "Erreur de connexion")
+      return
     }
+
+    console.log("Login success:", data)
+    // ici tu peux stocker l’utilisateur en localStorage ou context
+    router.push("/accueil")
+  } catch (err) {
+    console.error("Erreur login:", err)
+    alert("Erreur serveur")
   }
+}
 
   // Inscription
   const handleSignup = async (e) => {

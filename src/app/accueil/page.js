@@ -10,27 +10,31 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   // Vérifie si l'utilisateur est connecté et récupère le pseudo
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await fetch("/api/auth/me")
-        const data = await res.json()
+useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const res = await fetch("/api/auth/me", {
+        method: "GET",
+        credentials: "include" // 🔑 envoie le cookie HttpOnly
+      })
 
-        if (!data.user) {
-          router.push("/login") // pas connecté → redirection login
-          return
-        }
+      const data = await res.json()
 
-        setPseudo(data.user.username)
-        setLoading(false)
-      } catch (err) {
-        console.error("Erreur récupération user :", err)
-        router.push("/login")
+      if (!data.user) {
+        router.push("/login") // pas connecté → redirection login
+        return
       }
-    }
 
-    fetchUser()
-  }, [router])
+      setPseudo(data.user.username)
+      setLoading(false)
+    } catch (err) {
+      console.error("Erreur récupération user :", err)
+      router.push("/login")
+    }
+  }
+
+  fetchUser()
+}, [router])
 
   // Gestion des clics sur les jeux
   const handleImageClick = (gameName) => {

@@ -1,43 +1,64 @@
 "use client"
-import Image from "next/image";
-import { useState } from "react"
+import Image from "next/image"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import "./accueil.css"
-import { useRouter } from 'next/navigation'
-
 
 export default function Home() {
-    const router = useRouter()
-  const [pseudo] = useState("$pseudo")
+  const router = useRouter()
+  const [pseudo, setPseudo] = useState("")
+  const [loading, setLoading] = useState(true)
 
+  // Vérifie si l'utilisateur est connecté et récupère le pseudo
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/auth/me")
+        const data = await res.json()
+
+        if (!data.user) {
+          router.push("/login") // pas connecté → redirection login
+          return
+        }
+
+        setPseudo(data.user.username)
+        setLoading(false)
+      } catch (err) {
+        console.error("Erreur récupération user :", err)
+        router.push("/login")
+      }
+    }
+
+    fetchUser()
+  }, [router])
+
+  // Gestion des clics sur les jeux
   const handleImageClick = (gameName) => {
     console.log(`Clicked on ${gameName}`)
-    // Ajoutez ici la logique de navigation ou d'action
-    router.push('/accueiljeu1') // redirige vers la page d'accueil
+    router.push("/accueiljeu1") // redirige vers la page du jeu
   }
 
-  const handleOptionsClick = () => {
-    console.log("Options clicked")
-    // Ajoutez ici la logique pour les options
-  }
+  const handleOptionsClick = () => console.log("Options clicked")
+  const handlePlayerInfoClick = () => console.log("Infos joueur clicked")
 
-  const handlePlayerInfoClick = () => {
-    console.log("Infos joueur clicked")
-    // Ajoutez ici la logique pour les infos joueur
-  }
-
-
-    const handleDisconnectClick = async () => {
-      console.log("Déconnexion clicked")
+  // Déconnexion
+  const handleDisconnectClick = async () => {
+    try {
       await fetch("/api/auth/logout", { method: "POST" })
       router.push("/login")
+    } catch (err) {
+      console.error("Erreur logout :", err)
+    }
   }
+
+  if (loading) return <div>Chargement...</div>
 
   return (
     <div className="container">
       {/* Header */}
       <header className="header">
         <div className="welcome">Bienvenue : {pseudo}</div>
-        <button className="disconnectBtn" type="submit" onClick={handleDisconnectClick}>
+        <button className="disconnectBtn" onClick={handleDisconnectClick}>
           Déconnexion
         </button>
       </header>
@@ -49,7 +70,7 @@ export default function Home() {
         {/* Game Images */}
         <div className="gamesGrid">
           <div className="gameCard" onClick={() => handleImageClick("The Austral Abyss")}>
-            <Image src="/abyss.jpg" alt="The Austral Abyss" className="gameImage" width={200} height={200}/>
+            <Image src="/abyss.jpg" alt="The Austral Abyss" className="gameImage" width={200} height={200} />
             <div className="gameTitle">The Austral Abyss</div>
           </div>
 
@@ -59,19 +80,15 @@ export default function Home() {
           </div>
 
           <div className="gameCard indisponible" onClick={() => handleImageClick("Storms")}>
-            <Image src="/storm.jpg" alt="Storms" className="gameImage" width={200} height={200}/>
+            <Image src="/storm.jpg" alt="Storms" className="gameImage" width={200} height={200} />
             <div className="gameTitle">Storms</div>
           </div>
         </div>
 
         {/* Bottom Buttons */}
         <div className="bottomButtons">
-          <button className="actionBtn" onClick={handleOptionsClick}>
-            Options
-          </button>
-          <button className="actionBtn "onClick={handlePlayerInfoClick}>
-            Infos joueur
-          </button>
+          <button className="actionBtn" onClick={handleOptionsClick}>Options</button>
+          <button className="actionBtn" onClick={handlePlayerInfoClick}>Infos joueur</button>
         </div>
       </main>
     </div>

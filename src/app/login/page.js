@@ -19,7 +19,7 @@ export default function LoginPage() {
 
   // Connexion
   const handleLogin = async (e) => {
-    e.preventDefault()
+  e.preventDefault()
 
   try {
     const res = await fetch("/api/auth/login", {
@@ -36,8 +36,10 @@ export default function LoginPage() {
     }
 
     console.log("Login success:", data)
-    // ici tu peux stocker l’utilisateur en localStorage ou context
-    router.push("/accueil")
+
+    // ⚡ Redirection avec reload pour que le cookie HttpOnly soit pris en compte
+    window.location.href = "/accueil"
+
   } catch (err) {
     console.error("Erreur login:", err)
     alert("Erreur serveur")

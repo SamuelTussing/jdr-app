@@ -11,30 +11,32 @@ export default function AuthPage() {
   const [signupData, setSignupData] = useState({ username: "", password: "", email: "" })
 
   // Connexion
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginData),
-      })
+const handleLogin = async (e) => {
+  e.preventDefault()
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginData),
+      credentials: "include", // 🔑 envoie le cookie HttpOnly
+    })
 
-      const data = await res.json()
+    const data = await res.json()
 
-      if (!res.ok) {
-        alert(data.error || "Erreur de connexion")
-        return
-      }
-
-      console.log("Login success:", data)
-      // ✅ Redirection SPA
-      router.push("/accueil")
-    } catch (err) {
-      console.error("Erreur login:", err)
-      alert("Erreur serveur")
+    if (!res.ok) {
+      alert(data.error || "Erreur de connexion")
+      return
     }
+
+    console.log("Login success:", data)
+
+    // ⚡ Redirection complète pour que le cookie soit pris en compte
+    window.location.href = "/accueil"
+  } catch (err) {
+    console.error("Erreur login:", err)
+    alert("Erreur serveur")
   }
+}
 
   // Inscription
   const handleSignup = async (e) => {

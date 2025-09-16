@@ -10,31 +10,31 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   // Vérifie si l'utilisateur est connecté et récupère le pseudo
-useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const res = await fetch("/api/auth/me", {
-        method: "GET",
-        credentials: "include" // 🔑 envoie le cookie HttpOnly
-      })
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/auth/me", {
+          method: "GET",
+          credentials: "include", // 🔑 envoie le cookie HttpOnly
+        })
 
-      const data = await res.json()
+        const data = await res.json()
 
-      if (!data.user) {
-        router.push("/login") // pas connecté → redirection login
-        return
+        if (!data.user) {
+          router.push("/login") // pas connecté → redirection login
+          return
+        }
+
+        setPseudo(data.user.username)
+        setLoading(false)
+      } catch (err) {
+        console.error("Erreur récupération user :", err)
+        router.push("/login")
       }
-
-      setPseudo(data.user.username)
-      setLoading(false)
-    } catch (err) {
-      console.error("Erreur récupération user :", err)
-      router.push("/login")
     }
-  }
 
-  fetchUser()
-}, [router])
+    fetchUser()
+  }, [router])
 
   // Gestion des clics sur les jeux
   const handleImageClick = (gameName) => {
@@ -74,17 +74,17 @@ useEffect(() => {
         {/* Game Images */}
         <div className="gamesGrid">
           <div className="gameCard" onClick={() => handleImageClick("The Austral Abyss")}>
-            <Image src="/abyss.jpg" alt="The Austral Abyss" className="gameImage" width={200} height={200} />
+            <Image src="/abyss.jpg" alt="The Austral Abyss" width={200} height={200} />
             <div className="gameTitle">The Austral Abyss</div>
           </div>
 
           <div className="gameCard indisponible" onClick={() => handleImageClick("Dragon Academy")}>
-            <Image src="/dragon.jpg" alt="Dragon Academy" className="gameImage" width={200} height={200} />
+            <Image src="/dragon.jpg" alt="Dragon Academy" width={200} height={200} />
             <div className="gameTitle">Dragon Academy</div>
           </div>
 
           <div className="gameCard indisponible" onClick={() => handleImageClick("Storms")}>
-            <Image src="/storm.jpg" alt="Storms" className="gameImage" width={200} height={200} />
+            <Image src="/storm.jpg" alt="Storms" width={200} height={200} />
             <div className="gameTitle">Storms</div>
           </div>
         </div>

@@ -1,50 +1,40 @@
 "use client"
+
 import { useState } from "react"
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation"
 import "./login.css"
 
-export default function LoginPage() {
+export default function AuthPage() {
   const router = useRouter()
 
-  const [loginData, setLoginData] = useState({
-    username: "",
-    password: ""
-  })
-
-  const [signupData, setSignupData] = useState({
-    username: "",
-    password: "",
-    email: ""
-  })
+  const [loginData, setLoginData] = useState({ username: "", password: "" })
+  const [signupData, setSignupData] = useState({ username: "", password: "", email: "" })
 
   // Connexion
   const handleLogin = async (e) => {
-  e.preventDefault()
+    e.preventDefault()
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginData),
+      })
 
-  try {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loginData),
-    })
+      const data = await res.json()
 
-    const data = await res.json()
+      if (!res.ok) {
+        alert(data.error || "Erreur de connexion")
+        return
+      }
 
-    if (!res.ok) {
-      alert(data.error || "Erreur de connexion")
-      return
+      console.log("Login success:", data)
+      // ✅ Redirection SPA
+      router.push("/accueil")
+    } catch (err) {
+      console.error("Erreur login:", err)
+      alert("Erreur serveur")
     }
-
-    console.log("Login success:", data)
-
-    // ⚡ Redirection avec reload pour que le cookie HttpOnly soit pris en compte
-    window.location.href = "/accueil"
-
-  } catch (err) {
-    console.error("Erreur login:", err)
-    alert("Erreur serveur")
   }
-}
 
   // Inscription
   const handleSignup = async (e) => {
@@ -53,20 +43,19 @@ export default function LoginPage() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(signupData)
+        body: JSON.stringify(signupData),
       })
 
       const data = await res.json()
 
       if (res.ok) {
-        console.log("✅ Signup success:", data)
         alert("Compte créé avec succès ! Vous pouvez vous connecter.")
-        setSignupData({ username: "", password: "", email: "" }) // reset form
+        setSignupData({ username: "", password: "", email: "" })
       } else {
         alert(data.error || "Erreur lors de la création du compte")
       }
     } catch (err) {
-      console.error("❌ Signup error:", err)
+      console.error("Erreur signup:", err)
       alert("Erreur serveur")
     }
   }
@@ -75,14 +64,13 @@ export default function LoginPage() {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-forms">
+
           {/* Login Form */}
           <div className="auth-form">
             <h2 className="auth-title">Connexion</h2>
             <form onSubmit={handleLogin}>
               <div className="form-group">
-                <label htmlFor="login-username" className="form-label">
-                  Username
-                </label>
+                <label htmlFor="login-username">Username</label>
                 <input
                   id="login-username"
                   type="text"
@@ -93,9 +81,7 @@ export default function LoginPage() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="login-password" className="form-label">
-                  Password
-                </label>
+                <label htmlFor="login-password">Password</label>
                 <input
                   id="login-password"
                   type="password"
@@ -105,19 +91,11 @@ export default function LoginPage() {
                 />
               </div>
 
-              <div className="form-group">
-                <button type="button" className="forgot-password">
-                  Mot de passe oublié
-                </button>
-              </div>
-
-              <button type="submit" className="auth-button">
-                Connexion
-              </button>
+              <button type="submit" className="auth-button">Connexion</button>
             </form>
           </div>
 
-          {/* Vertical Divider */}
+          {/* Divider */}
           <div className="divider"></div>
 
           {/* Signup Form */}
@@ -125,9 +103,7 @@ export default function LoginPage() {
             <h2 className="auth-title">Créer un compte</h2>
             <form onSubmit={handleSignup}>
               <div className="form-group">
-                <label htmlFor="signup-username" className="form-label">
-                  Username
-                </label>
+                <label htmlFor="signup-username">Username</label>
                 <input
                   id="signup-username"
                   type="text"
@@ -138,9 +114,7 @@ export default function LoginPage() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="signup-password" className="form-label">
-                  Password
-                </label>
+                <label htmlFor="signup-password">Password</label>
                 <input
                   id="signup-password"
                   type="password"
@@ -151,9 +125,7 @@ export default function LoginPage() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="signup-email" className="form-label">
-                  Email
-                </label>
+                <label htmlFor="signup-email">Email</label>
                 <input
                   id="signup-email"
                   type="email"
@@ -163,13 +135,10 @@ export default function LoginPage() {
                 />
               </div>
 
-              <div className="signup-button-container">
-                <button type="submit" className="auth-button">
-                  Créer un compte
-                </button>
-              </div>
+              <button type="submit" className="auth-button">Créer un compte</button>
             </form>
           </div>
+
         </div>
       </div>
     </div>

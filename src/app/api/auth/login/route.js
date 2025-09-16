@@ -48,7 +48,7 @@ export async function POST(req) {
     )
 
     // Définir un cookie HttpOnly
-    const res = NextResponse.json({ message: "Connexion réussie" })
+    const res = NextResponse.json({ message: "Connexion réussie" }, { status: 200 })
     res.cookies.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

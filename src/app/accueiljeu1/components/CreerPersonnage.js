@@ -59,22 +59,28 @@ export default function HeroCreator({ onReturn, onFinish }) {
           <div className="attributes-grid">
             {Object.entries(attributes).map(([attr, value]) => (
               <div key={attr} className="attribute-item">
-                <button>{attr}</button>
+                <button className="attribute-button">{attr}</button>
                 <div className="attribute-controls">
-                  <button onClick={() => decrementAttribute(attr)} disabled={value <= 0}>-</button>
+                  <button className="control-button" onClick={() => decrementAttribute(attr)} disabled={value <= 0}>-</button>
                   <span>{value}</span>
-                  <button onClick={() => incrementAttribute(attr)} disabled={remainingPoints <= 0 || value === 10}>+</button>
+                  <button className="control-button" onClick={() => incrementAttribute(attr)} disabled={remainingPoints <= 0 || value === 10}>+</button>
                 </div>
               </div>
             ))}
 
             {Object.entries(calculatedAttributes).map(([attr, value]) => (
               <div key={attr} className="attribute-item calculated">
-                <button>{attr}</button>
-                <span>{value}</span>
+                <button className="attribute-button">{attr}</button>
+                <div className="attribute-controls">
+                  <span className="attribute-value calculated-value">{value}</span>
+                </div>
               </div>
             ))}
           </div>
+        </div>
+        <div className="description-section">
+          <h3 className="description-title">{selectedAttribute}</h3>
+          <p className="description-text">{attributeDescriptions[selectedAttribute]}</p>
         </div>
 
         {/* Bouton suivant → envoie les données */}

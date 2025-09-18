@@ -1,23 +1,54 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Accueil from './components/Accueil'
 import ChoixPerso from './components/ChoixPersonnage'
 import CreerPersonnage from './components/CreerPersonnage'
 import ChoixPersoPredef from "./components/ChoisirPersonnagePredef"
-import ChoixCompetences from "./components/ChixCompetences"
-
-/*PAGE MERE POUR LE JEU */
+import ChoixCompetences from "./components/ChoixCompetences" // si tu l’as déjà
 
 export default function JeuPage() {
   const [step, setStep] = useState("accueil")
+  const [player, setPlayer] = useState(null)
+
+  // ⚡ Charger une sauvegarde si elle existe (depuis MongoDB ou sessionStorage)
+  useEffect(() => {
+    const fetchSave = async () => {
+      try {
+        const res = await fetch("/api/game/load", { method: "GET" })
+        if (res.ok) {
+          const data = await res.json()
+          if (data.player) {
+            setPlayer(data.player)
+            setStep("jeu") // direct vers la partie si une sauvegarde existe
+          }
+        }
+      } catch (err) {
+        console.error("Erreur récupération sauvegarde:", err)
+      }
+    }
+    fetchSave()
+  }, [])
+
+  // ⚡ Sauvegarde côté serveur
+  const saveToDB = async (hero) => {
+    try {
+      const res = await fetch("/api/game/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(hero),
+      })
+      const data = await res.json()
+      console.log("✅ Sauvegarde réussie:", data)
+    } catch (err) {
+      console.error("❌ Erreur sauvegarde:", err)
+    }
+  }
 
   return (
     <div>
       {step === "accueil" && 
-      <Accueil 
-      onNext={() => setStep("choix")}
-      />}
+        <Accueil onNext={() => setStep("choix")} />}
 
       {step === "choix" && (
         <ChoixPerso
@@ -28,23 +59,30 @@ export default function JeuPage() {
       )}
 
       {step === "creer" && 
-      <CreerPersonnage
-      onFinish={() => setStep("jeu")} 
-      onReturn={() => setStep("accueil")}
-      />}
-
-      {step === "choixcompetences" && 
-  <ChoixCompetences
-    onFinish={() => setStep("jeu")} 
-    onReturn={() => setStep("creer")}
-  />
-}
+        <CreerPersonnage
+          onFinish={(hero) => {
+            setPlayer(hero)       // stocke le perso dans la page mère
+            saveToDB(hero)        // sauvegarde en BDD
+            setStep("choixcompetences") // passe à l’étape suivante
+          }}
+          onReturn={() => setStep("accueil")}
+        />
+      }
 
       {step === "choixpredef" && 
-      <ChoixPersoPredef
-      onFinish={() => setStep("jeu")} 
-      onReturn={() => setStep("accueil")}
-      />}
+        <ChoixPersoPredef
+          onFinish={(hero) => {
+            setPlayer(hero)
+            saveToDB(hero)
+            setStep("choixcompetences")
+          }}
+          onReturn={() => setStep("accueil")}
+        />
+      }
+
+      {step === "choixcompetences" && 
+        <ChoixCompetences player={player} />
+      }
     </div>
   )
 }

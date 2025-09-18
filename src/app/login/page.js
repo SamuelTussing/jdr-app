@@ -1,11 +1,13 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import "./login.css"
 
-export default function AuthPage() {
+export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectUrl = searchParams.get("redirect") || "/accueil"
 
   const [loginData, setLoginData] = useState({ username: "", password: "" })
   const [signupData, setSignupData] = useState({ username: "", password: "", email: "" })
@@ -29,11 +31,11 @@ export default function AuthPage() {
 
       console.log("Login success:", data)
 
-      // ⚡ Stocke l'utilisateur en sessionStorage pour la page d'accueil
+      // ⚡ Stocker l'utilisateur en sessionStorage
       sessionStorage.setItem("user", JSON.stringify(data.user))
 
-      // Redirection vers la page d'accueil
-      router.push("/accueil")
+      // Rediriger vers la page demandée ou accueil
+      router.replace(redirectUrl)
     } catch (err) {
       console.error("Erreur login:", err)
       alert("Erreur serveur")
@@ -54,7 +56,7 @@ export default function AuthPage() {
 
       if (res.ok) {
         alert("Compte créé avec succès ! Vous pouvez vous connecter.")
-        setSignupData({ username: "", password: "", email: "" }) // reset form
+        setSignupData({ username: "", password: "", email: "" })
       } else {
         alert(data.error || "Erreur lors de la création du compte")
       }
@@ -73,9 +75,8 @@ export default function AuthPage() {
             <h2 className="auth-title">Connexion</h2>
             <form onSubmit={handleLogin}>
               <div className="form-group">
-                <label htmlFor="login-username">Username</label>
+                <label>Username</label>
                 <input
-                  id="login-username"
                   type="text"
                   value={loginData.username}
                   onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
@@ -84,9 +85,8 @@ export default function AuthPage() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="login-password">Password</label>
+                <label>Password</label>
                 <input
-                  id="login-password"
                   type="password"
                   value={loginData.password}
                   onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
@@ -106,9 +106,8 @@ export default function AuthPage() {
             <h2 className="auth-title">Créer un compte</h2>
             <form onSubmit={handleSignup}>
               <div className="form-group">
-                <label htmlFor="signup-username">Username</label>
+                <label>Username</label>
                 <input
-                  id="signup-username"
                   type="text"
                   value={signupData.username}
                   onChange={(e) => setSignupData({ ...signupData, username: e.target.value })}
@@ -117,9 +116,8 @@ export default function AuthPage() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="signup-password">Password</label>
+                <label>Password</label>
                 <input
-                  id="signup-password"
                   type="password"
                   value={signupData.password}
                   onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
@@ -128,9 +126,8 @@ export default function AuthPage() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="signup-email">Email</label>
+                <label>Email</label>
                 <input
-                  id="signup-email"
                   type="email"
                   value={signupData.email}
                   onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}

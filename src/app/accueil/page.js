@@ -9,31 +9,24 @@ export default function Home() {
   const [pseudo, setPseudo] = useState("")
   const [loading, setLoading] = useState(true)
 
-  // Vérifie si l'utilisateur est connecté et récupère le pseudo
+  // Vérifie si l'utilisateur est connecté via sessionStorage
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await fetch("/api/auth/me", {
-          method: "GET",
-          credentials: "include", // 🔑 envoie le cookie HttpOnly
-        })
+    const userData = sessionStorage.getItem("user")
 
-        const data = await res.json()
-
-        if (!data.user) {
-          router.push("/login") // pas connecté → redirection login
-          return
-        }
-
-        setPseudo(data.user.username)
-        setLoading(false)
-      } catch (err) {
-        console.error("Erreur récupération user :", err)
-        router.push("/login")
-      }
+    if (!userData) {
+      router.push("/login") // Pas de user → retour login
+      return
     }
 
-    fetchUser()
+    try {
+      const parsedUser = JSON.parse(userData)
+      setPseudo(parsedUser.username || "Joueur")
+      setLoading(false)
+    } catch (err) {
+      console.error("Erreur parsing user sessionStorage:", err)
+      sessionStorage.removeItem("user")
+      router.push("/login")
+    }
   }, [router])
 
   // Gestion des clics sur les jeux
@@ -46,13 +39,9 @@ export default function Home() {
   const handlePlayerInfoClick = () => console.log("Infos joueur clicked")
 
   // Déconnexion
-  const handleDisconnectClick = async () => {
-    try {
-      await fetch("/api/auth/logout", { method: "POST" })
-      router.push("/login")
-    } catch (err) {
-      console.error("Erreur logout :", err)
-    }
+  const handleDisconnectClick = () => {
+    sessionStorage.clear() // On vide la session côté client
+    router.push("/login")
   }
 
   if (loading) return <div>Chargement...</div>

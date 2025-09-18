@@ -10,7 +10,7 @@ export default function AuthPage() {
   const [loginData, setLoginData] = useState({ username: "", password: "" })
   const [signupData, setSignupData] = useState({ username: "", password: "", email: "" })
 
-  // Connexion
+    // Connexion
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
@@ -18,6 +18,7 @@ export default function AuthPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginData),
+        credentials: "include",
       })
 
       const data = await res.json()
@@ -29,16 +30,11 @@ export default function AuthPage() {
 
       console.log("✅ Login success:", data)
 
-      // 👉 Stocker les infos utilisateur et le token dans sessionStorage
-      if (data.user) {
-        sessionStorage.setItem("user", JSON.stringify(data.user))
-      }
-      if (data.token) {
-        sessionStorage.setItem("token", data.token)
-      }
+      // On stocke l'utilisateur en sessionStorage
+      sessionStorage.setItem("user", JSON.stringify(data.user))
 
-      // 👉 Rediriger proprement
-      router.push("/accueil")
+      // Redirection forcée vers accueil
+      window.location.href = "/accueil"
     } catch (err) {
       console.error("❌ Erreur login:", err)
       alert("Erreur serveur")

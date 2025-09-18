@@ -1,31 +1,14 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import "./accueil.css"
 
 export default function AccueilPage() {
   const router = useRouter()
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    // Récupère l'utilisateur depuis sessionStorage
-    const storedUser = sessionStorage.getItem("user")
-    if (!storedUser) {
-      // Pas connecté → redirection vers login
-      router.replace("/login")
-      return
-    }
-
-    setUser(JSON.parse(storedUser))
-    setLoading(false)
-  }, [router])
-
-  if (loading) return <div>Chargement...</div>
 
   const handleDisconnectClick = () => {
+    // On peut éventuellement nettoyer sessionStorage
     sessionStorage.removeItem("user")
     router.replace("/login")
   }
@@ -38,10 +21,13 @@ export default function AccueilPage() {
   const handleOptionsClick = () => console.log("Options clicked")
   const handlePlayerInfoClick = () => console.log("Infos joueur clicked")
 
+  // ⚡ Suppression du check de sessionStorage, on affiche directement
+  const pseudo = "Joueur" // valeur par défaut, peut être remplacée plus tard
+
   return (
     <div className="container">
       <header className="header">
-        <div className="welcome">Bienvenue : {user.username}</div>
+        <div className="welcome">Bienvenue : {pseudo}</div>
         <button className="disconnectBtn" onClick={handleDisconnectClick}>
           Déconnexion
         </button>

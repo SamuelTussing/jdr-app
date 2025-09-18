@@ -1,23 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter } from 'next/navigation'
 import "./login.css"
 
-export default function LoginPage() {
+export default function AuthPage() {
   const router = useRouter()
 
   const [loginData, setLoginData] = useState({ username: "", password: "" })
   const [signupData, setSignupData] = useState({ username: "", password: "", email: "" })
-
-  // Fonction pour récupérer le paramètre redirect depuis l'URL
-  const getRedirectUrl = () => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search)
-      return params.get("redirect") || "/accueil"
-    }
-    return "/accueil"
-  }
 
   // Connexion
   const handleLogin = async (e) => {
@@ -30,6 +21,7 @@ export default function LoginPage() {
       })
 
       const data = await res.json()
+
       if (!res.ok) {
         alert(data.error || "Erreur de connexion")
         return
@@ -37,11 +29,11 @@ export default function LoginPage() {
 
       console.log("Login success:", data)
 
-      // Stocker l'utilisateur en sessionStorage
+      // ⚡ Stocke l'utilisateur en sessionStorage pour la page d'accueil
       sessionStorage.setItem("user", JSON.stringify(data.user))
 
-      // Rediriger vers la page demandée ou par défaut
-      router.replace(getRedirectUrl())
+      // Redirection vers la page d'accueil
+      router.push("/accueil")
     } catch (err) {
       console.error("Erreur login:", err)
       alert("Erreur serveur")
@@ -59,9 +51,10 @@ export default function LoginPage() {
       })
 
       const data = await res.json()
+
       if (res.ok) {
         alert("Compte créé avec succès ! Vous pouvez vous connecter.")
-        setSignupData({ username: "", password: "", email: "" })
+        setSignupData({ username: "", password: "", email: "" }) // reset form
       } else {
         alert(data.error || "Erreur lors de la création du compte")
       }
@@ -75,14 +68,14 @@ export default function LoginPage() {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-forms">
-
           {/* Login Form */}
           <div className="auth-form">
             <h2 className="auth-title">Connexion</h2>
             <form onSubmit={handleLogin}>
               <div className="form-group">
-                <label>Username</label>
+                <label htmlFor="login-username">Username</label>
                 <input
+                  id="login-username"
                   type="text"
                   value={loginData.username}
                   onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
@@ -91,8 +84,9 @@ export default function LoginPage() {
               </div>
 
               <div className="form-group">
-                <label>Password</label>
+                <label htmlFor="login-password">Password</label>
                 <input
+                  id="login-password"
                   type="password"
                   value={loginData.password}
                   onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
@@ -104,6 +98,7 @@ export default function LoginPage() {
             </form>
           </div>
 
+          {/* Divider */}
           <div className="divider"></div>
 
           {/* Signup Form */}
@@ -111,8 +106,9 @@ export default function LoginPage() {
             <h2 className="auth-title">Créer un compte</h2>
             <form onSubmit={handleSignup}>
               <div className="form-group">
-                <label>Username</label>
+                <label htmlFor="signup-username">Username</label>
                 <input
+                  id="signup-username"
                   type="text"
                   value={signupData.username}
                   onChange={(e) => setSignupData({ ...signupData, username: e.target.value })}
@@ -121,8 +117,9 @@ export default function LoginPage() {
               </div>
 
               <div className="form-group">
-                <label>Password</label>
+                <label htmlFor="signup-password">Password</label>
                 <input
+                  id="signup-password"
                   type="password"
                   value={signupData.password}
                   onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
@@ -131,8 +128,9 @@ export default function LoginPage() {
               </div>
 
               <div className="form-group">
-                <label>Email</label>
+                <label htmlFor="signup-email">Email</label>
                 <input
+                  id="signup-email"
                   type="email"
                   value={signupData.email}
                   onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
@@ -143,7 +141,6 @@ export default function LoginPage() {
               <button type="submit" className="auth-button">Créer un compte</button>
             </form>
           </div>
-
         </div>
       </div>
     </div>

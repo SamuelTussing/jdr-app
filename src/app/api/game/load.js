@@ -7,22 +7,21 @@ export async function POST(req) {
     await connectDB()
     const body = await req.json()
 
-    const { username, hero } = body
+    const { username } = body
 
     if (!username) {
       return NextResponse.json({ success: false, error: "Username manquant" }, { status: 400 })
     }
 
-    // Mettre à jour la sauvegarde pour jeu1
-    const user = await User.findOneAndUpdate(
-      { username },
-      { $set: { "saves.jeu1": hero } },
-      { new: true, upsert: true }
-    )
+    const user = await User.findOne({ username })
 
-    return NextResponse.json({ success: true, player: user.saves.jeu1 })
+    if (!user || !user.saves?.jeu1) {
+      return NextResponse.json({ success: false, error: "Aucune sauvegarde trouvée" }, { status: 404 })
+    }
+
+    return NextResponse.json({ success: true, hero: user.saves.jeu1 })
   } catch (error) {
-    console.error(error)
+    console.error("❌ Erreur load:", error)
     return NextResponse.json({ success: false, error: "Erreur serveur" }, { status: 500 })
   }
 }

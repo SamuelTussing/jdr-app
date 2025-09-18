@@ -11,33 +11,51 @@ export default function JeuPage() {
   const [step, setStep] = useState("accueil")
   const [player, setPlayer] = useState(null)
 
-  // ⚡ Charger une sauvegarde si elle existe (depuis MongoDB ou sessionStorage)
+  // ⚡ Charger une sauvegarde si elle existe (depuis MongoDB)
   useEffect(() => {
     const fetchSave = async () => {
       try {
-        const res = await fetch("/api/game/load", { method: "GET" })
-        if (res.ok) {
-          const data = await res.json()
-          if (data.player) {
-            setPlayer(data.player)
-            setStep("jeu") // direct vers la partie si une sauvegarde existe
-          }
+        const username = sessionStorage.getItem("user")
+          ? JSON.parse(sessionStorage.getItem("user")).username
+          : null
+
+        if (!username) return // pas connecté → pas de load
+
+        const res = await fetch("/api/game/load", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username }),
+        })
+
+        const data = await res.json()
+
+        if (res.ok && data.success && data.hero) {
+          setPlayer(data.hero)
+          setStep("jeu") // direct vers la partie si une sauvegarde existe
         }
       } catch (err) {
-        console.error("Erreur récupération sauvegarde:", err)
+        console.error("❌ Erreur récupération sauvegarde:", err)
       }
     }
+
     fetchSave()
   }, [])
 
   // ⚡ Sauvegarde côté serveur
   const saveToDB = async (hero) => {
     try {
+      const username = sessionStorage.getItem("user")
+        ? JSON.parse(sessionStorage.getItem("user")).username
+        : null
+
+      if (!username) return
+
       const res = await fetch("/api/game/save", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(hero),
+        body: JSON.stringify({ username, hero }),
       })
+
       const data = await res.json()
       console.log("✅ Sauvegarde réussie:", data)
     } catch (err) {
@@ -78,7 +96,7 @@ export default function JeuPage() {
           }}
           onReturn={() => setStep("accueil")}
         />
-      }
+      )}
 
       {step === "choixcompetences" && 
         <ChoixCompetences player={player} />

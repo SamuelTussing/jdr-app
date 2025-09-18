@@ -1,16 +1,23 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 import "./login.css"
 
 export default function LoginPage() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const redirectUrl = searchParams.get("redirect") || "/accueil"
 
   const [loginData, setLoginData] = useState({ username: "", password: "" })
   const [signupData, setSignupData] = useState({ username: "", password: "", email: "" })
+
+  // Fonction pour récupérer le paramètre redirect depuis l'URL
+  const getRedirectUrl = () => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      return params.get("redirect") || "/accueil"
+    }
+    return "/accueil"
+  }
 
   // Connexion
   const handleLogin = async (e) => {
@@ -23,7 +30,6 @@ export default function LoginPage() {
       })
 
       const data = await res.json()
-
       if (!res.ok) {
         alert(data.error || "Erreur de connexion")
         return
@@ -31,11 +37,11 @@ export default function LoginPage() {
 
       console.log("Login success:", data)
 
-      // ⚡ Stocker l'utilisateur en sessionStorage
+      // Stocker l'utilisateur en sessionStorage
       sessionStorage.setItem("user", JSON.stringify(data.user))
 
-      // Rediriger vers la page demandée ou accueil
-      router.replace(redirectUrl)
+      // Rediriger vers la page demandée ou par défaut
+      router.replace(getRedirectUrl())
     } catch (err) {
       console.error("Erreur login:", err)
       alert("Erreur serveur")
@@ -53,7 +59,6 @@ export default function LoginPage() {
       })
 
       const data = await res.json()
-
       if (res.ok) {
         alert("Compte créé avec succès ! Vous pouvez vous connecter.")
         setSignupData({ username: "", password: "", email: "" })
@@ -70,6 +75,7 @@ export default function LoginPage() {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-forms">
+
           {/* Login Form */}
           <div className="auth-form">
             <h2 className="auth-title">Connexion</h2>
@@ -98,7 +104,6 @@ export default function LoginPage() {
             </form>
           </div>
 
-          {/* Divider */}
           <div className="divider"></div>
 
           {/* Signup Form */}
@@ -138,6 +143,7 @@ export default function LoginPage() {
               <button type="submit" className="auth-button">Créer un compte</button>
             </form>
           </div>
+
         </div>
       </div>
     </div>

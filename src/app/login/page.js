@@ -42,27 +42,38 @@ export default function AuthPage() {
 
   // Inscription
   const handleSignup = async (e) => {
-    e.preventDefault()
-    try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(signupData),
-      })
+  e.preventDefault()
 
-      const data = await res.json()
+  const { password } = signupData
 
-      if (res.ok) {
-        alert("Compte créé avec succès ! Vous pouvez vous connecter.")
-        setSignupData({ username: "", password: "", email: "" }) // reset form
-      } else {
-        alert(data.error || "Erreur lors de la création du compte")
-      }
-    } catch (err) {
-      console.error("Erreur signup:", err)
-      alert("Erreur serveur")
-    }
+  // Regex sécurisée : seulement A-Z, a-z, 0-9, et @$!%*?&
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+
+  if (!passwordRegex.test(password)) {
+    alert("Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial parmi @$!%*?&.")
+    return
   }
+
+  try {
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(signupData),
+    })
+
+    const data = await res.json()
+
+    if (res.ok) {
+      alert("Compte créé avec succès ! Vous pouvez vous connecter.")
+      setSignupData({ username: "", password: "", email: "" }) // reset form
+    } else {
+      alert(data.error || "Erreur lors de la création du compte")
+    }
+  } catch (err) {
+    console.error("Erreur signup:", err)
+    alert("Erreur serveur")
+  }
+}
 
   return (
     <div className="auth-container">

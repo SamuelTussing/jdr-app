@@ -2,27 +2,34 @@
 
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
 import "./accueil.css"
 
 export default function AccueilPage() {
   const router = useRouter()
+  const [pseudo, setPseudo] = useState("Joueur") // valeur par défaut
+
+  // Récupère le username depuis sessionStorage côté client
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem("user")
+    if (storedUser) {
+      const user = JSON.parse(storedUser)
+      if (user.username) setPseudo(user.username)
+    }
+  }, [])
 
   const handleDisconnectClick = () => {
-    // On peut éventuellement nettoyer sessionStorage
     sessionStorage.removeItem("user")
     router.replace("/login")
   }
 
   const handleImageClick = (gameName) => {
     console.log(`Clicked on ${gameName}`)
-    router.push("/accueiljeu1") // exemple
+    router.push("/accueiljeu1")
   }
 
   const handleOptionsClick = () => console.log("Options clicked")
   const handlePlayerInfoClick = () => console.log("Infos joueur clicked")
-
-  // ⚡ Suppression du check de sessionStorage, on affiche directement
-  const pseudo = "Joueur" // valeur par défaut, peut être remplacée plus tard
 
   return (
     <div className="container">

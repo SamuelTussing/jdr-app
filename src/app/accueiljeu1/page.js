@@ -96,7 +96,7 @@ export default function JeuPage() {
           }}
           onReturn={() => setStep("accueil")}
         />
-      )}
+      }
 
       {step === "choixcompetences" && 
         <ChoixCompetences player={player} />

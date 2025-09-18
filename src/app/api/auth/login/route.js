@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
-import clientPromise from "@/lib/mongodb"
+import { connectDB } from "@/lib/mongodb"
 import bcrypt from "bcryptjs"
+import User from "@/models/User"   // 👈 importe le modèle
 
 export async function POST(req) {
   try {
@@ -10,32 +11,30 @@ export async function POST(req) {
       return NextResponse.json({ error: "Champs manquants" }, { status: 400 })
     }
 
-    const client = await clientPromise
-    const db = client.db("jdr-app")
-    const usersCollection = db.collection("users")
+    // Connexion mongoose
+    await connectDB()
 
-    // Vérifie si l'utilisateur existe
-    const user = await usersCollection.findOne({ username })
+    // Vérifie si l’utilisateur existe
+    const user = await User.findOne({ username })
     if (!user) {
       return NextResponse.json({ error: "Utilisateur non trouvé" }, { status: 404 })
     }
 
-    // Vérifie le mot de passe avec bcrypt
+    // Vérifie le mot de passe
     const isValidPassword = await bcrypt.compare(password, user.password)
     if (!isValidPassword) {
       return NextResponse.json({ error: "Mot de passe incorrect" }, { status: 401 })
     }
 
-    // Ici tu pourrais générer un JWT ou une session
-    // Pour le moment on renvoie juste le profil sans le mot de passe
-    const { password: _, ...userWithoutPassword } = user
+    // Retire le mot de passe du retour
+    const { password: _, ...userWithoutPassword } = user.toObject()
 
     return NextResponse.json(
       { message: "Connexion réussie", user: userWithoutPassword },
       { status: 200 }
     )
   } catch (error) {
-    console.error("Erreur login:", error)
+    console.error("❌ Erreur login:", error)
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 })
   }
 }

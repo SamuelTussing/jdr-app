@@ -37,7 +37,7 @@ export default function LoginPage() {
 
     console.log("Login success:", data)
     // ici tu peux stocker l’utilisateur en localStorage ou context
-    router.push("/jdr-app/src/app/accueil/page.js")
+    router.push("/accueil")
   } catch (err) {
     console.error("Erreur login:", err)
     alert("Erreur serveur")

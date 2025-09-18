@@ -5,6 +5,7 @@ import Accueil from './components/Accueil'
 import ChoixPerso from './components/ChoixPersonnage'
 import CreerPersonnage from './components/CreerPersonnage'
 import ChoixPersoPredef from "./components/ChoisirPersonnagePredef"
+import ChoixCompetences from "./components/ChixCompetences"
 
 /*PAGE MERE POUR LE JEU */
 
@@ -31,6 +32,13 @@ export default function JeuPage() {
       onFinish={() => setStep("jeu")} 
       onReturn={() => setStep("accueil")}
       />}
+
+      {step === "choixcompetences" && 
+  <ChoixCompetences
+    onFinish={() => setStep("jeu")} 
+    onReturn={() => setStep("creer")}
+  />
+}
 
       {step === "choixpredef" && 
       <ChoixPersoPredef

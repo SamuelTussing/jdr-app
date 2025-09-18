@@ -132,7 +132,7 @@ export default function HeroCreator({onReturn, onFinish}) {
           <p className="description-text">{attributeDescriptions[selectedAttribute]}</p>
         </div>
 
-        <button className="next-button">Suivant &gt;</button>
+        <button className="next-button" onClick={onNext}>Suivant &gt;</button>
       </div>
     </div>
   )

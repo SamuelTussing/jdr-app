@@ -46,7 +46,7 @@ export default function FeaturedGames() {
           {featuredGames.map((game) => (
             <div key={game.id}
                 className="featured-card"
-                onClick={() => handleImageClick(game.title)}>
+                onClick={() => handleImageClick(game)}>
               <Image src={game.image || "/placeholder.svg"} alt={game.title} className="featured-image"
                 width={373} 
                 height={420} 

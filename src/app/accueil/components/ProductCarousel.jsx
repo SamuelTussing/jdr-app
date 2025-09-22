@@ -11,19 +11,19 @@ const products = [
     id: 2,
     title: "Dragon Academy",
     description: "Devenez dresseur de dragons",
-    image: "/assassins-creed-shadows-ninja-game.jpg",
+    image: "/dragon.jpg",
   },
   {
     id: 3,
-    title: "Cesar vs Cunnilingus",
-    description: "Le pire cauchemar de l'Empire Romain",
-    image: "/anno-117-pax-romana-city-building-game.jpg",
+    title: "Abyss",
+    description: "Survivrez vous à l'Antarctique ?",
+    image: "/abyss.jpg",
   },
   {
     id: 4,
-    title: "Hell on earth",
-    description: "Un JDR post-apocalyptique immersif",
-    image: "/rainbow-six-siege-tactical-shooter.jpg",
+    title: "Storm",
+    description: "Une aventure de haut vol",
+    image: "/storm.jpg",
   },
 ]
 

@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export default function HeroSection() {
   return (
     <section className="hero-section">
@@ -18,13 +20,13 @@ export default function HeroSection() {
         </div>
         <div className="hero-images">
           <div className="hero-image">
-            <img src="/action-adventure-game-characters.jpg" alt="Game 1" />
+            <Image src="/action-adventure-game-characters.jpg" alt="Game 1" />
           </div>
           <div className="hero-image">
-            <img src="/fantasy-warrior-game-art.jpg" alt="Game 2" />
+            <Image src="/fantasy-warrior-game-art.jpg" alt="Game 2" />
           </div>
           <div className="hero-image">
-            <img src="/sci-fi-game-character-with-wings.jpg" alt="Game 3" />
+            <Image src="/sci-fi-game-character-with-wings.jpg" alt="Game 3" />
           </div>
         </div>
       </div>

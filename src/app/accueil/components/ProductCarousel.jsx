@@ -1,3 +1,4 @@
+import Image from "next/image"
 const products = [
   {
     id: 1,
@@ -34,7 +35,7 @@ export default function ProductCarousel() {
           {products.map((product) => (
             <div key={product.id} className="product-card">
               {product.badge && <div className="product-badge">{product.badge}</div>}
-              <img src={product.image || "/placeholder.svg"} alt={product.title} className="product-image" />
+              <Image src={product.image || "/placeholder.svg"} alt={product.title} className="product-image" />
               <div className="product-info">
                 <h3 className="product-title">{product.title}</h3>
                 <p className="product-description">{product.description}</p>

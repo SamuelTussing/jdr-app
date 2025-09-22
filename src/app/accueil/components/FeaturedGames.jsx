@@ -33,7 +33,7 @@ export default function FeaturedGames() {
     if (game.title === "Abyss") {
       router.push("/accueiljeu1") // page spéciale
     } else if (game.title === "The Storm"){
-      router.push(`/product/${game.slug}`) // page dynamique
+      router.push(`/accueil/product/${game.slug}`) // page dynamique
     }
   }
 

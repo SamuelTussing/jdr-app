@@ -5,29 +5,29 @@ import ProductHero from "../../components/ProductHero"
 import ProductInfo from "../../components/ProductInfo"
 import ProductDescription from "../../components/ProductDescription"
 import ProductEditions from "../../components/ProductEditions"
-import "../product.css"
+import "./product.css"
 
 export default function ProductPage({ params }) {
   // Mock product data - in real app this would come from API/database
   const product = {
     id: params.id,
-    title: "Star Wars Outlaws",
+    title: "Abyss",
     subtitle: "Standard Edition",
-    price: 69.99,
-    originalPrice: 69.99,
+    price: 10,
+    originalPrice: 10,
     discount: null,
     releaseDate: "August 30, 2024",
     platforms: ["PC (Digital)", "PS5 (Digital)", "Xbox (Digital)"],
     rating: "T",
-    ratingDescription: "Simulated Gambling, Violence, Mild Language",
-    genres: ["Shooter", "Action/Adventure", "Open World"],
+    ratingDescription: " Violence, Mild Language",
+    genres: ["JDR", "Action/Adventure", "Open World"],
     description:
       "Play up to 3 days early with Ubisoft+ Premium, the Gold or the Ultimate Edition. Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy.",
-    heroImage: "/star-wars-outlaws-hero.jpg",
+    heroImage: "/abyss.jpg",
     screenshots: [
-      "/star-wars-outlaws-screenshot-1.jpg",
-      "/star-wars-outlaws-screenshot-2.jpg",
-      "/star-wars-outlaws-screenshot-3.jpg",
+      "/abyss.jpg",
+      "/abyss.jpg",
+      "/abyss.jpg",
     ],
     languages: [
       { name: "English", interface: true, audio: true, subtitle: true },

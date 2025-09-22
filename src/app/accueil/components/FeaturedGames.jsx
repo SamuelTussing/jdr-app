@@ -5,19 +5,19 @@ const featuredGames = [
     id: 1,
     title: "For Honor",
     subtitle: "JDR Medieval Fantasy",
-    image: "/for-honor-medieval-warrior-combat-game.jpg",
+    image: "/dragon.jpg",
   },
   {
     id: 2,
     title: "The Hunter",
     subtitle: "Viking adventure epic",
-    image: "/assassins-creed-valhalla-viking-adventure.jpg",
+    image: "/storm.jpg",
   },
   {
     id: 3,
     title: "Elf : The Gate",
     subtitle: "ULTIMATE EDITION",
-    image: "/avatar-frontiers-of-pandora-ultimate-edition.jpg",
+    image: "/abyss.jpg",
   },
 ]
 

@@ -7,32 +7,35 @@ const featuredGames = [
     title: "Dragon Academy",
     subtitle: "JDR Medieval Fantasy",
     image: "/dragon.jpg",
+    slug: "dragon-academy",
   },
   {
     id: 2,
     title: "The Storm",
     subtitle: "JDR en haute altitude",
     image: "/storm.jpg",
+    slug: "abyss",
   },
   {
     id: 3,
     title: "Abyss",
     subtitle: "Affrontez des horreurs millénaires",
     image: "/abyss.jpg",
+    slug: "abyss",
   },
 ]
 
 export default function FeaturedGames() {
     const router = useRouter()
 
-    const handleImageClick = (gameName) => {
-      console.log(`Clicked on ${gameName}`)
-      if (gameName === "Abyss") {
-        router.push("/accueiljeu1")
-      } else{
-        router.push("/product/abyss")
-      }
+  const handleImageClick = (game) => {
+    console.log(`Clicked on ${game.title}`)
+    if (game.title === "Abyss") {
+      router.push("/accueiljeu1") // page spéciale
+    } else {
+      router.push(`/product/${game.slug}`) // page dynamique
     }
+  }
 
 
   return (

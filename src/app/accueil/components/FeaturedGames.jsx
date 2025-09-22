@@ -3,20 +3,20 @@ import Image from "next/image"
 const featuredGames = [
   {
     id: 1,
-    title: "For Honor",
+    title: "Dragon Academy",
     subtitle: "JDR Medieval Fantasy",
     image: "/dragon.jpg",
   },
   {
     id: 2,
-    title: "The Hunter",
-    subtitle: "Viking adventure epic",
+    title: "The Storm",
+    subtitle: "JDR en haute altitude",
     image: "/storm.jpg",
   },
   {
     id: 3,
-    title: "Elf : The Gate",
-    subtitle: "ULTIMATE EDITION",
+    title: "Abyss",
+    subtitle: "Affrontez des horreurs millénaires",
     image: "/abyss.jpg",
   },
 ]

@@ -8,6 +8,25 @@ export default function HeroCreator({ onReturn, onFinish }) {
   const [remainingPoints, setRemainingPoints] = useState(5)
   const [selectedAttribute, setSelectedAttribute] = useState("Magie")
 
+    const attributeDescriptions = {
+    Force:
+      "La force détermine la puissance physique du héros. Un niveau de force élevé permet de porter des équipements lourds, d'infliger plus de dégâts au corps à corps et de résister aux effets physiques.",
+    Perception:
+      "La perception influence la capacité du héros à détecter les dangers cachés, à remarquer les détails importants et à avoir une meilleure précision avec les armes à distance.",
+    Endurance:
+      "L'endurance détermine la résistance du héros à la fatigue, aux maladies et aux poisons. Elle influence également les points de vie et la capacité à maintenir un effort prolongé.",
+    Agilité:
+      "L'agilité affecte la vitesse de déplacement, la dextérité et la capacité d'esquive du héros. Un niveau élevé permet d'être plus rapide et plus précis dans les actions.",
+    Intelligence:
+      "L'intelligence détermine les capacités de raisonnement, de mémoire et d'apprentissage du héros. Elle influence la maîtrise des sorts et la résolution d'énigmes complexes.",
+    Magie:
+      "La magie détermine les connaissances du héros dans le domaine du surnaturel. Un niveau de magie élevé permet de mieux comprendre les sciences occultes, de résister à la folie induit par l'horreur et d'appliquer des formes de magie simple.",
+    "Points de vie max":
+      "Les points de vie maximum représentent la santé totale du héros. Cette valeur est calculée automatiquement en additionnant l'Endurance + la Magie + 1. Plus cette valeur est élevée, plus le héros peut encaisser de dégâts.",
+    "Horreur max":
+      "L'horreur maximum détermine la résistance mentale du héros face aux événements traumatisants. Cette valeur est calculée automatiquement en additionnant l'Intelligence + la Magie + 1. Une valeur élevée permet de mieux résister à la folie.",
+  }
+
   const [attributes, setAttributes] = useState({
     Force: 5,
     Perception: 5,

@@ -4,7 +4,7 @@ import Link from "next/link"
 
 
 
-export default function TopBar() {
+export default function TopBar({pseudo}) {
     const router = useRouter()
 
     const handleDisconnectClick = () => {
@@ -30,7 +30,7 @@ export default function TopBar() {
         </div>
         <div className="top-bar-right">
           <div className="discount-badge">Get 20% discount with 🪙 100*</div>
-          <button className="login-btn">👤 Mon Compte</button>
+          <button className="login-btn">👤 {pseudo}</button>
             <button href="/help" className="top-bar-link" onClick={handleDisconnectClick}>
               Deconnexion
             </button>

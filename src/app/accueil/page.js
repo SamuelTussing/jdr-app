@@ -1,3 +1,6 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import TopBar from "./components/TopBar"
 import Header from "./components/Header"
 import HeroSection from "./components/HeroSection"
@@ -6,6 +9,8 @@ import FeaturedGames from "./components/FeaturedGames"
 import "./accueil.css"
 
 export default function AccueilPage() {
+
+  const [pseudo, setPseudo] = useState("Joueur")
 
     useEffect(() => {
     const storedUser = sessionStorage.getItem("user")
@@ -18,7 +23,7 @@ export default function AccueilPage() {
 
   return (
     <div className="homepage">
-      <TopBar />
+      <TopBar pseudo={pseudo}/>
       <Header />
       <HeroSection />
       <ProductCarousel />

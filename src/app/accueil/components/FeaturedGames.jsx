@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 const featuredGames = [
   {
@@ -22,6 +23,16 @@ const featuredGames = [
 ]
 
 export default function FeaturedGames() {
+    const router = useRouter()
+
+    const handleImageClick = (gameName) => {
+      console.log(`Clicked on ${gameName}`)
+      if (gameName === "Abyss") {
+        router.push("/accueiljeu1")
+      }
+    }
+
+
   return (
     <section className="featured-section">
       <div className="section-container">

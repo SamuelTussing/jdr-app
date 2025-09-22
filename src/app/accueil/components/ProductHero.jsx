@@ -10,12 +10,9 @@ export default function ProductHero({ product }) {
             alt={product.title}
             width={800}
             height={600}
-            className="hero-image"
+            className="hero-pics"
             priority
           />
-          <div className="rating-badge">
-            <Image src="/esrb-t-rating-badge.jpg" alt="ESRB Rating" width={60} height={40} />
-          </div>
         </div>
 
         <div className="product-hero-content">
@@ -49,25 +46,16 @@ export default function ProductHero({ product }) {
                 <span className="original-price">${product.originalPrice}</span>
               )}
             </div>
-            <div className="subscription-option">
-              <span className="subscription-price">$17.99</span>
-              <span className="subscription-period">/Month</span>
-              <div className="subscription-info">
-                <span>On Release day with</span>
-                <span className="premium-badge">Premium</span>
-              </div>
-            </div>
           </div>
 
           <div className="product-actions">
-            <button className="btn-primary">Pre-Order</button>
+            <button className="btn-primary">Acheter</button>
             <button className="btn-secondary">Add to Wishlist</button>
           </div>
 
           <div className="early-access-info">
             <p>
-              Play up to 3 days early with Ubisoft+ Premium, the Gold or the Ultimate Edition. Experience the first-ever
-              open world Star Wars™ game and explore distinct locations across the galaxy.
+              Play up to 3 days early with Wet Cameltoe Premium, the Gold or the Ultimate Edition.
             </p>
           </div>
 

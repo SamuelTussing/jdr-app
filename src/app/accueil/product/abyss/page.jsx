@@ -25,9 +25,9 @@ export default function ProductPage({ params }) {
       "Play up to 3 days early with Ubisoft+ Premium, the Gold or the Ultimate Edition. Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy.",
     heroImage: "/abyss.jpg",
     screenshots: [
+      "/avant-poste.jpg",
       "/abyss.jpg",
-      "/abyss.jpg",
-      "/abyss.jpg",
+      "/antarctic.webp",
     ],
     languages: [
       { name: "English", interface: true, audio: true, subtitle: true },

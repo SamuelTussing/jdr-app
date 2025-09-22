@@ -39,7 +39,9 @@ export default function FeaturedGames() {
         <h2 className="section-title">Les meilleurs JDR aux meilleurs prix</h2>
         <div className="featured-grid">
           {featuredGames.map((game) => (
-            <div key={game.id} className="featured-card">
+            <div key={game.id}
+                className="featured-card"
+                onClick={() => handleImageClick(game.title)}>
               <Image src={game.image || "/placeholder.svg"} alt={game.title} className="featured-image"
                 width={373} 
                 height={420} 

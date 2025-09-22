@@ -29,7 +29,10 @@ export default function FeaturedGames() {
         <div className="featured-grid">
           {featuredGames.map((game) => (
             <div key={game.id} className="featured-card">
-              <Image src={game.image || "/placeholder.svg"} alt={game.title} className="featured-image" />
+              <Image src={game.image || "/placeholder.svg"} alt={game.title} className="featured-image"
+                width={373} 
+                height={420} 
+                unoptimized  />
               <div className="featured-overlay">
                 <h3 className="featured-title">{game.title}</h3>
                 <p className="featured-subtitle">{game.subtitle}</p>

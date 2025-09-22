@@ -20,13 +20,22 @@ export default function HeroSection() {
         </div>
         <div className="hero-images">
           <div className="hero-image">
-            <Image src="/action-adventure-game-characters.jpg" alt="Game 1" />
+            <Image src="/action-adventure-game-characters.jpg" alt="Game 1"  
+            width={200} 
+            height={280} 
+            unoptimized  />
           </div>
           <div className="hero-image">
-            <Image src="/fantasy-warrior-game-art.jpg" alt="Game 2" />
+            <Image src="/fantasy-warrior-game-art.jpg" alt="Game 2"
+            width={200} 
+            height={280} 
+            unoptimized  />
           </div>
           <div className="hero-image">
-            <Image src="/sci-fi-game-character-with-wings.jpg" alt="Game 3" />
+            <Image src="/sci-fi-game-character-with-wings.jpg" alt="Game 3"
+            width={200} 
+            height={280} 
+            unoptimized />
           </div>
         </div>
       </div>

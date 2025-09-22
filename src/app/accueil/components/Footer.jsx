@@ -28,7 +28,7 @@ export default function Footer() {
             {/* Brand Column */}
             <div className="footer-column">
               <h3 className="footer-brand">Wet Cameltoe STORE</h3>
-              <p className="footer-description">Wet Cameltoe, creator of Worlds since 2025.</p>
+              <p className="footer-description">Wet Cameltoe</p>
             </div>
 
             {/* Get to know us */}
@@ -77,7 +77,7 @@ export default function Footer() {
 
             {/* Ubisoft Store */}
             <div className="footer-column">
-              <h4 className="footer-heading">Ubisoft Store</h4>
+              <h4 className="footer-heading">Wet Cameltoe Store</h4>
               <ul className="footer-links">
                 <li>
                   <a href="#" className="footer-link">

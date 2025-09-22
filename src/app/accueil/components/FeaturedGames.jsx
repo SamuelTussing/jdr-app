@@ -29,6 +29,8 @@ export default function FeaturedGames() {
       console.log(`Clicked on ${gameName}`)
       if (gameName === "Abyss") {
         router.push("/accueiljeu1")
+      } else{
+        router.push("/product/abyss")
       }
     }
 

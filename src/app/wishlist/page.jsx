@@ -1,6 +1,6 @@
 import TopBar from "../accueil/components/TopBar"
 import Header from "../accueil/components/Header"
-import WishlistContent from "../accueil/components/WishlistContent"
+import WishlistContent from "./components/WishlistContent"
 import "../accueil/accueil.css"
 import "./wishlist.css"
 

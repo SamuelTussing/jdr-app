@@ -6,6 +6,7 @@ import Header from "./components/Header"
 import HeroSection from "./components/HeroSection"
 import ProductCarousel from "./components/ProductCarousel"
 import FeaturedGames from "./components/FeaturedGames"
+import Footer from "./components/Footer"
 import "./accueil.css"
 
 export default function AccueilPage() {
@@ -28,6 +29,7 @@ export default function AccueilPage() {
       <HeroSection />
       <ProductCarousel />
       <FeaturedGames />
+      <Footer />
     </div>
   )
 }

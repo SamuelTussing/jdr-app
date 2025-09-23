@@ -22,10 +22,10 @@ export default function ProductPage({ params }) {
     ratingDescription: " Violence, Mild Language",
     genres: ["JDR", "Action/Adventure", "Open World"],
     description:
-      "Play up to 3 days early with Ubisoft+ Premium, the Gold or the Ultimate Edition. Experience the first-ever open world Star Wars™ game and explore distinct locations across the galaxy.",
+      "Les communications avec un avant poste situé en Antarctique ont été perdu. Partez en expéditions aux confins de la Terre afin de lever le voile sur les mystères de votre agence.",
     heroImage: "/abyss.jpg",
     screenshots: [
-      "/avant-poste.jpg",
+      "/avant-poste.png",
       "/abyss.jpg",
       "/antarctic.webp",
     ],
@@ -49,7 +49,7 @@ export default function ProductPage({ params }) {
           <span className="breadcrumb-separator">...</span>
           <span>Star Wars Outlaws</span>
           <span className="breadcrumb-separator">...</span>
-          <span className="breadcrumb-current">Star Wars Outlaws</span>
+          <span className="breadcrumb-current">Abyss</span>
         </div>
 
         <ProductHero product={product} />

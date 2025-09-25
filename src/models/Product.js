@@ -13,6 +13,8 @@ const ProductSchema = new mongoose.Schema({
   ratingDescription: String,
   genres: [String],
   description: String,
+  descriptionLong1: String, // 👈 nouvelle propriété
+  descriptionLong2: String, // 👈 nouvelle propriété
   heroImage: String,
   screenshots: [String],
   languages: [
@@ -23,8 +25,9 @@ const ProductSchema = new mongoose.Schema({
       subtitle: Boolean,
     },
   ],
+  featuresList: [String], // 👈 nouvelle propriété
 })
 
-// ⚡ éviter de redéfinir le modèle si déjà existant (hot reload Next.js)
+// ⚡ éviter de redéfinir le modèle si déjà existant
 export default mongoose.models.Product ||
   mongoose.model("Product", ProductSchema, "products")

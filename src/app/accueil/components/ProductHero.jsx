@@ -18,7 +18,6 @@ export default function ProductHero({ product }) {
         <div className="product-hero-content">
           <div className="rating-info">
             <span className="rating-text">{product.ratingDescription}</span>
-            <span className="rating-additional">In-Game Purchases, Users Interact</span>
           </div>
 
           <h1 className="product-title">{product.title}</h1>
@@ -51,12 +50,6 @@ export default function ProductHero({ product }) {
           <div className="product-actions">
             <button className="btn-primary">Acheter</button>
             <button className="btn-secondary">Add to Wishlist</button>
-          </div>
-
-          <div className="early-access-info">
-            <p>
-              Play up to 3 days early with Wet Cameltoe Premium, the Gold or the Ultimate Edition.
-            </p>
           </div>
 
           <div className="product-genres">

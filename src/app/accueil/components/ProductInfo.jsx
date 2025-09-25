@@ -30,8 +30,7 @@ export default function ProductInfo({ product }) {
             <span className="info-label">Language:</span>
             <div className="language-info">
               <div className="language-summary">
-                <span>English (Audio, Interface, Subtitle)</span>
-                <span>French (Audio, Interface, Subtitle)</span>
+                <span className="info-value">{product.languages.join(", ")}</span>
                 <button className="see-more-btn">see more</button>
               </div>
             </div>
@@ -56,8 +55,7 @@ export default function ProductInfo({ product }) {
 
         <div className="copyright-info">
           <p>
-            STAR WARS © & TM 2024 Lucasfilm Ltd. All Rights Reserved. Developed by Ubisoft. Ubisoft TM & © 2024 Ubisoft
-            Entertainment. All Rights Reserved.
+            Dragon Academy. All Rights Reserved. Developed by Wet Cameltoe. All Rights Reserved.
           </p>
         </div>
       </div>

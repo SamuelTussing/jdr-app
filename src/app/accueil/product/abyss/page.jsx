@@ -1,3 +1,7 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import { useParams } from "next/navigation"
 import TopBar from "../../components/TopBar"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
@@ -7,36 +11,23 @@ import ProductDescription from "../../components/ProductDescription"
 import ProductEditions from "../../components/ProductEditions"
 import "./product.css"
 
-export default function ProductPage({ params }) {
-  // Mock product data - in real app this would come from API/database
-  const product = {
-    id: params.id,
-    title: "Abyss",
-    subtitle: "Standard Edition",
-    price: 10,
-    originalPrice: 10,
-    discount: null,
-    releaseDate: "August 30, 2024",
-    platforms: ["PC (Digital)", "PS5 (Digital)", "Xbox (Digital)"],
-    rating: "T",
-    ratingDescription: " Violence, Mild Language",
-    genres: ["JDR", "Action/Adventure", "Open World"],
-    description:
-      "Les communications avec un avant poste situé en Antarctique ont été perdu. Partez en expéditions aux confins de la Terre afin de lever le voile sur les mystères de votre agence.",
-    heroImage: "/abyssmain.jpg",
-    screenshots: [
-      "/avant-poste.png",
-      "/abyss.jpg",
-      "/antarctic.webp",
-    ],
-    languages: [
-      { name: "English", interface: true, audio: true, subtitle: true },
-      { name: "French", interface: true, audio: true, subtitle: true },
-      { name: "German", interface: true, audio: false, subtitle: true },
-      { name: "Spanish - Spain", interface: true, audio: false, subtitle: true },
-      { name: "Japanese", interface: true, audio: true, subtitle: true },
-    ],
-  }
+export default function ProductPage() {
+
+  const { slug } = useParams()
+  const [product, setProduct] = useState(null)
+
+
+  useEffect(() => {
+  if (!slug) return
+  fetch(`/api/products/${slug}`)
+    .then((res) => {
+      if (!res.ok) throw new Error("Produit introuvable")
+      return res.json()
+    })
+    .then((data) => setProduct(data))
+    .catch((err) => console.error(err))
+}, [slug])
+
 
   return (
     <div className="product-page">
@@ -47,7 +38,7 @@ export default function ProductPage({ params }) {
         <div className="breadcrumb">
           <span>Home</span>
           <span className="breadcrumb-separator">...</span>
-          <span>Star Wars Outlaws</span>
+          <span>{product.title}</span>
           <span className="breadcrumb-separator">...</span>
           <span className="breadcrumb-current">Abyss</span>
         </div>

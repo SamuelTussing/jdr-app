@@ -26,18 +26,21 @@ export default function Header() {
                 className="nav-item"
                 onClick={() => toggleMenu("games")}
               >
-                Jeux ▼
+                JDR ▼
               </button>
               {openMenu === "games" && (
                 <div className="dropdown-menu">
                   <Link href="/games/livres-heros" className="dropdown-item">
-                    Livres dont vous êtes le héros
+                    Fantasy
                   </Link>
                   <Link href="/games/campagnes-5e" className="dropdown-item">
-                    Campagnes 5e édition
+                    Horreur
                   </Link>
                   <Link href="/games/one-shots" className="dropdown-item">
-                    One Shots
+                    Médieval
+                  </Link>
+                    <Link href="/games/one-shots" className="dropdown-item">
+                    Sci Fi
                   </Link>
                 </div>
               )}
@@ -49,15 +52,15 @@ export default function Header() {
                 className="nav-item"
                 onClick={() => toggleMenu("dlc")}
               >
-                DLC ▼
+                Campagne 5e ▼
               </button>
               {openMenu === "dlc" && (
                 <div className="dropdown-menu">
                   <Link href="/dlc/packs" className="dropdown-item">
-                    Packs de contenu
+                    Sci-fi
                   </Link>
                   <Link href="/dlc/bonus" className="dropdown-item">
-                    Bonus exclusifs
+                    Médieval Fantasy
                   </Link>
                 </div>
               )}

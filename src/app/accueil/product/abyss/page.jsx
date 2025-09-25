@@ -23,7 +23,7 @@ export default function ProductPage({ params }) {
     genres: ["JDR", "Action/Adventure", "Open World"],
     description:
       "Les communications avec un avant poste situé en Antarctique ont été perdu. Partez en expéditions aux confins de la Terre afin de lever le voile sur les mystères de votre agence.",
-    heroImage: "/abyss.jpg",
+    heroImage: "/abyssmain.jpg",
     screenshots: [
       "/avant-poste.png",
       "/abyss.jpg",

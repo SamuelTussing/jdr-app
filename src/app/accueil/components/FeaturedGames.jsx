@@ -40,7 +40,7 @@ export default function FeaturedGames() {
               onClick={() => handleImageClick(game)}
             >
               <Image
-                src={game.image || "/placeholder.svg"}
+                src={game.heroImage || "/placeholder.svg"}
                 alt={game.title}
                 className="featured-image"
                 width={373}

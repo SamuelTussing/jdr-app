@@ -27,4 +27,4 @@ const ProductSchema = new mongoose.Schema({
 
 // ⚡ éviter de redéfinir le modèle si déjà existant (hot reload Next.js)
 export default mongoose.models.Product ||
-  mongoose.model("Product", ProductSchema)
+  mongoose.model("Product", ProductSchema, "products")

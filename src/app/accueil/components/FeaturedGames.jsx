@@ -13,6 +13,7 @@ export default function FeaturedGames() {
       .then((res) => res.json())
       .then((data) => setGames(data))
       .catch((err) => console.error("Erreur fetch products:", err))
+      console.logo(data)
   }, [])
 
   const handleImageClick = (game) => {

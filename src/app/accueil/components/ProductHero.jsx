@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { useState } from "react"
 
 export default function ProductHero({ product }) {
 
@@ -9,7 +10,7 @@ export default function ProductHero({ product }) {
     try {
       setLoading(true)
 
-      
+
       const user = JSON.parse(sessionStorage.getItem("user"))
       if (!user?._id) {
         alert("Vous devez être connecté pour ajouter à la wishlist")

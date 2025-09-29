@@ -6,33 +6,36 @@ export default function ProductHero({ product }) {
   const [loading, setLoading] = useState(false)
   const [added, setAdded] = useState(false)
 
-  const handleAddToWishlist = async () => {
-    try {
-      setLoading(true)
+const handleAddToWishlist = async () => {
+  try {
+    setLoading(true)
 
-
-      const user = JSON.parse(sessionStorage.getItem("user"))
-      if (!user?._id) {
-        alert("Vous devez être connecté pour ajouter à la wishlist")
-        return
-      }
-
-      const res = await fetch("/api/wishlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, productId: product._id }),
-      })
-
-      if (!res.ok) throw new Error("Erreur ajout wishlist")
-
-      setAdded(true)
-    } catch (err) {
-      console.error(err)
-      alert("Impossible d'ajouter à la wishlist")
-    } finally {
-      setLoading(false)
+    // 🔑 récupération user depuis sessionStorage
+    const user = JSON.parse(sessionStorage.getItem("user"))
+    if (!user?._id) {
+      alert("Vous devez être connecté pour ajouter à la wishlist")
+      return
     }
+
+    const res = await fetch("/api/wishlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: user._id,   // ✅ ici c’est user._id
+        productId: product._id,
+      }),
+    })
+
+    if (!res.ok) throw new Error("Erreur ajout wishlist")
+
+    setAdded(true)
+  } catch (err) {
+    console.error("Erreur front wishlist:", err)
+    alert("Impossible d'ajouter à la wishlist")
+  } finally {
+    setLoading(false)
   }
+}
 
   return (
     <section className="product-hero">

@@ -1,3 +1,7 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import Image from "next/image"
 const products = [
   {
@@ -24,21 +28,54 @@ const products = [
     title: "Storm",
     description: "Une aventure de haut vol",
     image: "/storm.jpg",
-  },
+  }, 
 ]
 
 export default function ProductCarousel() {
+  const router = useRouter() 
+  const [games, setGames] = useState([])
+
+    useEffect(() => {
+    fetch("/api/products")
+      .then((res) => res.json())
+      .then((data) => setGames(data))
+      .catch((err) => console.error("Erreur fetch products:", err))
+  }, [])
+
+    const handleImageClick = (game) => {
+    console.log(`Clicked on ${game.title}`)
+    if (game.title === "Abyss") {
+      router.push("/accueiljeu1") // page spéciale
+    } else {
+      router.push(`/accueil/product/${game.slug}`) // route dynamique
+    }
+  }
+
+  if (games.length === 0) {
+    return <div>Chargement des jeux...</div>
+  }
+
+
   return (
     <section className="product-section">
       <div className="section-container">
         <div className="product-carousel">
-          {products.map((product) => (
-            <div key={product.id} className="product-card">
-              {product.badge && <div className="product-badge">{product.badge}</div>}
-              <Image src={product.image || "/placeholder.svg"} alt={product.title} className="product-image" />
+          {games.map((game) => (
+            <div 
+            key={game._id} 
+            className="product-card">
+              <Image 
+              src={game.heroImage || "/placeholder.svg"}
+              alt={game.title}
+              className="product-image"
+                width={280}
+                height={160}
+                unoptimized
+              
+              />
               <div className="product-info1">
-                <h3 className="product-title">{product.title}</h3>
-                <p className="product-description">{product.description}</p>
+                <h3 className="product-title">{game.title}</h3>
+                <p className="product-description">{game.description}</p>
               </div>
             </div>
           ))}

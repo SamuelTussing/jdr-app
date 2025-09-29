@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 
 export default function FeaturedGames() {
-  const router = useRouter()
+  const router = useRouter() 
   const [games, setGames] = useState([])
 
   useEffect(() => {

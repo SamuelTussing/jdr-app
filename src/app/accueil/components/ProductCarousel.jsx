@@ -36,7 +36,7 @@ export default function ProductCarousel() {
             <div key={product.id} className="product-card">
               {product.badge && <div className="product-badge">{product.badge}</div>}
               <Image src={product.image || "/placeholder.svg"} alt={product.title} className="product-image" />
-              <div className="product-info">
+              <div className="product-info1">
                 <h3 className="product-title">{product.title}</h3>
                 <p className="product-description">{product.description}</p>
               </div>

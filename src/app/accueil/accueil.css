@@ -238,6 +238,7 @@
   flex: 1;
   position: relative;
   height: 400px;
+  z-index: 1;
 }
 
 .hero-image {
@@ -378,7 +379,7 @@
   object-fit: cover;
 }
 
-.product-info {
+.product-info1 {
   padding: 15px;
 }
 
@@ -679,6 +680,10 @@
   .section-container {
     padding: 0 15px;
   }
+
+  .hero-images {
+    z-index: -1;
+}
 
   .hero-container {
     flex-direction: column;

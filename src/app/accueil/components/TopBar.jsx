@@ -29,9 +29,9 @@ export default function TopBar({pseudo}) {
           </div>
         </div>
         <div className="top-bar-right">
-          <div className="discount-badge">Recevez votre JDR gratuit</div>
+          <div className="discount-badge1">Recevez votre JDR gratuit</div>
           <button className="login-btn">👤 {pseudo}</button>
-            <button href="/help" className="discount-badge" onClick={handleDisconnectClick}>
+            <button href="/help" className="discount-badge1" onClick={handleDisconnectClick}>
               Deconnexion
             </button>
         </div>

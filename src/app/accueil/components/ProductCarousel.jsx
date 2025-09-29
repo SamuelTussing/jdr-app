@@ -64,6 +64,7 @@ export default function ProductCarousel() {
             <div 
             key={game._id} 
             className="product-card">
+              onClick={() => handleImageClick(game)}
               <Image 
               src={game.heroImage || "/placeholder.svg"}
               alt={game.title}

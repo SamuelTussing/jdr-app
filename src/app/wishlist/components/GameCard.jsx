@@ -1,15 +1,20 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function GameCard({ game }) {
-  // si tu passes directement game.productId depuis WishlistGrid, plus besoin du .productId ici
   const product = game.productId || game  
-
   const [notificationEnabled, setNotificationEnabled] = useState(false)
+  const router = useRouter()
+
+  const handleClick = () => {
+    if (!product?.slug) return
+    router.push(`/accueil/product/${product.slug}`)
+  }
 
   return (
-    <div className="game-card">
+    <div className="game-card" onClick={handleClick} style={{ cursor: "pointer" }}>
       <div className="game-image-container">
         <img 
           src={product.heroImage || "/placeholder.svg"} 
@@ -30,7 +35,10 @@ export default function GameCard({ game }) {
           <h3 className="game-title">{product.title}</h3>
           <button
             className={`notification-bell ${notificationEnabled ? "active" : ""}`}
-            onClick={() => setNotificationEnabled(!notificationEnabled)}
+            onClick={(e) => {
+              e.stopPropagation() // ✅ empêche le clic sur la cloche d'ouvrir la fiche produit
+              setNotificationEnabled(!notificationEnabled)
+            }}
           >
             🔔
           </button>

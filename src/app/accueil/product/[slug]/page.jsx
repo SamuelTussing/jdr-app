@@ -23,25 +23,34 @@ export default function ProductPage() {
 
     const fetchData = async () => {
       try {
-        // Récupérer le produit
+        // 1️⃣ Récupérer le produit
         const resProduct = await fetch(`/api/products/${slug}`)
         if (!resProduct.ok) throw new Error("Produit introuvable")
         const productData = await resProduct.json()
         setProduct(productData)
 
-        // Vérifier si l'utilisateur a acheté le jeu
-        const resUser = await fetch(`/api/users/achats`)
-        if (!resUser.ok) throw new Error("Impossible de récupérer les achats")
-        const userData = await resUser.json()
-        if (userData.achats && userData.achats[slug]) {
-          setHasBought(userData.achats[slug])
-        } else {
+        // 2️⃣ Récupérer l'utilisateur et ses achats depuis sessionStorage
+        const email = sessionStorage.getItem("email")
+        if (!email) {
           setHasBought(false)
+          setLoading(false)
+          return
         }
 
+        const resUser = await fetch(`/api/users/achats`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        })
+
+        if (!resUser.ok) throw new Error("Impossible de récupérer les achats")
+        const userData = await resUser.json()
+
+        setHasBought(userData.achats?.[slug] || false)
         setLoading(false)
       } catch (err) {
         console.error(err)
+        setHasBought(false)
         setLoading(false)
       }
     }

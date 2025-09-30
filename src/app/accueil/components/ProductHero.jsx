@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { useState } from "react"
 
-export default function ProductHero({ product }) {
+export default function ProductHero({ product, hasBought, onPlay }) {
 
   const [loading, setLoading] = useState(false)
   const [added, setAdded] = useState(false)
@@ -84,7 +84,13 @@ const handleAddToWishlist = async () => {
           </div>
 
           <div className="product-actions">
-            <button className="btn-primary">Acheter</button>
+            {hasBought ? (
+              <button className="btn-primary" onClick={onPlay}>
+                Jouer
+              </button>
+            ) : (
+              <button className="btn-primary">Acheter</button>
+            )}
             <button
               className="btn-secondary"
               onClick={handleAddToWishlist}

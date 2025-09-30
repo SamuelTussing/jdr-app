@@ -84,23 +84,10 @@ export default function ProductPage() {
           <span className="breadcrumb-current">{product.title}</span>
         </div>
 
-        <ProductHero product={product} />
-
-        <div className="product-actions">
-          {hasBought ? (
-            <button
-              className="btn-play"
-              onClick={() => router.push(`/jdr/${slug}`)}
-            >
-              Jouer
-            </button>
-          ) : (
-            <button className="btn-buy">Acheter</button>
-          )}
-
-          <button className="btn-wishlist">Wishlist</button>
-        </div>
-
+        <ProductHero
+        product={product}
+        hasBought={hasBought}
+        onPlay={()=>router.push(`accueil/product/${slug}`)} />
         <ProductInfo product={product} />
         <ProductDescription product={product} />
         <ProductEditions product={product} />

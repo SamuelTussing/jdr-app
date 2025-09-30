@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import TopBar from "../../components/TopBar"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
@@ -13,21 +13,44 @@ import "./product.css"
 
 export default function ProductPage() {
   const { slug } = useParams()
+  const router = useRouter()
   const [product, setProduct] = useState(null)
+  const [hasBought, setHasBought] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!slug) return
-    fetch(`/api/products/${slug}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Produit introuvable")
-        return res.json()
-      })
-      .then((data) => setProduct(data))
-      .catch((err) => console.error(err))
+
+    const fetchData = async () => {
+      try {
+        // Récupérer le produit
+        const resProduct = await fetch(`/api/products/${slug}`)
+        if (!resProduct.ok) throw new Error("Produit introuvable")
+        const productData = await resProduct.json()
+        setProduct(productData)
+
+        // Vérifier si l'utilisateur a acheté le jeu
+        const resUser = await fetch(`/api/users/achats`)
+        if (!resUser.ok) throw new Error("Impossible de récupérer les achats")
+        const userData = await resUser.json()
+        if (userData.achats && userData.achats[slug]) {
+          setHasBought(userData.achats[slug])
+        } else {
+          setHasBought(false)
+        }
+
+        setLoading(false)
+      } catch (err) {
+        console.error(err)
+        setLoading(false)
+      }
+    }
+
+    fetchData()
   }, [slug])
 
-  // ✅ Vérifier avant tout rendu
-  if (!product) {
+  // Affichage pendant le chargement
+  if (loading || !product) {
     return (
       <div className="product-page">
         <TopBar />
@@ -53,6 +76,22 @@ export default function ProductPage() {
         </div>
 
         <ProductHero product={product} />
+
+        <div className="product-actions">
+          {hasBought ? (
+            <button
+              className="btn-play"
+              onClick={() => router.push(`/jdr/${slug}`)}
+            >
+              Jouer
+            </button>
+          ) : (
+            <button className="btn-buy">Acheter</button>
+          )}
+
+          <button className="btn-wishlist">Wishlist</button>
+        </div>
+
         <ProductInfo product={product} />
         <ProductDescription product={product} />
         <ProductEditions product={product} />

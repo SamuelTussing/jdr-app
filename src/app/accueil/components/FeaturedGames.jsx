@@ -15,14 +15,10 @@ export default function FeaturedGames() {
       .catch((err) => console.error("Erreur fetch products:", err))
   }, [])
 
-  const handleImageClick = (game) => {
-    console.log(`Clicked on ${game.title}`)
-    if (game.title === "Abyssal") {
-      router.push("/accueiljeu1") // page spéciale
-    } else {
-      router.push(`/accueil/product/${game.slug}`) // route dynamique
-    }
-  }
+const handleImageClick = (game) => {
+  console.log(`Clicked on ${game.title}`)
+  router.push(`/accueil/product/${game.slug}`) // route dynamique
+}
 
   if (games.length === 0) {
     return <div>Chargement des jeux...</div>

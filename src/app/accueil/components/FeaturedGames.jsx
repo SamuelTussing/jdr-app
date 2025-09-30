@@ -17,7 +17,7 @@ export default function FeaturedGames() {
 
   const handleImageClick = (game) => {
     console.log(`Clicked on ${game.title}`)
-    if (game.title === "Abyssp") {
+    if (game.title === "Abyssal") {
       router.push("/accueiljeu1") // page spéciale
     } else {
       router.push(`/accueil/product/${game.slug}`) // route dynamique

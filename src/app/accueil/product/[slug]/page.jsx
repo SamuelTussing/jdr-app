@@ -47,6 +47,9 @@ export default function ProductPage() {
         const userData = await resUser.json()
 
         setHasBought(userData.achats?.[slug] || false)
+        console.log("slug:", slug)
+        console.log("achats:", userData.achats)
+        console.log("hasBought:", userData.achats?.[slug])
         setLoading(false)
       } catch (err) {
         console.error(err)

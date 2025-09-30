@@ -18,58 +18,35 @@ export default function ProductPage() {
   const [hasBought, setHasBought] = useState(false)
   const [loading, setLoading] = useState(true)
 
-useEffect(() => {
+
+  useEffect(() => {
   if (!slug) return;
 
   const fetchData = async () => {
     try {
-      console.log("Début du fetch pour le produit :", slug);
-
       // 1️⃣ Récupérer le produit
       const resProduct = await fetch(`/api/products/${slug}`);
-      if (!resProduct.ok) {
-        const text = await resProduct.text();
-        console.error("Erreur récupération produit :", text);
-        throw new Error("Produit introuvable");
-      }
       const productData = await resProduct.json();
-      console.log("Produit récupéré :", productData);
       setProduct(productData);
 
       // 2️⃣ Récupérer l'utilisateur depuis sessionStorage
       const user = JSON.parse(sessionStorage.getItem("user"));
       const email = user?.email;
-      console.log("Email récupéré depuis sessionStorage :", email);
+      console.log("Email récupéré:", email);
 
       if (!email) {
-        console.warn("Aucun utilisateur connecté");
         setHasBought(false);
         setLoading(false);
         return;
       }
 
-      // 3️⃣ Récupérer les achats depuis l'API
-      const resUser = await fetch(`/api/users/achats`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!resUser.ok) {
-        const text = await resUser.text();
-        console.error("Erreur récupération achats :", text);
-        throw new Error("Impossible de récupérer les achats");
-      }
-
+      // 3️⃣ Récupérer les achats depuis l'API en GET
+      const resUser = await fetch(`/api/users/achats?email=${encodeURIComponent(email)}`);
       const userData = await resUser.json();
-      console.log("Achats récupérés :", userData.achats);
+      console.log("Achats récupérés:", userData.achats);
 
-      const bought = userData.achats?.[slug] || false;
-      console.log(`Le jeu ${slug} a été acheté ?`, bought);
-
-      setHasBought(bought);
+      setHasBought(userData.achats?.[slug] || false);
       setLoading(false);
-
     } catch (err) {
       console.error("Erreur dans fetchData :", err);
       setHasBought(false);

@@ -18,54 +18,47 @@ export default function ProductPage() {
   const [hasBought, setHasBought] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    if (!slug) return
+useEffect(() => {
+  if (!slug) return
 
-    const fetchData = async () => {
-      try {
-        console.log("Fetching product for slug:", slug)
+  const fetchData = async () => {
+    try {
+      // 1️⃣ Récupérer le produit
+      const resProduct = await fetch(`/api/products/${slug}`)
+      const productData = await resProduct.json()
+      setProduct(productData)
 
-        // 1️⃣ Récupérer le produit
-        const resProduct = await fetch(`/api/products/${slug}`)
-        if (!resProduct.ok) throw new Error("Produit introuvable")
-        const productData = await resProduct.json()
-        console.log("Product data:", productData)
-        setProduct(productData)
-
-        // 2️⃣ Récupérer l'utilisateur et ses achats depuis sessionStorage
-        const email = sessionStorage.getItem("email")
-        console.log("Email from sessionStorage:", email)
-        if (!email) {
-          setHasBought(false)
-          setLoading(false)
-          return
-        }
-
-        const resUser = await fetch(`/api/users/achats`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
-        })
-
-        if (!resUser.ok) throw new Error("Impossible de récupérer les achats")
-        const userData = await resUser.json()
-        console.log("User data fetched:", userData)
-        console.log("Checking purchase for slug:", slug)
-        console.log("Value in achats:", userData.achats?.[slug])
-
-        setHasBought(userData.achats?.[slug] || false)
-        console.log("hasBought state set to:", userData.achats?.[slug] || false)
-
-        setLoading(false)
-      } catch (err) {
-        console.error(err)
+      // 2️⃣ Récupérer l'utilisateur depuis sessionStorage
+      const user = JSON.parse(sessionStorage.getItem("user"))
+      const email = user?.email
+      console.log("Email récupéré:", email)
+      if (!email) {
         setHasBought(false)
         setLoading(false)
+        return
       }
-    }
 
-    fetchData()
-  }, [slug])
+      // 3️⃣ Récupérer les achats depuis l'API
+      const resUser = await fetch(`/api/users/achats`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+      const userData = await resUser.json()
+      console.log("Achats récupérés:", userData.achats)
+
+      setHasBought(userData.achats?.[slug] || false)
+      setLoading(false)
+    } catch (err) {
+      console.error(err)
+      setHasBought(false)
+      setLoading(false)
+    }
+  }
+
+  fetchData()
+}, [slug])
+
 
   // Affichage pendant le chargement
   if (loading || !product) {

@@ -1,12 +1,15 @@
-// pages/api/users/achats.js
 import dbConnect from '../../../lib/dbConnect';
 import User from '../../../models/User';
 
 export default async function handler(req, res) {
   await dbConnect();
 
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+
   try {
-    const { email } = req.body; // récupéré depuis sessionStorage côté front
+    const { email } = req.body;
     if (!email) return res.status(400).json({ error: 'Email manquant' });
 
     const user = await User.findOne({ email });

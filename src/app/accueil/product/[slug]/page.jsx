@@ -23,14 +23,18 @@ export default function ProductPage() {
 
     const fetchData = async () => {
       try {
+        console.log("Fetching product for slug:", slug)
+
         // 1️⃣ Récupérer le produit
         const resProduct = await fetch(`/api/products/${slug}`)
         if (!resProduct.ok) throw new Error("Produit introuvable")
         const productData = await resProduct.json()
+        console.log("Product data:", productData)
         setProduct(productData)
 
         // 2️⃣ Récupérer l'utilisateur et ses achats depuis sessionStorage
         const email = sessionStorage.getItem("email")
+        console.log("Email from sessionStorage:", email)
         if (!email) {
           setHasBought(false)
           setLoading(false)
@@ -45,17 +49,19 @@ export default function ProductPage() {
 
         if (!resUser.ok) throw new Error("Impossible de récupérer les achats")
         const userData = await resUser.json()
+        console.log("User data fetched:", userData)
+        console.log("Checking purchase for slug:", slug)
+        console.log("Value in achats:", userData.achats?.[slug])
 
         setHasBought(userData.achats?.[slug] || false)
+        console.log("hasBought state set to:", userData.achats?.[slug] || false)
+
         setLoading(false)
       } catch (err) {
         console.error(err)
         setHasBought(false)
         setLoading(false)
       }
-              console.log("slug:", slug)
-        console.log("achats:", userData.achats)
-        console.log("hasBought:", userData.achats?.[slug])
     }
 
     fetchData()
@@ -88,9 +94,14 @@ export default function ProductPage() {
         </div>
 
         <ProductHero
-        product={product}
-        hasBought={hasBought}
-        onPlay={()=>router.push(`accueil/product/${slug}`)} />
+          product={product}
+          hasBought={hasBought}
+          onPlay={() => {
+            console.log("Clicked Play for slug:", slug)
+            router.push(`/accueil/product/${slug}`)
+          }}
+        />
+
         <ProductInfo product={product} />
         <ProductDescription product={product} />
         <ProductEditions product={product} />

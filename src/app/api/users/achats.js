@@ -1,23 +1,25 @@
-import dbConnect from '../../../lib/dbConnect';
-import User from '../../../models/User';
+import dbConnect from '../../../../lib/dbConnect';
+import User from '../../../../models/User';
 
-export default async function handler(req, res) {
+export async function GET(req) {
   await dbConnect();
 
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
-  }
-
   try {
-    const email = req.query.email; // récupéré depuis la query string
-    if (!email) return res.status(400).json({ error: 'Email manquant' });
+    const { searchParams } = new URL(req.url);
+    const email = searchParams.get('email');
+
+    if (!email) {
+      return new Response(JSON.stringify({ error: 'Email manquant' }), { status: 400 });
+    }
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ error: 'Utilisateur introuvable' });
+    if (!user) {
+      return new Response(JSON.stringify({ error: 'Utilisateur introuvable' }), { status: 404 });
+    }
 
-    res.status(200).json({ achats: user.achats });
+    return new Response(JSON.stringify({ achats: user.achats || {} }), { status: 200 });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Impossible de récupérer les achats' });
+    return new Response(JSON.stringify({ error: 'Impossible de récupérer les achats' }), { status: 500 });
   }
 }

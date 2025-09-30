@@ -1,8 +1,8 @@
-import dbConnect from '../../../lib/dbConnect';
-import User from '../../../../models/User';
+import { connectDB } from '../../../lib/mongodb';
+import User from '../../../models/User';
 
 export async function GET(req) {
-  await dbConnect();
+  await connectDB();
 
   try {
     const { searchParams } = new URL(req.url);
@@ -13,11 +13,12 @@ export async function GET(req) {
     }
 
     const user = await User.findOne({ email });
+
     if (!user) {
       return new Response(JSON.stringify({ error: 'Utilisateur introuvable' }), { status: 404 });
     }
 
-    return new Response(JSON.stringify({ achats: user.achats || {} }), { status: 200 });
+    return new Response(JSON.stringify({ achats: user.achats }), { status: 200 });
   } catch (err) {
     console.error(err);
     return new Response(JSON.stringify({ error: 'Impossible de récupérer les achats' }), { status: 500 });

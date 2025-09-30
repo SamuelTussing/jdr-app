@@ -19,23 +19,33 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true)
 
 useEffect(() => {
-  if (!slug) return
+  if (!slug) return;
 
   const fetchData = async () => {
     try {
+      console.log("Début du fetch pour le produit :", slug);
+
       // 1️⃣ Récupérer le produit
-      const resProduct = await fetch(`/api/products/${slug}`)
-      const productData = await resProduct.json()
-      setProduct(productData)
+      const resProduct = await fetch(`/api/products/${slug}`);
+      if (!resProduct.ok) {
+        const text = await resProduct.text();
+        console.error("Erreur récupération produit :", text);
+        throw new Error("Produit introuvable");
+      }
+      const productData = await resProduct.json();
+      console.log("Produit récupéré :", productData);
+      setProduct(productData);
 
       // 2️⃣ Récupérer l'utilisateur depuis sessionStorage
-      const user = JSON.parse(sessionStorage.getItem("user"))
-      const email = user?.email
-      console.log("Email récupéré:", email)
+      const user = JSON.parse(sessionStorage.getItem("user"));
+      const email = user?.email;
+      console.log("Email récupéré depuis sessionStorage :", email);
+
       if (!email) {
-        setHasBought(false)
-        setLoading(false)
-        return
+        console.warn("Aucun utilisateur connecté");
+        setHasBought(false);
+        setLoading(false);
+        return;
       }
 
       // 3️⃣ Récupérer les achats depuis l'API
@@ -43,21 +53,33 @@ useEffect(() => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
-      })
-      const userData = await resUser.json()
-      console.log("Achats récupérés:", userData.achats)
+      });
 
-      setHasBought(userData.achats?.[slug] || false)
-      setLoading(false)
+      if (!resUser.ok) {
+        const text = await resUser.text();
+        console.error("Erreur récupération achats :", text);
+        throw new Error("Impossible de récupérer les achats");
+      }
+
+      const userData = await resUser.json();
+      console.log("Achats récupérés :", userData.achats);
+
+      const bought = userData.achats?.[slug] || false;
+      console.log(`Le jeu ${slug} a été acheté ?`, bought);
+
+      setHasBought(bought);
+      setLoading(false);
+
     } catch (err) {
-      console.error(err)
-      setHasBought(false)
-      setLoading(false)
+      console.error("Erreur dans fetchData :", err);
+      setHasBought(false);
+      setLoading(false);
     }
-  }
+  };
 
-  fetchData()
-}, [slug])
+  fetchData();
+}, [slug]);
+
 
 
   // Affichage pendant le chargement

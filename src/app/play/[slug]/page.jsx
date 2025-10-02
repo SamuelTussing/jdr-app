@@ -6,7 +6,7 @@ import { useParams } from "next/navigation"
 // Import des composants de jeux
 //import DragonAcademyGame from "@/components/games/DragonAcademyGame"
 //import StormGame from "@/components/games/StormGame"
-import AbyssalGame from "@/app/play/components/games/AbyssalGame/AbyssalGame";
+import AbyssalGame from "../games/AbyssalGame";
 
 
 

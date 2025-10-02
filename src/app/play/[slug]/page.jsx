@@ -4,9 +4,9 @@ import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 
 // Import des composants de jeux
-import DragonAcademyGame from "@/components/games/DragonAcademyGame"
-import StormGame from "@/components/games/StormGame"
-import AbyssalGame from "@/components/games/AbyssalGame"
+//import DragonAcademyGame from "@/components/games/DragonAcademyGame"
+//import StormGame from "@/components/games/StormGame"
+import AbyssalGame from "../components/games/abyssalGame"
 
 export default function PlayPage() {
   const { slug } = useParams()

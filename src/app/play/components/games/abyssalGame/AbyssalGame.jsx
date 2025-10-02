@@ -1,11 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Accueil from './components/Accueil'
-import ChoixPerso from './components/ChoixPersonnage'
-import CreerPersonnage from './components/CreerPersonnage'
-import ChoixPersoPredef from "./components/ChoisirPersonnagePredef"
-import ChoixCompetences from "./components/ChoixCompetences" // si tu l’as déjà
+import Accueil from './Accueil'
+import ChoixPerso from './ChoixPersonnage'
+import CreerPersonnage from './CreerPersonnage'
+import ChoixPersoPredef from "./ChoisirPersonnagePredef"
+import ChoixCompetences from "./ChoixCompetences"
+import IntroJeu from "./IntroJeu"   // exemple pour la suite
+import GameEngine from "./GameEngine" // le moteur principal
 
 export default function JeuPage() {
   const [step, setStep] = useState("accueil")
@@ -63,43 +65,58 @@ export default function JeuPage() {
     }
   }
 
+  // ⚡ Fonction centralisée
+  const goTo = (newStep, hero = null) => {
+    if (hero) {
+      setPlayer(hero)
+      saveToDB(hero)
+    }
+    setStep(newStep)
+  }
+
   return (
     <div>
       {step === "accueil" && 
-        <Accueil onNext={() => setStep("choix")} />}
+        <Accueil onNext={() => goTo("choix")} />}
 
       {step === "choix" && (
         <ChoixPerso
-          onCreate={() => setStep("creer")}
-          onChoose={() => setStep("choixpredef")}
-          onReturn={() => setStep("accueil")}
+          onCreate={() => goTo("creer")}
+          onChoose={() => goTo("choixpredef")}
+          onReturn={() => goTo("accueil")}
         />
       )}
 
       {step === "creer" && 
         <CreerPersonnage
-          onFinish={(hero) => {
-            setPlayer(hero)       // stocke le perso dans la page mère
-            saveToDB(hero)        // sauvegarde en BDD
-            setStep("choixcompetences") // passe à l’étape suivante
-          }}
-          onReturn={() => setStep("accueil")}
+          onFinish={(hero) => goTo("choixcompetences", hero)}
+          onReturn={() => goTo("accueil")}
         />
       }
 
       {step === "choixpredef" && 
         <ChoixPersoPredef
-          onFinish={(hero) => {
-            setPlayer(hero)
-            saveToDB(hero)
-            setStep("choixcompetences")
-          }}
-          onReturn={() => setStep("accueil")}
+          onFinish={(hero) => goTo("choixcompetences", hero)}
+          onReturn={() => goTo("accueil")}
         />
       }
 
       {step === "choixcompetences" && 
-        <ChoixCompetences player={player} />
+        <ChoixCompetences 
+          player={player} 
+          onFinish={() => goTo("intro")} 
+        />
+      }
+
+      {step === "intro" && 
+        <IntroJeu 
+          player={player} 
+          onNext={() => goTo("jeu")} 
+        />
+      }
+
+      {step === "jeu" && 
+        <GameEngine player={player} />
       }
     </div>
   )

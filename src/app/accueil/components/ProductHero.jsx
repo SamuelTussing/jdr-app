@@ -1,10 +1,12 @@
 import Image from "next/image"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function ProductHero({ product, hasBought, onPlay }) {
 
   const [loading, setLoading] = useState(false)
   const [added, setAdded] = useState(false)
+  const router = useRouter()
 
 const handleAddToWishlist = async () => {
   try {
@@ -36,6 +38,11 @@ const handleAddToWishlist = async () => {
     setLoading(false)
   }
 }
+
+const handlePlay = () => {
+    if (!hasBought) return
+    router.push(`/play/${product.slug}`) // 🔹 redirige vers la page play-[slug]
+  }
 
   return (
     <section className="product-hero">
@@ -85,7 +92,7 @@ const handleAddToWishlist = async () => {
 
           <div className="product-actions">
             {hasBought ? (
-              <button className="btn-primary" onClick={onPlay}>
+              <button className="btn-primary" onClick={handlePlay}>
                 Jouer
               </button>
             ) : (

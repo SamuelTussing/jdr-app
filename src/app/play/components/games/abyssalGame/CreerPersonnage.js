@@ -8,6 +8,10 @@ export default function HeroCreator({ onReturn, onFinish }) {
   const [remainingPoints, setRemainingPoints] = useState(5)
   const [selectedAttribute, setSelectedAttribute] = useState("Magie")
 
+    const selectAttribute = (attr) => {
+    setSelectedAttribute(attr)
+  }
+
     const attributeDescriptions = {
     Force:
       "La force détermine la puissance physique du héros. Un niveau de force élevé permet de porter des équipements lourds, d'infliger plus de dégâts au corps à corps et de résister aux effets physiques.",
@@ -58,7 +62,7 @@ export default function HeroCreator({ onReturn, onFinish }) {
   return (
     <div className="hero-creator">
       <div className="hero-creator-container">
-        <button className="close-button" onClick={onReturn}>×</button>
+        <button className="close-button" onClick={() => goTo("creer")}>×</button>
 
         <h1 className="title3">Créer un héros</h1>
 
@@ -72,7 +76,6 @@ export default function HeroCreator({ onReturn, onFinish }) {
           />
         </div>
 
-        {/* Attributs */}
         <div className="attributes-section">
           <h2 className="attributes-title">Aptitudes : Encore {remainingPoints} points</h2>
           <div className="attributes-grid">
@@ -89,7 +92,8 @@ export default function HeroCreator({ onReturn, onFinish }) {
 
             {Object.entries(calculatedAttributes).map(([attr, value]) => (
               <div key={attr} className="attribute-item calculated">
-                <button className="attribute-button">{attr}</button>
+                <button className={`attribute-button ${selectedAttribute === attr ? "selected" : ""}`}
+                  onClick={() => selectAttribute(attr)}>{attr}</button>
                 <div className="attribute-controls">
                   <span className="attribute-value calculated-value">{value}</span>
                 </div>
@@ -97,21 +101,18 @@ export default function HeroCreator({ onReturn, onFinish }) {
             ))}
           </div>
         </div>
+
         <div className="description-section">
           <h3 className="description-title">{selectedAttribute}</h3>
           <p className="description-text">{attributeDescriptions[selectedAttribute]}</p>
         </div>
 
-        {/* Bouton suivant → envoie les données */}
         <button
           className="next-button"
-          onClick={() =>
-            onFinish({
-              name: heroName,
-              attributes,
-              calculatedAttributes,
-            })
-          }
+          onClick={() => {
+            setPlayer({ name: heroName, attributes, calculatedAttributes })
+            goTo("choixcompetences")
+          }}
         >
           Suivant &gt;
         </button>

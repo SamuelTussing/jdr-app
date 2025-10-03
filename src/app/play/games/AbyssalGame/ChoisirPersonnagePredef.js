@@ -65,6 +65,31 @@ export default function HeroSelector({ goTo, setPlayer }) {
     setSelectedAttribute(attr)
   }
 
+   const handleConfirm = () => {
+    if (!player) {
+      console.warn("HeroCompetences: pas de player fourni en props")
+      return
+    }
+
+    // applique le bonus
+    const { attribute, value } = capacities[selectedCapacity].applyBonus
+
+    // s'assure que player.attributes existe
+    const existingAttrs = player.attributes ?? {}
+    const updatedAttrs = {
+      ...existingAttrs,
+      [attribute]: (existingAttrs[attribute] ?? 0) + value,
+    }
+
+    const updatedPlayer = {
+      ...player,
+      attributes: updatedAttrs,
+    }
+
+    // On utilise goTo en passant le hero : l'orchestrateur (goTo) fera setPlayer + saveToDB
+    goTo("intro", updatedPlayer)
+  }
+
   return (
     <div className="hero-creator">
       <div className="hero-creator-container">
@@ -135,10 +160,7 @@ export default function HeroSelector({ goTo, setPlayer }) {
 
         <button
           className="next-button"
-          onClick={() => {
-            setPlayer({ ...currentHero, name: heroName })
-            goTo("choixcompetences")
-          }}
+          onClick={handleConfirm}
         >
           Suivant &gt;
         </button>

@@ -106,20 +106,20 @@ export default function HeroCreator({ goTo }) {
           <h3 className="description-title">{selectedAttribute}</h3>
           <p className="description-text">{attributeDescriptions[selectedAttribute]}</p>
         </div>
-
-        <button
-          className="next-button"
-          onClick={() =>
-            goTo("choixcompetences", {
+            <button
+              className="next-button"
+              disabled={remainingPoints > 0} // 🔒 Bloqué si points restants
+              onClick={() =>
+              goTo("choixcompetences", {
               name: heroName,
               attributes,
               calculatedAttributes,
-            })
-          }
-        >
-          Suivant &gt;
-        </button>
-      </div>
+              })
+              }
+            >
+            Suivant &gt;
+            </button>
+        </div>
     </div>
   )
 }

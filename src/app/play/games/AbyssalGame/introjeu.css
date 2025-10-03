@@ -1,0 +1,49 @@
+.intro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.intro-content {
+  max-width: 700px;
+  background: #111827;
+  color: #f9fafb;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  line-height: 1.6;
+}
+
+.intro-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.intro-actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.intro-button {
+  background: #2563eb;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.intro-button:hover {
+  background: #1e40af;
+}
+
+.success {
+  color: #10b981;
+}
+
+.fail {
+  color: #ef4444;
+}

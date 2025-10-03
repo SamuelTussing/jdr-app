@@ -6,8 +6,8 @@ import ChoixPerso from './ChoixPersonnage'
 import CreerPersonnage from './CreerPersonnage'
 import ChoixPersoPredef from "./ChoisirPersonnagePredef"
 import ChoixCompetences from "./ChoixCompetences"
-import IntroJeu from "./IntroJeu"   // exemple pour la suite
-import GameEngine from "./GameEngine" // le moteur principal
+import IntroJeu from "./IntroJeu"
+import GameEngine from "./GameEngine"
 
 export default function JeuPage() {
   const [step, setStep] = useState("accueil")
@@ -21,7 +21,7 @@ export default function JeuPage() {
           ? JSON.parse(sessionStorage.getItem("user")).username
           : null
 
-        if (!username) return // pas connecté → pas de load
+        if (!username) return
 
         const res = await fetch("/api/game/load", {
           method: "POST",
@@ -33,7 +33,7 @@ export default function JeuPage() {
 
         if (res.ok && data.success && data.hero) {
           setPlayer(data.hero)
-          setStep("jeu") // direct vers la partie si une sauvegarde existe
+          setStep("jeu")
         }
       } catch (err) {
         console.error("❌ Erreur récupération sauvegarde:", err)
@@ -76,48 +76,13 @@ export default function JeuPage() {
 
   return (
     <div>
-      {step === "accueil" && 
-        <Accueil onNext={() => goTo("choix")} />}
-
-      {step === "choix" && (
-        <ChoixPerso
-          onCreate={() => goTo("creer")}
-          onChoose={() => goTo("choixpredef")}
-          onReturn={() => goTo("accueil")}
-        />
-      )}
-
-      {step === "creer" && 
-        <CreerPersonnage
-          onFinish={(hero) => goTo("choixcompetences", hero)}
-          onReturn={() => goTo("accueil")}
-        />
-      }
-
-      {step === "choixpredef" && 
-        <ChoixPersoPredef
-          onFinish={(hero) => goTo("choixcompetences", hero)}
-          onReturn={() => goTo("accueil")}
-        />
-      }
-
-      {step === "choixcompetences" && 
-        <ChoixCompetences 
-          player={player} 
-          onFinish={() => goTo("intro")} 
-        />
-      }
-
-      {step === "intro" && 
-        <IntroJeu 
-          player={player} 
-          onNext={() => goTo("jeu")} 
-        />
-      }
-
-      {step === "jeu" && 
-        <GameEngine player={player} />
-      }
+      {step === "accueil" && <Accueil goTo={goTo} />}
+      {step === "choix" && <ChoixPerso goTo={goTo} />}
+      {step === "creer" && <CreerPersonnage goTo={goTo} />}
+      {step === "choixpredef" && <ChoixPersoPredef goTo={goTo} />}
+      {step === "choixcompetences" && <ChoixCompetences player={player} goTo={goTo} />}
+      {step === "intro" && <IntroJeu player={player} goTo={goTo} />}
+      {step === "jeu" && <GameEngine player={player} />}
     </div>
   )
 }

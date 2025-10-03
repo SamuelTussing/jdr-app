@@ -11,7 +11,7 @@ export default function ChoixPerso({ goTo }) {
         <div className="buttonGroup">
           <button 
             className="chooseButton" 
-            onClick={() => goTo("creer")}
+            onClick={() => goTo("creer")} 
           >
             Créer un héros
           </button>

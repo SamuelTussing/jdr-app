@@ -21,6 +21,14 @@ const HeroSchema = new mongoose.Schema(
   { _id: false } // pas besoin d’un _id pour chaque hero embedded
 )
 
+const AbyssalSaveSchema = new mongoose.Schema(
+  {
+    hero: HeroSchema,
+    currentStep: { type: String, default: "accueil" }, // page où le joueur est
+  },
+  { _id: false }
+)
+
 const UserSchema = new mongoose.Schema(
   {
     username: { type: String, required: true, unique: true },
@@ -44,7 +52,7 @@ const UserSchema = new mongoose.Schema(
 
     // 👉 Ajout du champ saves
     saves: {
-      abyssal: HeroSchema, // ton perso pour jeu1
+      abyssal: AbyssalSaveSchema, // ton perso pour jeu1
       storm: HeroSchema, // tu peux prévoir d'autres jeux
     },
   },

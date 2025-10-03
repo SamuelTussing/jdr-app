@@ -3,7 +3,7 @@
 import { useState } from "react"
 import "./hero-creator.css"
 
-export default function HeroCreator({ onReturn, onFinish }) {
+export default function HeroCreator({ goTo }) {
   const [heroName, setHeroName] = useState("Sergueï")
   const [remainingPoints, setRemainingPoints] = useState(5)
   const [selectedAttribute, setSelectedAttribute] = useState("Magie")
@@ -62,7 +62,7 @@ export default function HeroCreator({ onReturn, onFinish }) {
   return (
     <div className="hero-creator">
       <div className="hero-creator-container">
-        <button className="close-button" onClick={() => goTo("creer")}>×</button>
+        <button className="close-button" onClick={() => goTo("accueil")}>×</button>
 
         <h1 className="title3">Créer un héros</h1>
 
@@ -81,7 +81,7 @@ export default function HeroCreator({ onReturn, onFinish }) {
           <div className="attributes-grid">
             {Object.entries(attributes).map(([attr, value]) => (
               <div key={attr} className="attribute-item">
-                <button className="attribute-button">{attr}</button>
+                <button className={`attribute-button ${selectedAttribute === attr ? "selected" : ""}`} onClick={() => selectAttribute(attr)}>{attr}</button>
                 <div className="attribute-controls">
                   <button className="control-button" onClick={() => decrementAttribute(attr)} disabled={value <= 0}>-</button>
                   <span>{value}</span>
@@ -109,10 +109,13 @@ export default function HeroCreator({ onReturn, onFinish }) {
 
         <button
           className="next-button"
-          onClick={() => {
-            setPlayer({ name: heroName, attributes, calculatedAttributes })
-            goTo("choixcompetences")
-          }}
+          onClick={() =>
+            goTo("choixcompetences", {
+              name: heroName,
+              attributes,
+              calculatedAttributes,
+            })
+          }
         >
           Suivant &gt;
         </button>

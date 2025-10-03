@@ -54,7 +54,7 @@ async function saveToDB(hero) {
       return
     }
 
-    const res = await fetch("/api/save", {
+    const res = await fetch("/api/game/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

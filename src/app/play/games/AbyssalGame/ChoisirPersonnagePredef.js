@@ -68,7 +68,7 @@ export default function HeroSelector({ goTo, setPlayer }) {
   return (
     <div className="hero-creator">
       <div className="hero-creator-container">
-        <button className="close-button" onClick={() => goTo("choixpredef")}>×</button>
+        <button className="close-button" onClick={() => goTo("choix")}>×</button>
 
         <h1 className="title">Choisir un héros</h1>
 

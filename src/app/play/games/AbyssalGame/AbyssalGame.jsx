@@ -44,26 +44,27 @@ export default function JeuPage() {
   }, [])
 
   // ⚡ Sauvegarde côté serveur
-  const saveToDB = async (hero) => {
-    try {
-      const username = sessionStorage.getItem("user")
-        ? JSON.parse(sessionStorage.getItem("user")).username
-        : null
+  async function saveToDB(hero) {
+  try {
+    const res = await fetch("/api/save", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: currentUser.username, // récupère le user connecté
+        hero,
+      }),
+    })
 
-      if (!username) return
-
-      const res = await fetch("/api/game/save", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, hero }),
-      })
-
-      const data = await res.json()
-      console.log("✅ Sauvegarde réussie:", data)
-    } catch (err) {
-      console.error("❌ Erreur sauvegarde:", err)
+    const data = await res.json()
+    if (!data.success) {
+      console.error("Erreur save:", data.error)
+    } else {
+      console.log("Hero sauvegardé:", data.player)
     }
+  } catch (err) {
+    console.error("Erreur de connexion API:", err)
   }
+}
 
   // ⚡ Fonction centralisée
   const goTo = (newStep, hero = null) => {

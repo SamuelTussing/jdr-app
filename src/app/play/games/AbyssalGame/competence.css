@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ddd.JPG-LRlG4MayRn58zzeo7vCoeu9ijDRlvz.jpeg");
+  background-color: #34495e;
   background-size: cover;
   background-position: center;
   display: flex;
@@ -43,7 +43,7 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-.header {
+.header1 {
   text-align: center;
   margin-bottom: 30px;
 }
@@ -98,17 +98,17 @@
 }
 
 .capacity-item.active {
-  background: #3498db;
+  background: #26652e;
   color: white;
-  border-color: #2980b9;
+  border-color: #0f2912;
 }
 
 .description-panel {
   flex: 1.5;
-  background: rgba(52, 152, 219, 0.1);
+  background: rgba(74,103,65,.1);
   padding: 20px;
   border-radius: 8px;
-  border-left: 4px solid #3498db;
+  border-left: 4px solid #26652e;
 }
 
 .description-text {

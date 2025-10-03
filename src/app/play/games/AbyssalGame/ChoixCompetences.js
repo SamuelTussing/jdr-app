@@ -2,7 +2,7 @@
 import "./competence.css"
 import { useState } from "react"
 
-export default function HeroCompetences({ goTo, setPlayer, player }) {
+export default function HeroCompetences({ goTo, player }) {
   const [selectedCapacity, setSelectedCapacity] = useState("occulte")
 
   const capacities = {
@@ -29,7 +29,7 @@ export default function HeroCompetences({ goTo, setPlayer, player }) {
       title: "Chasseur alpin",
       description: "Les montagnes n'ont plus de secrets pour vous. Vous connaissez chaque sentier, chaque refuge, et savez comment survivre dans les conditions les plus extrêmes.",
       bonus: "+2 agilité",
-      applyBonus: { attribute: "Agilité", value: 2 },
+      applyBonus: { attribute: "Agilite", value: 2 },
     },
     vagabond: {
       title: "Vagabond",
@@ -45,20 +45,29 @@ export default function HeroCompetences({ goTo, setPlayer, player }) {
     }
   }
 
-  const handleConfirm = () => {
-    if (!player) return
-
-    const { attribute, value } = capacities[selectedCapacity].applyBonus
-    const updatedPlayer = {
-      ...player,
-      attributes: {
-        ...player.attributes,
-        [attribute]: (player.attributes[attribute] || 0) + value,
-      },
+ const handleConfirm = () => {
+    if (!player) {
+      console.warn("HeroCompetences: pas de player fourni en props")
+      return
     }
 
-    setPlayer(updatedPlayer)
-    goTo("jeu") // ou l’étape suivante après compétences
+    // applique le bonus
+    const { attribute, value } = capacities[selectedCapacity].applyBonus
+
+    // s'assure que player.attributes existe
+    const existingAttrs = player.attributes ?? {}
+    const updatedAttrs = {
+      ...existingAttrs,
+      [attribute]: (existingAttrs[attribute] ?? 0) + value,
+    }
+
+    const updatedPlayer = {
+      ...player,
+      attributes: updatedAttrs,
+    }
+
+    // On utilise goTo en passant le hero : l'orchestrateur (goTo) fera setPlayer + saveToDB
+    goTo("intro", updatedPlayer)
   }
 
   return (
@@ -66,7 +75,7 @@ export default function HeroCompetences({ goTo, setPlayer, player }) {
       <div className="hero-creator-modal">
         <button className="close-button" onClick={() => goTo("creer")}>×</button>
 
-        <div className="header">
+        <div className="header1">
           <h1 className="main-title">Créer un héros</h1>
           <h2 className="subtitle">Capacité Spéciale</h2>
           <p className="instruction">Choisissez une capacité spéciale</p>
@@ -92,7 +101,7 @@ export default function HeroCompetences({ goTo, setPlayer, player }) {
         </div>
 
         <button className="confirm-button" onClick={handleConfirm}>
-          C`&apos`est parti
+          Commencer
         </button>
       </div>
     </div>

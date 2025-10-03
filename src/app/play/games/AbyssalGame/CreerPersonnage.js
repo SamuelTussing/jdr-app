@@ -19,7 +19,7 @@ export default function HeroCreator({ goTo }) {
       "La perception influence la capacité du héros à détecter les dangers cachés, à remarquer les détails importants et à avoir une meilleure précision avec les armes à distance.",
     Endurance:
       "L'endurance détermine la résistance du héros à la fatigue, aux maladies et aux poisons. Elle influence également les points de vie et la capacité à maintenir un effort prolongé.",
-    Agilité:
+    Agilite:
       "L'agilité affecte la vitesse de déplacement, la dextérité et la capacité d'esquive du héros. Un niveau élevé permet d'être plus rapide et plus précis dans les actions.",
     Intelligence:
       "L'intelligence détermine les capacités de raisonnement, de mémoire et d'apprentissage du héros. Elle influence la maîtrise des sorts et la résolution d'énigmes complexes.",
@@ -35,7 +35,7 @@ export default function HeroCreator({ goTo }) {
     Force: 5,
     Perception: 5,
     Endurance: 5,
-    Agilité: 5,
+    Agilite: 5,
     Intelligence: 5,
     Magie: 5,
   })

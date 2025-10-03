@@ -13,20 +13,20 @@ export default function HeroSelector({ goTo, setPlayer }) {
     {
       name: "Max",
       image: "/max.jpg",
-      attributes: { Force: 8, Perception: 8, Endurance: 7, Agilité: 5, Intelligence: 6, Magie: 1 },
-      specialAbility: "+2 Perception lors d'une attaque avec un pistolet.",
+      attributes: { Force: 8, Perception: 10, Endurance: 7, Agilite: 5, Intelligence: 6, Magie: 1 },
+      specialAbility: "+2 Perception",
     },
     {
       name: "Tom",
       image: "/tom.jpg",
-      attributes: { Force: 6, Perception: 7, Endurance: 8, Agilité: 4, Intelligence: 8, Magie: 2 },
-      specialAbility: "+1 Endurance lors des tests de résistance.",
+      attributes: { Force: 6, Perception: 7, Endurance: 10, Agilite: 4, Intelligence: 8, Magie: 2 },
+      specialAbility: "+2 Endurance ",
     },
     {
       name: "Otacon",
       image: "/otacon.jpg",
-      attributes: { Force: 4, Perception: 6, Endurance: 5, Agilité: 8, Intelligence: 8, Magie: 4 },
-      specialAbility: "+2 Agilité lors des actions furtives.",
+      attributes: { Force: 4, Perception: 6, Endurance: 5, Agilite: 10, Intelligence: 8, Magie: 4 },
+      specialAbility: "+2 Agilité ",
     },
   ]
 
@@ -38,14 +38,22 @@ export default function HeroSelector({ goTo, setPlayer }) {
   }
 
   const attributeDescriptions = {
-    Force: "La force détermine la puissance physique du héros. ...",
-    Perception: "La perception influence la capacité du héros ...",
-    Endurance: "L'endurance détermine la résistance du héros ...",
-    Agilité: "L'agilité affecte la vitesse de déplacement ...",
-    Intelligence: "L'intelligence détermine les capacités de raisonnement ...",
-    Magie: "La magie détermine les connaissances du héros ...",
-    "Points de vie max": "Les points de vie maximum représentent ...",
-    "Horreur max": "L'horreur maximum détermine la résistance mentale ...",
+    Force:
+      "La force détermine la puissance physique du héros. Un niveau de force élevé permet de porter des équipements lourds, d'infliger plus de dégâts au corps à corps et de résister aux effets physiques.",
+    Perception:
+      "La perception influence la capacité du héros à détecter les dangers cachés, à remarquer les détails importants et à avoir une meilleure précision avec les armes à distance.",
+    Endurance:
+      "L'endurance détermine la résistance du héros à la fatigue, aux maladies et aux poisons. Elle influence également les points de vie et la capacité à maintenir un effort prolongé.",
+    Agilite:
+      "L'agilité affecte la vitesse de déplacement, la dextérité et la capacité d'esquive du héros. Un niveau élevé permet d'être plus rapide et plus précis dans les actions.",
+    Intelligence:
+      "L'intelligence détermine les capacités de raisonnement, de mémoire et d'apprentissage du héros. Elle influence la maîtrise des sorts et la résolution d'énigmes complexes.",
+    Magie:
+      "La magie détermine les connaissances du héros dans le domaine du surnaturel. Un niveau de magie élevé permet de mieux comprendre les sciences occultes, de résister à la folie induit par l'horreur et d'appliquer des formes de magie simple.",
+    "Points de vie max":
+      "Les points de vie maximum représentent la santé totale du héros. Cette valeur est calculée automatiquement en additionnant l'Endurance + la Magie + 1. Plus cette valeur est élevée, plus le héros peut encaisser de dégâts.",
+    "Horreur max":
+      "L'horreur maximum détermine la résistance mentale du héros face aux événements traumatisants. Cette valeur est calculée automatiquement en additionnant l'Intelligence + la Magie + 1. Une valeur élevée permet de mieux résister à la folie.",
   }
 
   const selectHero = (heroIndex) => {

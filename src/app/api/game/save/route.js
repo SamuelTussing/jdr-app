@@ -13,14 +13,15 @@ export async function POST(req) {
       return NextResponse.json({ success: false, error: "Username manquant" }, { status: 400 })
     }
 
-    // Mettre à jour la sauvegarde pour jeu1
-    const user = await User.findOneAndUpdate(
+    // Mettre à jour la sauvegarde pour abyssal
+    await User.findOneAndUpdate(
       { username },
-      { $set: { "saves.jeu1": hero } },
+      { $set: { "saves.abyssal": hero } },
       { new: true, upsert: true }
     )
 
-    return NextResponse.json({ success: true, player: user.saves.jeu1 })
+    // Renvoyer directement le hero pour éviter undefined
+    return NextResponse.json({ success: true, player: hero })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ success: false, error: "Erreur serveur" }, { status: 500 })

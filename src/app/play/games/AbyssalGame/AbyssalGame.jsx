@@ -44,13 +44,21 @@ export default function JeuPage() {
   }, [])
 
   // ⚡ Sauvegarde côté serveur
-  async function saveToDB(hero) {
+async function saveToDB(hero) {
   try {
+    const userStr = sessionStorage.getItem("user")
+    const username = userStr ? JSON.parse(userStr).username : null
+
+    if (!username) {
+      console.warn("Aucun utilisateur connecté → sauvegarde ignorée")
+      return
+    }
+
     const res = await fetch("/api/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: currentUser.username, // récupère le user connecté
+        username,
         hero,
       }),
     })
@@ -59,10 +67,10 @@ export default function JeuPage() {
     if (!data.success) {
       console.error("Erreur save:", data.error)
     } else {
-      console.log("Hero sauvegardé:", data.player)
+      console.log("✅ Hero sauvegardé:", data.player)
     }
   } catch (err) {
-    console.error("Erreur de connexion API:", err)
+    console.error("❌ Erreur de connexion API:", err)
   }
 }
 

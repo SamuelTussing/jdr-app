@@ -3,15 +3,26 @@
 import { useState } from "react"
 import "./GameEngine.css"
 
-export default function GamePage() {
+export default function GameEngine({ player, goTo }) {
   const [menuOpen, setMenuOpen] = useState(false)
+
+  if (!player) {
+    return (
+      <div className="game-container2">
+        <p>Chargement du héros...</p>
+      </div>
+    )
+  }
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
 
+  const attributes = player.attributes || {}
+  const calculated = player.calculatedAttributes || {}
+
   return (
-    <div className="game-container">
+    <div className="game-container2">
       {/* Menu Button */}
       <div className="menu-wrapper">
         <button className="menu-button" onClick={toggleMenu}>
@@ -23,8 +34,8 @@ export default function GamePage() {
         {/* Dropdown Menu */}
         {menuOpen && (
           <div className="dropdown-menu">
-            <button className="dropdown-item">Option</button>
-            <button className="dropdown-item">Quitter</button>
+            <button className="dropdown-item" onClick={() => alert("Option à venir...")}>Option</button>
+            <button className="dropdown-item" onClick={() => goTo("accueil")}>Quitter</button>
           </div>
         )}
       </div>
@@ -34,7 +45,6 @@ export default function GamePage() {
 
       {/* Main Content Area */}
       <div className="content-area">
-        {/* Background Image */}
         <div className="background-image"></div>
 
         {/* Text Box */}
@@ -88,43 +98,43 @@ export default function GamePage() {
       <div className="stats-bar">
         <div className="stat-item">
           <div className="stat-icon">💪</div>
-          <div className="stat-value">5</div>
+          <div className="stat-value">{attributes.Force ?? "-"}</div>
           <div className="stat-label">Force</div>
         </div>
         <div className="stat-item">
           <div className="stat-icon">👁️</div>
-          <div className="stat-value">5</div>
+          <div className="stat-value">{attributes.Perception ?? "-"}</div>
           <div className="stat-label">Perception</div>
         </div>
         <div className="stat-item">
           <div className="stat-icon">🏃</div>
-          <div className="stat-value">5</div>
+          <div className="stat-value">{attributes.Endurance ?? "-"}</div>
           <div className="stat-label">Endurance</div>
         </div>
         <div className="stat-item">
           <div className="stat-icon">🧠</div>
-          <div className="stat-value">5</div>
+          <div className="stat-value">{attributes.Intelligence ?? "-"}</div>
           <div className="stat-label">Intelligence</div>
         </div>
         <div className="stat-item">
           <div className="stat-icon">🤸</div>
-          <div className="stat-value">5</div>
+          <div className="stat-value">{attributes.Agilite ?? "-"}</div>
           <div className="stat-label">Agilité</div>
         </div>
         <div className="stat-item">
           <div className="stat-icon">🔥</div>
-          <div className="stat-value">5</div>
+          <div className="stat-value">{attributes.Magie ?? "-"}</div>
           <div className="stat-label">Magie</div>
         </div>
         <div className="stat-item special">
           <div className="stat-icon">❤️</div>
-          <div className="stat-value">10/10</div>
-          <div className="stat-label">Vie</div>
+          <div className="stat-value">{calculated["Points de vie max"] ?? "-"}</div>
+          <div className="stat-label">Vie max</div>
         </div>
         <div className="stat-item special">
           <div className="stat-icon">😱</div>
-          <div className="stat-value">3/8</div>
-          <div className="stat-label">Horreur</div>
+          <div className="stat-value">{calculated["Horreur max"] ?? "-"}</div>
+          <div className="stat-label">Horreur max</div>
         </div>
       </div>
     </div>

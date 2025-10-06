@@ -1,35 +1,24 @@
-import { NextResponse } from "next/server"
+// pages/api/game/getPage.js
 import { connectDB } from "@/lib/mongodb"
 import Story from "@/models/Story"
 
-export async function POST(req) {
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" })
+  }
+
   try {
     await connectDB()
-    const { title, pageId } = await req.json()
-
-    // ⚡ Utiliser findOne pour un _id string
-    const story = await Story.findOne({ title: title })
-    if (!story) {
-      return NextResponse.json(
-        { success: false, error: "Story not found" },
-        { status: 404 }
-      )
-    }
+    const { title, pageId } = req.body
+    const story = await Story.findOne({ title })
+    if (!story) return res.status(404).json({ error: "Story not found" })
 
     const page = story.pages.find((p) => p.id === pageId)
-    if (!page) {
-      return NextResponse.json(
-        { success: false, error: "Page not found" },
-        { status: 404 }
-      )
-    }
+    if (!page) return res.status(404).json({ error: "Page not found" })
 
-    return NextResponse.json({ success: true, page })
+    res.status(200).json({ page })
   } catch (err) {
     console.error("❌ getPage error:", err)
-    return NextResponse.json(
-      { success: false, error: "Server error" },
-      { status: 500 }
-    )
+    res.status(500).json({ error: "Server error" })
   }
 }

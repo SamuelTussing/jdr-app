@@ -5,10 +5,10 @@ import Story from "@/models/Story"
 export async function POST(req) {
   try {
     await connectDB()
-    const { storyId, pageId } = await req.json()
+    const { title, pageId } = await req.json()
 
     // ⚡ Utiliser findOne pour un _id string
-    const story = await Story.findOne({ _id: storyId })
+    const story = await Story.findOne({ title: title })
     if (!story) {
       return NextResponse.json(
         { success: false, error: "Story not found" },

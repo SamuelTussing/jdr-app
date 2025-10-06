@@ -16,7 +16,7 @@ export default function GameEngine({ player, goTo }) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            storyId: "story1", // ou récupéré dynamiquement si plusieurs histoires
+            title: "Abyssal", // ou récupéré dynamiquement si plusieurs histoires
             pageId: player?.currentPage || "page1",
           }),
         })
@@ -41,7 +41,7 @@ export default function GameEngine({ player, goTo }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          storyId: "story1",
+          title: "Abyssal",
           pageId: pageData.id,
           choiceLabel,
           playerStats: player.attributes,
@@ -49,6 +49,7 @@ export default function GameEngine({ player, goTo }) {
       })
 
       const data = await res.json()
+      console.log(data)
 
       // 🎲 Animation / affichage du résultat
       setRollResult({

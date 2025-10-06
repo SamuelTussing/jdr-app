@@ -1,26 +1,48 @@
-import mongoose from 'mongoose';
+import { NextResponse } from "next/server"
+import { connectDB } from "@/lib/mongodb"
+import Story from "@/models/Story"
 
-const choiceSchema = new mongoose.Schema({
-  label: { type: String, required: true },
-  nextPage: { type: String, required: true }
-});
+export async function POST(req) {
+  try {
+    await connectDB()
+    const { title, pageId } = await req.json()
 
-const pageSchema = new mongoose.Schema({
-  id: { type: String, required: true },
-  text: { type: String, required: true },
-  img: { type: String, default: "" }, // 🖼️ nouvelle propriété image
-  audio: [String],
-  choices: [choiceSchema]
-});
+    console.log("📩 Requête getPage:", { title, pageId })
 
-const storySchema = new mongoose.Schema({
-  _id: String, // ou laisse Mongo générer un ObjectId
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  pages: [pageSchema]
-});
+    // Cherche par titre d'abord
+    let story = await Story.findOne({ title: title })
 
-// ✅ Évite les conflits en hot reload (Next.js)
-const Story = mongoose.models.Story || mongoose.model('Story', storySchema);
+    // Si pas trouvé, essaie par _id
+    if (!story) {
+      console.log("⚠️ Aucune story trouvée par titre, tentative via _id")
+      story = await Story.findById(title)
+    }
 
-export default Story;
+    if (!story) {
+      console.log("❌ Story non trouvée du tout")
+      return NextResponse.json(
+        { success: false, error: "Story not found" },
+        { status: 404 }
+      )
+    }
+
+    const page = story.pages.find((p) => p.id === pageId)
+    if (!page) {
+      console.log("⚠️ Page introuvable dans la story:", pageId)
+      return NextResponse.json(
+        { success: false, error: "Page not found" },
+        { status: 404 }
+      )
+    }
+
+    console.log("✅ Page trouvée:", page.id)
+
+    return NextResponse.json({ success: true, page })
+  } catch (err) {
+    console.error("❌ getPage error:", err)
+    return NextResponse.json(
+      { success: false, error: "Server error" },
+      { status: 500 }
+    )
+  }
+}

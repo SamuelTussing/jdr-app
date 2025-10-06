@@ -49,7 +49,6 @@ export default function GameEngine({ player, goTo }) {
       })
 
       const data = await res.json()
-      console.log(data)
 
       // 🎲 Animation / affichage du résultat
       setRollResult({

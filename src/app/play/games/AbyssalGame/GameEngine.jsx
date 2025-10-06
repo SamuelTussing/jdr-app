@@ -1,140 +1,136 @@
 "use client"
 
-import { useState } from "react"
-import "./GameEngine.css"
+import { useEffect, useState } from "react"
 
 export default function GameEngine({ player, goTo }) {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [pageData, setPageData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [rolling, setRolling] = useState(false)
+  const [rollResult, setRollResult] = useState(null)
 
-  if (!player) {
-    return (
-      <div className="game-container2">
-        <p>Chargement du héros...</p>
-      </div>
-    )
+  // ⚡ Charger la page actuelle depuis la BDD
+  useEffect(() => {
+    const loadPage = async () => {
+      try {
+        const res = await fetch("/api/game/getPage", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            storyId: "story1", // ou récupéré dynamiquement si plusieurs histoires
+            pageId: player?.currentPage || "page1",
+          }),
+        })
+
+        const data = await res.json()
+        setPageData(data.page)
+      } catch (err) {
+        console.error("❌ Erreur chargement page:", err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadPage()
+  }, [player?.currentPage])
+
+  // ⚔️ Quand le joueur choisit une action
+  const handleChoice = async (choiceLabel) => {
+    try {
+      setRolling(true)
+      const res = await fetch("/api/story/nextPage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          storyId: "story1",
+          pageId: pageData.id,
+          choiceLabel,
+          playerStats: player.attributes,
+        }),
+      })
+
+      const data = await res.json()
+
+      // 🎲 Animation / affichage du résultat
+      setRollResult({
+        d20: data.d20,
+        total: data.roll,
+        stat: data.stat,
+      })
+
+      // Met à jour la page et sauvegarde la progression
+      const nextPage = data.page
+      goTo("jeu", { ...player, currentPage: nextPage.id })
+      setPageData(nextPage)
+    } catch (err) {
+      console.error("❌ Erreur choix:", err)
+    } finally {
+      setRolling(false)
+    }
   }
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen)
-  }
-
-  const attributes = player.attributes || {}
-  const calculated = player.calculatedAttributes || {}
+  if (loading) return <div>Chargement...</div>
+  if (!pageData) return <div>Page introuvable</div>
 
   return (
     <div className="game-container2">
-      {/* Menu Button */}
+      {/* MENU */}
       <div className="menu-wrapper">
-        <button className="menu-button" onClick={toggleMenu}>
+        <button className="menu-button">
           <span className="menu-icon"></span>
           <span className="menu-icon"></span>
           <span className="menu-icon"></span>
         </button>
-
-        {/* Dropdown Menu */}
-        {menuOpen && (
-          <div className="dropdown-menu">
-            <button className="dropdown-item" onClick={() => alert("Option à venir...")}>Option</button>
-            <button className="dropdown-item" onClick={() => goTo("accueil")}>Quitter</button>
-          </div>
-        )}
       </div>
 
-      {/* Title */}
-      <h1 className="chapter-title">Chapitre 1 : le Voyage</h1>
+      {/* IMAGE */}
+      {pageData.img && (
+        <div
+          className="background-image"
+          style={{ backgroundImage: `url(${pageData.img})` }}
+        ></div>
+      )}
 
-      {/* Main Content Area */}
-      <div className="content-area">
-        <div className="background-image"></div>
+      {/* TEXTE */}
+      <div className="text-box">
+        {pageData.text.split("\n").map((line, i) => (
+          <p key={i}>{line}</p>
+        ))}
+      </div>
 
-        {/* Text Box */}
-        <div className="text-box">
-          <p className="text-intro">— Ici le pilote. Attachez vos ceintures, le temps se gâte.</p>
-
-          <p>
-            Le ciel s'est obscurci d'une vitesse inquiétante. Un blizzard s'abat sur nous. La grêle frappe la carlingue
-            avec une telle violence que chaque impact résonne dans mes os. Un craquement sinistre déchire l'air : le
-            pare-brise du cockpit se fissure.
-          </p>
-
-          <p>Je tourne la tête vers le hublot.</p>
-
-          <p>Des nuages, noirs et gonflés, avalent la lumière du jour. Et puis je le vois.</p>
-
-          <p>
-            À peine perceptible. Plus rapide que l'avion. Une ombre, monstrueuse, informe... dont les contours
-            n'appartiennent pas à ce monde. Mon esprit cherche à la simple idée d'en soutenir la vision. Elle nous
-            survole, immense, irréelle.
-          </p>
-
-          <p>Du cockpit viennent des cris de panique.</p>
-
-          <p>
-            Un hurlement métallique les couvre : des griffes jaillissent du plafond, traversant le blindage comme du
-            papier.
-          </p>
-
-          <p>L'avion vacille. Le plancher tremble sous mes pieds. Nous chutons, ballottés comme un jouet dérisoire.</p>
+      {/* 🎲 Résultat du lancer */}
+      {rollResult && (
+        <div className="roll-result">
+          🎲 Jet de dé : {rollResult.d20} + {rollResult.stat} = {rollResult.total}
         </div>
-      </div>
+      )}
 
-      {/* Action Buttons */}
+      {/* CHOIX */}
       <div className="action-buttons">
-        <button className="action-button">
-          <span className="button-title">Tirer sur les griffes</span>
-          <span className="button-subtitle">Perception 18</span>
-        </button>
-        <button className="action-button">
-          <span className="button-title">Courir vers le cockpit</span>
-          <span className="button-subtitle">Endurance 13</span>
-        </button>
-        <button className="action-button">
-          <span className="button-title">Récupérer un parachute</span>
-          <span className="button-subtitle">Agilité 15</span>
-        </button>
+        {pageData.choices.map((choice, index) => (
+          <button
+            key={index}
+            className="action-button"
+            onClick={() => handleChoice(choice.label)}
+            disabled={rolling}
+          >
+            {choice.label}
+          </button>
+        ))}
       </div>
 
-      {/* Stats Bar */}
+      {/* STATS */}
       <div className="stats-bar">
-        <div className="stat-item">
-          <div className="stat-icon">💪</div>
-          <div className="stat-value">{attributes.Force ?? "-"}</div>
-          <div className="stat-label">Force</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">👁️</div>
-          <div className="stat-value">{attributes.Perception ?? "-"}</div>
-          <div className="stat-label">Perception</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">🏃</div>
-          <div className="stat-value">{attributes.Endurance ?? "-"}</div>
-          <div className="stat-label">Endurance</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">🧠</div>
-          <div className="stat-value">{attributes.Intelligence ?? "-"}</div>
-          <div className="stat-label">Intelligence</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">🤸</div>
-          <div className="stat-value">{attributes.Agilite ?? "-"}</div>
-          <div className="stat-label">Agilité</div>
-        </div>
-        <div className="stat-item">
-          <div className="stat-icon">🔥</div>
-          <div className="stat-value">{attributes.Magie ?? "-"}</div>
-          <div className="stat-label">Magie</div>
+        {Object.entries(player.attributes || {}).map(([label, value]) => (
+          <div className="stat-item" key={label}>
+            <div className="stat-label">{label}</div>
+            <div className="stat-value">{value}</div>
+          </div>
+        ))}
+        <div className="stat-item special">
+          ❤️ {player.calculatedAttributes?.["Points de vie max"] ?? "?"}
         </div>
         <div className="stat-item special">
-          <div className="stat-icon">❤️</div>
-          <div className="stat-value">{calculated["Points de vie max"] ?? "-"}</div>
-          <div className="stat-label">Vie max</div>
-        </div>
-        <div className="stat-item special">
-          <div className="stat-icon">😱</div>
-          <div className="stat-value">{calculated["Horreur max"] ?? "-"}</div>
-          <div className="stat-label">Horreur max</div>
+          😱 {player.calculatedAttributes?.["Horreur max"] ?? "?"}
         </div>
       </div>
     </div>

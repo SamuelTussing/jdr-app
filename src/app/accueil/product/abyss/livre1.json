@@ -5,6 +5,7 @@
   "pages": [
     {
       "id": "page1",
+      "img":"/vue-montagne.png",
       "text": "— Faucon 1 à Ruche, vous me recevez ?\n— Ici La Ruche, cinq sur cinq.\n— Nous sommes sans nouvelles du Nid depuis plus de quarante-huit heures. Avez-vous établi le contact ?\n— Négatif. Et la patrouille Alpha ?\n— Aucune réponse. Vingt heures depuis leur départ. La tempête fait rage sans interruption. Nous avons perdu le lien radio avec le Nid, impossible de rétablir la communication. Les températures frôlent les –40 °C, le blizzard nous enferme dans nos positions. Nous craignons qu’Alpha ait déjà succombé.\n— Tentez de réparer vos systèmes. Alpha doit porter une balise GPS. Envoyez une équipe à leur recherche.\n— Impossible. Leur balise s’est tue il y a quinze heures. Dernière position enregistrée : cinq kilomètres au sud. Terrain accidenté et… attendez…\n(un silence chargé, parasites dans la radio)\n— Que se passe-t-il ?\n— Mouvement à l’extérieur… nos capteurs viennent de…\n(un fracas métallique — une porte qui explose, cris de panique)\n— C’EST QUOI CE BOR…?!\n(hurlement inhumain)\n— FUYEZ !!!\n(rafales d’armes automatiques, cris étouffés)\n— NOUS SOMMES ATTA— UN MONS—\n(cri arraché, puis silence)\n— Contact radio perdu.",
       "audio": ["https://drive.google.com/file/d/1DNZw9X-GO8mxXZDr03vtWurx4NNsX9Qp/view"],
       "choices": [

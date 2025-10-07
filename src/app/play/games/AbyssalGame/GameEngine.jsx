@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useParams } from "next/navigation" // ⚠️ il manquait cette importation
 
 export default function GameEngine({ player, goTo }) {
+  const { slug } = useParams() // 🧭 Ex: "Abyssal"
   const [pageData, setPageData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [rolling, setRolling] = useState(false)
@@ -16,12 +18,13 @@ export default function GameEngine({ player, goTo }) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            title: "Abyssal", // ou récupéré dynamiquement si plusieurs histoires
-            pageId: player?.currentPage || "page1",
+            slug, // 🔹 le titre de l’histoire = slug
+            pageId: player?.currentPage || "page1", // 🔹 page en cours ou première
           }),
         })
 
         const data = await res.json()
+        if (!data.success) throw new Error(data.error)
         setPageData(data.page)
       } catch (err) {
         console.error("❌ Erreur chargement page:", err)
@@ -30,8 +33,8 @@ export default function GameEngine({ player, goTo }) {
       }
     }
 
-    loadPage()
-  }, [player?.currentPage])
+    if (slug) loadPage() // ✅ on ne lance pas avant que slug soit défini
+  }, [slug, player?.currentPage])
 
   // ⚔️ Quand le joueur choisit une action
   const handleChoice = async (choiceLabel) => {
@@ -41,7 +44,7 @@ export default function GameEngine({ player, goTo }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title: "Abyssal",
+          title: slug, // ✅ cohérent avec la logique du backend
           pageId: pageData.id,
           choiceLabel,
           playerStats: player.attributes,
@@ -49,6 +52,7 @@ export default function GameEngine({ player, goTo }) {
       })
 
       const data = await res.json()
+      if (!data.success) throw new Error(data.error)
 
       // 🎲 Animation / affichage du résultat
       setRollResult({
@@ -57,7 +61,7 @@ export default function GameEngine({ player, goTo }) {
         stat: data.stat,
       })
 
-      // Met à jour la page et sauvegarde la progression
+      // 🧭 Met à jour la page et sauvegarde la progression
       const nextPage = data.page
       goTo("jeu", { ...player, currentPage: nextPage.id })
       setPageData(nextPage)
@@ -70,7 +74,6 @@ export default function GameEngine({ player, goTo }) {
 
   if (loading) return <div>Chargement...</div>
   if (!pageData) return <div>Page introuvable</div>
-
   return (
     <div className="game-container2">
       {/* MENU */}

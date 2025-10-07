@@ -1,24 +1,28 @@
-// pages/api/game/getPage.js
+// app/api/game/getPage/route.js
+import { NextResponse } from "next/server"
 import { connectDB } from "@/lib/mongodb"
 import Story from "@/models/Story"
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" })
-  }
-
+export async function POST(req) {
   try {
     await connectDB()
-    const { title, pageId } = req.body
-    const story = await Story.findOne({ title })
-    if (!story) return res.status(404).json({ error: "Story not found" })
+    const { slug, pageId } = await req.json()
 
-    const page = story.pages.find((p) => p.id === pageId)
-    if (!page) return res.status(404).json({ error: "Page not found" })
+    // 🔍 Trouve l'histoire correspondant au slug (title = slug)
+    const story = await Story.findOne({ title: slug })
+    if (!story) {
+      return NextResponse.json({ success: false, error: "Story not found" }, { status: 404 })
+    }
 
-    res.status(200).json({ page })
+    // 🧭 Récupère la page demandée, ou la première si rien n’est précisé
+    const page = story.pages.find((p) => p.id === (pageId || "page1"))
+    if (!page) {
+      return NextResponse.json({ success: false, error: "Page not found" }, { status: 404 })
+    }
+
+    return NextResponse.json({ success: true, page })
   } catch (err) {
     console.error("❌ getPage error:", err)
-    res.status(500).json({ error: "Server error" })
+    return NextResponse.json({ success: false, error: "Server error" }, { status: 500 })
   }
 }

@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useParams } from "next/navigation" // ⚠️ il manquait cette importation
+import { useParams } from "next/navigation"
+import "./GameEngine.css"
 
 export default function GameEngine({ player, goTo }) {
   const { slug } = useParams() // 🧭 Ex: "Abyssal"
@@ -18,7 +19,7 @@ export default function GameEngine({ player, goTo }) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            slug: "story1",
+            slug: "slug",
             pageId: player?.currentPage || "page1", // 🔹 page en cours ou première
           }),
         })

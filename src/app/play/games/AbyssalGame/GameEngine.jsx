@@ -18,7 +18,7 @@ export default function GameEngine({ player, goTo }) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            slug: "story1",
+            slug: "abyssal",
             pageId: player?.currentPage || "page1", // 🔹 page en cours ou première
           }),
         })

@@ -1,27 +1,42 @@
-import mongoose from 'mongoose';
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
-const choiceSchema = new mongoose.Schema({
-  label: { type: String, required: true },
-  nextPage: { type: String, required: true }
-});
+import { NextResponse } from "next/server";
+import { connectDB } from "@/lib/mongodb";
+import Story from "@/models/Story";
 
-const pageSchema = new mongoose.Schema({
-  id: { type: String, required: true },
-  text: { type: String, required: true },
-  img: { type: String, default: "" }, // 🖼️ nouvelle propriété image
-  audio: [String],
-  choices: [choiceSchema]
-});
+export async function POST(req) {
+  console.log("📡 [API] getPage called");
 
-const storySchema = new mongoose.Schema({
-  _id: String, // ou laisse Mongo générer un ObjectId
-  slug: { type: String, required: true, unique: true },
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  pages: [pageSchema]
-});
+  try {
+    await connectDB();
+    const { slug, pageId } = await req.json();
 
-// ✅ Évite les conflits en hot reload (Next.js)
-const Story = mongoose.models.Story || mongoose.model('Story', storySchema);
+    const story = await Story.findById(slug);
+    if (!story) {
+      console.error("❌ Story not found for slug:", slug);
+      return NextResponse.json(
+        { success: false, error: "Story not found" },
+        { status: 404 }
+      );
+    }
 
-export default Story;
+    const page = story.pages.find((p) => p.id === pageId);
+    if (!page) {
+      console.error("❌ Page not found for pageId:", pageId);
+      return NextResponse.json(
+        { success: false, error: "Page not found" },
+        { status: 404 }
+      );
+    }
+
+    console.log("✅ Page trouvée :", page.id);
+    return NextResponse.json({ success: true, page });
+  } catch (err) {
+    console.error("❌ getPage error:", err);
+    return NextResponse.json(
+      { success: false, error: "Server error" },
+      { status: 500 }
+    );
+  }
+}

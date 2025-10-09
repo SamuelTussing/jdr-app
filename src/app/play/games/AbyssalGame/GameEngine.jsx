@@ -14,7 +14,7 @@ export default function GameEngine({ player, goTo }) {
   useEffect(() => {
     const loadPage = async () => {
       try {
-        const res = await fetch("/api/game/pages", {
+        const res = await fetch("/api/game/getPage", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

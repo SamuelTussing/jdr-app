@@ -1,9 +1,42 @@
-import { connectDB } from "@/lib/mongodb"
-import Story from "@/models/Story"
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
+import { NextResponse } from "next/server";
+import { connectDB } from "@/lib/mongodb";
+import Story from "@/models/Story";
 
 export async function POST(req) {
-  console.log("🧪 Route chargée avec import test")
-  return new Response(JSON.stringify({ ok: true }), {
-    headers: { "Content-Type": "application/json" },
-  })
+  console.log("📡 [API] getPage called");
+
+  try {
+    await connectDB();
+    const { slug, pageId } = await req.json();
+
+    const story = await Story.findById(slug);
+    if (!story) {
+      console.error("❌ Story not found for slug:", slug);
+      return NextResponse.json(
+        { success: false, error: "Story not found" },
+        { status: 404 }
+      );
+    }
+
+    const page = story.pages.find((p) => p.id === pageId);
+    if (!page) {
+      console.error("❌ Page not found for pageId:", pageId);
+      return NextResponse.json(
+        { success: false, error: "Page not found" },
+        { status: 404 }
+      );
+    }
+
+    console.log("✅ Page trouvée :", page.id);
+    return NextResponse.json({ success: true, page });
+  } catch (err) {
+    console.error("❌ getPage error:", err);
+    return NextResponse.json(
+      { success: false, error: "Server error" },
+      { status: 500 }
+    );
+  }
 }

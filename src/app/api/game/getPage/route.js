@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
-
-export async function POST() {
-  return NextResponse.json({ ok: true, msg: "✅ route /api/game/getPage works" });
+export async function POST(req) {
+  console.log("🧪 Route chargée avec import test")
+  return new Response(JSON.stringify({ ok: true }), {
+    headers: { "Content-Type": "application/json" },
+  })
 }

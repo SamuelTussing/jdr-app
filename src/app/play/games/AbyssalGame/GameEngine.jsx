@@ -14,11 +14,11 @@ export default function GameEngine({ player, goTo }) {
   useEffect(() => {
     const loadPage = async () => {
       try {
-        const res = await fetch("/api/game/getPage", {
+        const res = await fetch("/api/game", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            slug: "abyssal",
+            slug: "story1",
             pageId: player?.currentPage || "page1", // 🔹 page en cours ou première
           }),
         })

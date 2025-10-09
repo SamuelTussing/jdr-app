@@ -1,5 +1,5 @@
 // Côté API Next.js
-import Story from '../../../models/story';
+import Story from '../../../../models/Story';
 
 export default async function handler(req, res) {
   const { storyId, pageId, choiceLabel, playerStats } = req.body;

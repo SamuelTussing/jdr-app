@@ -1,23 +1,30 @@
-// app/api/game/getPage/route.js
 import { NextResponse } from "next/server"
 import { connectDB } from "@/lib/mongodb"
 import Story from "@/models/Story"
 
 export async function POST(req) {
+  console.log("📡 [API] getPage called")
   try {
     await connectDB()
     const { slug, pageId } = await req.json()
 
-    // 🔍 Trouve l'histoire correspondant au slug (title = slug)
-    const story = await Story.findOne({ slug })
+    // On suppose que slug === _id dans ta DB (ex: "story1")
+    const story = await Story.findById(slug)
     if (!story) {
-      return NextResponse.json({ success: false, error: "Story not found" }, { status: 404 })
+      console.error("❌ Story not found for slug:", slug)
+      return NextResponse.json(
+        { success: false, error: "Story not found" },
+        { status: 404 }
+      )
     }
 
-    // 🧭 Récupère la page demandée, ou la première si rien n’est précisé
-    const page = story.pages.find((p) => p.id === (pageId || "page1"))
+    const page = story.pages.find((p) => p.id === pageId)
     if (!page) {
-      return NextResponse.json({ success: false, error: "Page not found" }, { status: 404 })
+      console.error("❌ Page not found for pageId:", pageId)
+      return NextResponse.json(
+        { success: false, error: "Page not found" },
+        { status: 404 }
+      )
     }
 
     return NextResponse.json({ success: true, page })

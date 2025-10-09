@@ -18,7 +18,7 @@ export default function GameEngine({ player, goTo }) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            slug, // 🔹 le titre de l’histoire = slug
+            slug: "story1",
             pageId: player?.currentPage || "page1", // 🔹 page en cours ou première
           }),
         })

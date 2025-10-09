@@ -9,7 +9,7 @@ export async function POST(req) {
     const { slug, pageId } = await req.json()
 
     // 🔍 Trouve l'histoire correspondant au slug (title = slug)
-    const story = await Story.findOne({ title: slug })
+    const story = await Story.findOne({ slug })
     if (!story) {
       return NextResponse.json({ success: false, error: "Story not found" }, { status: 404 })
     }

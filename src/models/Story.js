@@ -15,6 +15,7 @@ const pageSchema = new mongoose.Schema({
 
 const storySchema = new mongoose.Schema({
   _id: String, // ou laisse Mongo générer un ObjectId
+  slug: { type: String, required: true, unique: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
   pages: [pageSchema]

@@ -40,7 +40,7 @@ export default function GameEngine({ player, goTo }) {
   const handleChoice = async (choiceLabel) => {
     try {
       setRolling(true)
-      const res = await fetch("/api/story/nextPage", {
+      const res = await fetch("/api/game/nextPage", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -85,6 +85,11 @@
   letter-spacing: 2px;
 }
 
+.content-container2{
+  display: flex;
+  flex-direction: row;
+}
+
 /* Content Area */
 .content-area {
   display: flex;

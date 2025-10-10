@@ -85,7 +85,7 @@ export default function GameEngine({ player, goTo }) {
           <span className="menu-icon"></span>
         </button>
       </div>
-
+      <div className="content-container2">
       {/* IMAGE */}
       {pageData.img && (
         <div
@@ -99,6 +99,7 @@ export default function GameEngine({ player, goTo }) {
         {pageData.text.split("\n").map((line, i) => (
           <p key={i}>{line}</p>
         ))}
+      </div>
       </div>
 
       {/* 🎲 Résultat du lancer */}

@@ -54,15 +54,7 @@ export default function Accueil({ goTo }) {
     const currentStep = saveData.currentStep || "jeu"
 
     console.log("➡️ Reprise partie depuis:", currentStep, hero)
-
-    // 🧭 Si la sauvegarde contient une page (ex: "page_03"), on reprend dans le GameEngine
-    if (currentStep.startsWith("page")) {
-      goTo("jeu", { ...hero, currentPage: currentStep })
-    } else {
-      goTo(currentStep, hero)
-    }
   }
-
   if (loading) {
     return (
       <div className="game-container1">
@@ -102,4 +94,4 @@ export default function Accueil({ goTo }) {
       </div>
     </div>
   )
-}
+  }

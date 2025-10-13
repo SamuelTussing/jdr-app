@@ -15,11 +15,11 @@ export async function POST(req) {
 
     const user = await User.findOne({ username })
 
-    if (!user || !user.saves?.jeu1) {
+    if (!user || !user.saves?.abyssal) {
       return NextResponse.json({ success: false, error: "Aucune sauvegarde trouvée" }, { status: 404 })
     }
 
-    return NextResponse.json({ success: true, hero: user.saves.jeu1 })
+    return NextResponse.json({ success: true, hero: user.saves.abyssal })
   } catch (error) {
     console.error("❌ Erreur load:", error)
     return NextResponse.json({ success: false, error: "Erreur serveur" }, { status: 500 })

@@ -29,9 +29,17 @@ export default function JeuPage() {
 
         const data = await res.json()
         if (res.ok && data.success && data.save) {
-          setPlayer(data.save.hero)
-          setStep(data.save.currentStep || "accueil")
-          console.log("✅ Sauvegarde chargée :", data.save)
+          const save = data.save
+          console.log("✅ Sauvegarde chargée :", save)
+
+          // 🧩 BONUS : si la sauvegarde indique une page (ex: "page3"), on reprend directement le jeu à cette page
+          if (save.currentStep?.startsWith("page")) {
+            setStep("jeu")
+            setPlayer({ ...save.hero, currentPage: save.currentStep })
+          } else {
+            setStep(save.currentStep || "accueil")
+            setPlayer(save.hero)
+          }
         }
       } catch (err) {
         console.error("❌ Erreur récupération sauvegarde:", err)
@@ -43,40 +51,48 @@ export default function JeuPage() {
 
   // ⚡ Sauvegarde côté serveur (hero + currentStep)
   async function saveToDB(hero, currentStep) {
-  try {
-    const userStr = sessionStorage.getItem("user");
-    const username = userStr ? JSON.parse(userStr).username : null;
-    if (!username) {
-      console.warn("Aucun utilisateur connecté → sauvegarde ignorée");
-      return;
+    try {
+      const userStr = sessionStorage.getItem("user")
+      const username = userStr ? JSON.parse(userStr).username : null
+      if (!username) {
+        console.warn("Aucun utilisateur connecté → sauvegarde ignorée")
+        return
+      }
+
+      console.log("📤 saveToDB payload:", { username, hero, currentStep })
+
+      const res = await fetch("/api/game/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, hero, currentStep }),
+      })
+
+      const data = await res.json()
+      if (!data.success) {
+        console.error("Erreur save:", data.error)
+      } else {
+        console.log("✅ Hero sauvegardé :", data.player)
+      }
+    } catch (err) {
+      console.error("❌ Erreur de connexion API:", err)
     }
-
-    console.log("📤 saveToDB payload:", { username, hero, currentStep });
-
-    const res = await fetch("/api/game/save", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, hero, currentStep }),
-    });
-
-    const data = await res.json();
-    if (!data.success) {
-      console.error("Erreur save:", data.error);
-    } else {
-      console.log("✅ Hero sauvegardé :", data.player);
-    }
-  } catch (err) {
-    console.error("❌ Erreur de connexion API:", err);
   }
-}
 
   // ⚡ Fonction centralisée pour changer d'étape et sauvegarder
   const goTo = (newStep, hero = null) => {
     const updatedHero = hero || player
     if (updatedHero) {
       setPlayer(updatedHero)
-      saveToDB(updatedHero, newStep) // on sauvegarde la page actuelle
+
+      // 🧠 Si on est dans le jeu, on sauvegarde la page courante (currentPage)
+      const stepToSave =
+        newStep === "jeu"
+          ? updatedHero.currentPage || "page1"
+          : newStep
+
+      saveToDB(updatedHero, stepToSave)
     }
+
     setStep(newStep)
   }
 

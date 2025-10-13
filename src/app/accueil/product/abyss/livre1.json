@@ -1,13 +1,14 @@
 {
-  "_id": "story1",
+  "_id": "abyssal",
   "title": "Abyssal",
+  "slug":"abyssal",
   "description": "Une aventure aux confins de l'Antartique",
   "pages": [
     {
       "id": "page1",
       "img":"/vue-montagne.png",
       "text": "— Faucon 1 à Ruche, vous me recevez ?\n— Ici La Ruche, cinq sur cinq.\n— Nous sommes sans nouvelles du Nid depuis plus de quarante-huit heures. Avez-vous établi le contact ?\n— Négatif. Et la patrouille Alpha ?\n— Aucune réponse. Vingt heures depuis leur départ. La tempête fait rage sans interruption. Nous avons perdu le lien radio avec le Nid, impossible de rétablir la communication. Les températures frôlent les –40 °C, le blizzard nous enferme dans nos positions. Nous craignons qu’Alpha ait déjà succombé.\n— Tentez de réparer vos systèmes. Alpha doit porter une balise GPS. Envoyez une équipe à leur recherche.\n— Impossible. Leur balise s’est tue il y a quinze heures. Dernière position enregistrée : cinq kilomètres au sud. Terrain accidenté et… attendez…\n(un silence chargé, parasites dans la radio)\n— Que se passe-t-il ?\n— Mouvement à l’extérieur… nos capteurs viennent de…\n(un fracas métallique — une porte qui explose, cris de panique)\n— C’EST QUOI CE BOR…?!\n(hurlement inhumain)\n— FUYEZ !!!\n(rafales d’armes automatiques, cris étouffés)\n— NOUS SOMMES ATTA— UN MONS—\n(cri arraché, puis silence)\n— Contact radio perdu.",
-      "audio": ["https://drive.google.com/file/d/1DNZw9X-GO8mxXZDr03vtWurx4NNsX9Qp/view"],
+      "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
       "choices": [
         { "label": "Suite", "nextPage": "page2" }
       ]
@@ -15,7 +16,7 @@
     {
       "id": "page2",
       "text": "Trois jours. Voilà à peine trois jours que le QG a perdu tout contact avec l’avant-poste, et me voilà déjà coincé dans un avion cap vers l’Antarctique.\n\nLe ciel est étonnamment clair. Par le hublot, je distingue les contours d’une île déserte, perdue au milieu de l’océan austral. L’équipage annonce l’atterrissage d’ici moins d’une heure.\n\nCela fait bien longtemps que je n’ai pas eu à affronter les vents glacials… et pour être honnête, ça ne m’avait pas manqué.\n\nS’ils m’ont dépêché aussi vite, c’est que ce fameux “centre de recherche” n’a rien d’officiel. Encore un complexe illégal de cette foutue milice… Toujours à me salir les mains pour eux. Toujours à couvrir leurs histoires.\n\nLe rapport est aussi mince que suspect : aucune mention claire sur la nature du projet, juste un détail qui me reste en travers de la gorge. Les transmissions se sont éteintes depuis une semaine. La dernière communication parle d’une fusillade à proximité de l’avant-poste.\n\nOn commencera les recherches là-bas.",
-      "audio": ["https://drive.google.com/file/d/1DNZw9X-GO8mxXZDr03vtWurx4NNsX9Qp/view"],
+      "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
       "choices": [
         { "label": "Suite", "nextPage": "page3" }
       ]
@@ -23,7 +24,7 @@
     {
   "id": "page3",
   "text": "— Ici le pilote. Attachez vos ceintures, le temps se gâte.\n\nLe ciel s’est obscurci d’une vitesse inquiétante. Un blizzard s’abat sur nous. La grêle frappe la carlingue avec une telle violence que chaque impact résonne dans mes os. Un craquement sinistre déchire l’air : le pare-brise du cockpit se fissure.\n\nJe tourne la tête vers le hublot. Les nuages, noirs et gonflés, avalent la lumière du jour. Et puis je le vois.\n\nÀ peine perceptible. Plus rapide que l’avion. Une ombre, monstrueuse, informe… dont les contours n’appartiennent pas à ce monde. Mon esprit chancelle à la simple idée d’en soutenir la vision. Elle nous survole, immense, irréelle.\n\nDu cockpit montent des cris de panique. Un hurlement métallique les couvre : des griffes jaillissent du plafond, traversant le blindage comme du papier.\n\nL’avion vacille. Le plancher tremble sous mes pieds. Nous chutons, ballottés comme un jouet dérisoire.",
-  "audio": ["https://cdn.monsite.com/audio/blizzard.mp3"],
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
   "choices": [
     { 
       "label": "Tirer sur les griffes (PER 15)",
@@ -54,7 +55,7 @@
 {
   "id": "page4",
   "text": " Les balles éclatent le plafond, ricochent dans la cabine et arrachent des gerbes d’étincelles. La créature recule, lâche prise… mais seulement pour revenir à l’assaut. Un choc titanesque secoue l’appareil. Le flanc de l’avion se déchire comme une feuille de papier. La bête a frappé. Le fuselage se brise en deux dans un vacarme d’apocalypse. Un torrent d’air glacial s’engouffre aussitôt dans l’habitacle. Le blizzard s’invite à bord, mêlé de grêle et de fragments de glace. Les rafales me lacèrent le visage, ma vision se brouille.\n \n Toujours ceinturé à mon siège, je ne peux qu’assister, impuissant, à la chute de la carcasse. Le sol approche à une vitesse insensée. Chaque seconde martèle dans mon crâne une vérité implacable : l’impact est inévitable",
-  "audio": ["https://cdn.monsite.com/audio/blizzard.mp3"],
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
   "choices": [
     { 
       "label": "Attraper un parachute (END 22)",

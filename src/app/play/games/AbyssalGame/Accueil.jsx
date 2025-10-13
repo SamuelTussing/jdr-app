@@ -31,9 +31,9 @@ export default function Accueil({ goTo }) {
         const data = await res.json()
 
         // ✅ On vérifie la structure renvoyée par ton backend
-        if (data.success && data.save) {
+        if (data.success && data.hero) {
           setHasSave(true)
-          setSaveData(data.save) // on garde l’objet complet { hero, currentStep }
+          setSaveData(data.hero) // on garde l’objet complet { hero, currentStep }
         } else {
           setHasSave(false)
         }

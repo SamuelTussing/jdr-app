@@ -29,9 +29,13 @@ export default function Accueil({ goTo }) {
         }
 
         const data = await res.json()
-        if (data.success && data.hero) {
+
+        // ✅ On vérifie la structure renvoyée par ton backend
+        if (data.success && data.save) {
           setHasSave(true)
-          setSaveData(data.hero) // sauvegarde complète { hero, currentStep }
+          setSaveData(data.save) // on garde l’objet complet { hero, currentStep }
+        } else {
+          setHasSave(false)
         }
       } catch (err) {
         console.error("❌ Erreur vérification sauvegarde:", err)
@@ -48,8 +52,15 @@ export default function Accueil({ goTo }) {
     if (!saveData) return
     const hero = saveData.hero
     const currentStep = saveData.currentStep || "jeu"
+
     console.log("➡️ Reprise partie depuis:", currentStep, hero)
-    goTo(currentStep, hero)
+
+    // 🧭 Si la sauvegarde contient une page (ex: "page_03"), on reprend dans le GameEngine
+    if (currentStep.startsWith("page")) {
+      goTo("jeu", { ...hero, currentPage: currentStep })
+    } else {
+      goTo(currentStep, hero)
+    }
   }
 
   if (loading) {

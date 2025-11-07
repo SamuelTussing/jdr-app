@@ -11,6 +11,7 @@ export async function POST(req) {
     }
 
     await connectDB()
+    console.log("📡 Connexion MongoDB active :", mongoose.connection.name)
 
     // Vérifier si l'email ou le username existe déjà
     const existingUser = await User.findOne({ $or: [{ email }, { username }] })

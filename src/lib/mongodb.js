@@ -17,6 +17,7 @@ export async function connectDB() {
   if (!cached.promise) {
     cached.promise = mongoose.connect(MONGODB_URI, {
       bufferCommands: false,
+      dbName:"jdr",
     }).then((mongoose) => mongoose)
   }
   cached.conn = await cached.promise

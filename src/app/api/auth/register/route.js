@@ -25,7 +25,7 @@ export async function POST(req) {
       username,
       email,
       password: hashedPassword,
-      achats: { jeu1: false, jeu2: false }
+      achats: { abyssal: false, storm: false }
     })
 
     await newUser.save()

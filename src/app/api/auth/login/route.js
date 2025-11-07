@@ -19,7 +19,7 @@ export async function POST(req) {
     if (!user) {
       return NextResponse.json({ error: "Utilisateur non trouvé" }, { status: 404 })
     }
-
+ 
     // Vérifie le mot de passe
     const isValidPassword = await bcrypt.compare(password, user.password)
     if (!isValidPassword) {

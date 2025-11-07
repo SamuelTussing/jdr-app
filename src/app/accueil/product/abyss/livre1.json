@@ -1,87 +1,447 @@
 {
   "_id": "abyssal",
   "title": "Abyssal",
-  "slug":"abyssal",
+  "slug": "abyssal",
   "description": "Une aventure aux confins de l'Antartique",
   "pages": [
     {
       "id": "page1",
-      "img":"/vue-montagne.png",
+      "img": "/vue-montagne.png",
       "text": "— Faucon 1 à Ruche, vous me recevez ?\n— Ici La Ruche, cinq sur cinq.\n— Nous sommes sans nouvelles du Nid depuis plus de quarante-huit heures. Avez-vous établi le contact ?\n— Négatif. Et la patrouille Alpha ?\n— Aucune réponse. Vingt heures depuis leur départ. La tempête fait rage sans interruption. Nous avons perdu le lien radio avec le Nid, impossible de rétablir la communication. Les températures frôlent les –40 °C, le blizzard nous enferme dans nos positions. Nous craignons qu’Alpha ait déjà succombé.\n— Tentez de réparer vos systèmes. Alpha doit porter une balise GPS. Envoyez une équipe à leur recherche.\n— Impossible. Leur balise s’est tue il y a quinze heures. Dernière position enregistrée : cinq kilomètres au sud. Terrain accidenté et… attendez…\n(un silence chargé, parasites dans la radio)\n— Que se passe-t-il ?\n— Mouvement à l’extérieur… nos capteurs viennent de…\n(un fracas métallique — une porte qui explose, cris de panique)\n— C’EST QUOI CE BOR…?!\n(hurlement inhumain)\n— FUYEZ !!!\n(rafales d’armes automatiques, cris étouffés)\n— NOUS SOMMES ATTA— UN MONS—\n(cri arraché, puis silence)\n— Contact radio perdu.",
-      "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
       "choices": [
-        { "label": "Suite", "nextPage": "page2" }
+        {
+          "label": "Suite",
+          "nextPage": "page2"
+        }
       ]
     },
     {
       "id": "page2",
-      "text": "Trois jours. Voilà à peine trois jours que le QG a perdu tout contact avec l’avant-poste, et me voilà déjà coincé dans un avion cap vers l’Antarctique.\n\nLe ciel est étonnamment clair. Par le hublot, je distingue les contours d’une île déserte, perdue au milieu de l’océan austral. L’équipage annonce l’atterrissage d’ici moins d’une heure.\n\nCela fait bien longtemps que je n’ai pas eu à affronter les vents glacials… et pour être honnête, ça ne m’avait pas manqué.\n\nS’ils m’ont dépêché aussi vite, c’est que ce fameux “centre de recherche” n’a rien d’officiel. Encore un complexe illégal de cette foutue milice… Toujours à me salir les mains pour eux. Toujours à couvrir leurs histoires.\n\nLe rapport est aussi mince que suspect : aucune mention claire sur la nature du projet, juste un détail qui me reste en travers de la gorge. Les transmissions se sont éteintes depuis une semaine. La dernière communication parle d’une fusillade à proximité de l’avant-poste.\n\nOn commencera les recherches là-bas.",
-      "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+      "text": "Trois jours. Voilà à peine trois jours que le QG a perdu tout contact avec l’avant-poste, et me voilà déjà coincé dans un avion cap vers l’Antarctique.\n\nLe ciel est étonnamment clair. Par le hublot, je distingue les contours d’une île déserte, perdue au milieu de l’océan austral. L’équipage annonce l’atterrissage d’ici moins d’une heure.\n\nCela fait bien longtemps que je n’ai pas eu à affronter les vents glacials… et pour être honnête, ça ne m’avait pas manqué.\n\nS’ils m’ont dépêché aussi vite, c’est que ce fameux “centre de recherche” n’a rien d’officiel. Encore un complexe illégal de cette foutue milice… Toujours à me salir les mains pour eux. Toujours à couvrir leurs histoires.\n\nLe rapport est aussi mince que suspect : aucune mention claire sur la nature du projet, juste un détail qui me reste en travers de la gorge. Les transmissions se sont éteintes depuis une semaine. La dernière communication parle d’une fusillade à proximité de l’avant-poste.\n\nOn commencera les recherches là-bas.\n\nEn refermant le dossier, un léger froissement attire mon attention. Une lettre s’en échappe et glisse jusqu’au sol, effleurant ma botte avant de s’immobiliser. L’enveloppe est d’un papier épais, jauni par le temps, constellé de taches sombres comme des brûlures anciennes. Elle est scellée d’une cire fissurée, où l’on distingue à peine le relief d’un symbole effacé — une sorte de spirale entortillée sur elle-même, presque organique.\n\nJe ne me souviens pas avoir vu cette lettre mentionnée dans le rapport. Pourtant, elle était là, dissimulée entre les pages.\n\nQuelque chose, dans la texture du papier, me donne la désagréable impression qu’elle n’attendait que moi.",
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
       "choices": [
-        { "label": "Suite", "nextPage": "page3" }
+        {
+          "label": "Suite",
+          "nextPage": "page3"
+        },
+        {
+          "label": "Ouvrir l'enveloppe",
+          "nextPage": "page20"
+        }
       ]
     },
     {
-  "id": "page3",
-  "text": "— Ici le pilote. Attachez vos ceintures, le temps se gâte.\n\nLe ciel s’est obscurci d’une vitesse inquiétante. Un blizzard s’abat sur nous. La grêle frappe la carlingue avec une telle violence que chaque impact résonne dans mes os. Un craquement sinistre déchire l’air : le pare-brise du cockpit se fissure.\n\nJe tourne la tête vers le hublot. Les nuages, noirs et gonflés, avalent la lumière du jour. Et puis je le vois.\n\nÀ peine perceptible. Plus rapide que l’avion. Une ombre, monstrueuse, informe… dont les contours n’appartiennent pas à ce monde. Mon esprit chancelle à la simple idée d’en soutenir la vision. Elle nous survole, immense, irréelle.\n\nDu cockpit montent des cris de panique. Un hurlement métallique les couvre : des griffes jaillissent du plafond, traversant le blindage comme du papier.\n\nL’avion vacille. Le plancher tremble sous mes pieds. Nous chutons, ballottés comme un jouet dérisoire.",
+      "id": "page20",
+      "text": "Je casse délicatement le sceau de cire. L’enveloppe s’ouvre dans un souffle sec, libérant une fine poussière jaunâtre qui me chatouille les narines. À l’intérieur, une lettre pliée en quatre, à l’encre presque effacée par le temps. L’écriture tremblée trahit la main d’un homme en proie à la peur.\n\nLa signature me glace le sang : *Professeur William Dyer.* Membre d’une expédition scientifique en Antarctique… il y a plus de cent ans. Ce nom, je l’ai déjà entendu au centre de recherche en Europe. On l’évoquait parfois, à voix basse, comme une légende que personne n’osait vérifier.\n\nJe lis :\n\n\"Je suis obligé d’intervenir parce que les hommes de science ont refusé de suivre mes avis sans en connaître les motifs...\" [texte illisible] \"L’air était empli d’une répugnante odeur indescriptible, âcre... rendant nos chiens hystériques...\" [texte illisible] \"À notre arrivée au camp, tout n’était que désolation. Il n’y avait plus de spécimens de l’espèce que nous appelions les ‘Grands Anciens’. Les chiens s’étaient enfuis...\" [texte illisible] \"Les corps mutilés de mon équipe gisaient au sol, nus. Les mutilations, précises, suggéraient que l’auteur de cette macabre scène avait pour but de se nourrir...\" [texte illisible] \"Le matériel, la nourriture et les traîneaux ont disparu. Il manque également un corps...\" [texte illisible] \n\n\"Mais si je dois vous mettre en garde contre la plus grande horreur qu’il m’a été donné de voir — celle qui me hantera jusqu’à mon dernier souffle — une horreur informe, faite d’une matière protoplasmique noire onyx... se déplaçant dans le silence absolu... un sifflement à en faire perdre la raison... des yeux... des membres informes...\" \n\nLe reste du texte est devenu illisible, rongé par le temps. En bas de la page, une seule ligne, répétée trois fois, plus sombre, presque gravée dans le papier :\n\n*Tekeli-li, Tekeli-li, Tekeli-li...*",
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
+      "choices": [
+        {
+          "label": "Suite",
+          "nextPage": "page3"
+        }
+      ]
+    },
+    {
+      "id": "page3",
+      "text": "— Ici le pilote. Attachez vos ceintures, le temps se gâte.\n\nLe ciel s’est obscurci d’une vitesse inquiétante. Un blizzard s’abat sur nous. La grêle frappe la carlingue avec une telle violence que chaque impact résonne dans mes os. Un craquement sinistre déchire l’air : le pare-brise du cockpit se fissure.\n\nJe tourne la tête vers le hublot. Les nuages, noirs et gonflés, avalent la lumière du jour. Et puis je le vois.\n\nÀ peine perceptible. Plus rapide que l’avion. Une ombre, monstrueuse, possédant des ailes et des... tentacules ?... dont les contours n’appartiennent pas à ce monde. Mon esprit chancelle à la simple idée d’en soutenir la vision. Elle nous survole, immense, irréelle.\n\nDu cockpit montent des cris de panique. Un hurlement métallique les couvre : ce qui ressemblerait à des pattes — ou des griffes — d’une forme totalement inconnue jaillit du plafond, traversant le blindage comme du papier.\n\nL’avion vacille. Le plancher tremble sous mes pieds. Nous chutons, ballottés comme un jouet dérisoire.",
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
+      "choices": [
+        {
+          "label": "Tirer sur les griffes (PER 15)",
+          "stat": "perception",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page4",
+              "chance": 15
+            },
+            {
+              "type": "failure",
+              "nextPage": "page5"
+            }
+          ]
+        },
+        {
+          "label": "Aller dans le cockpit (END 15)",
+          "stat": "endurance",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page6",
+              "chance": 15
+            },
+            {
+              "type": "failure",
+              "nextPage": "page7"
+            }
+          ]
+        },
+        {
+          "label": "Attraper un parachute (AGI 19)",
+          "stat": "agilite",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page8",
+              "chance": 19
+            },
+            {
+              "type": "failure",
+              "nextPage": "page9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page4",
+      "text": "J’arrache mon pistolet de son étui et vide mon chargeur vers les lames monstrueuses qui éventrent l’appareil. Les balles ricochent sur le métal, avalées par les rafales de vent. L’ombre semble insensible à mon assaut. L’avion gémit, se disloque. La chute est inévitable.\n\nLes balles éclatent le plafond, ricochent dans la cabine et arrachent des gerbes d’étincelles. La créature recule, lâche prise… mais seulement pour revenir à l’assaut.\n\nUn choc titanesque secoue l’appareil. Le flanc de l’avion se déchire comme une feuille de papier. La bête a frappé. Le fuselage se brise en deux dans un vacarme d’apocalypse.\n\nUn torrent d’air glacial s’engouffre aussitôt dans l’habitacle. Le blizzard s’invite à bord, mêlé de grêle et de fragments de glace. Les rafales me lacèrent le visage, ma vision se brouille.\n\nToujours ceinturé à mon siège, je ne peux qu’assister, impuissant, à la chute de la carcasse. Le sol approche à une vitesse insensée. Chaque seconde martèle dans mon crâne une vérité implacable : l’impact est inévitable.",
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
+      "choices": [
+        {
+          "label": "Attraper un parachute (END 22)",
+          "stat": "endurance",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page10",
+              "chance": 22
+            },
+            {
+              "type": "failure",
+              "nextPage": "page11"
+            }
+          ]
+        },
+        {
+          "label": "Se détacher (AGI 22)",
+          "stat": "agilite",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page12",
+              "chance": 22
+            },
+            {
+              "type": "failure",
+              "nextPage": "page13"
+            }
+          ]
+        },
+        {
+          "label": "Prier (MAG 24)",
+          "stat": "magie",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page14",
+              "chance": 24
+            },
+            {
+              "type": "failure",
+              "nextPage": "page15"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page5",
+      "text": "Les balles éclatent le plafond, ricochent dans la cabine et arrachent des gerbes d’étincelles. La créature recule, lâche prise… mais seulement pour revenir à l’assaut.\n\nUn choc titanesque secoue l’appareil. Le flanc de l’avion se déchire comme une feuille de papier. La bête a frappé. Le fuselage se brise en deux dans un vacarme d’apocalypse.\n\nUn torrent d’air glacial s’engouffre aussitôt dans l’habitacle. Le blizzard s’invite à bord, mêlé de grêle et de fragments de glace. Les rafales me lacèrent le visage, ma vision se brouille.\n\nToujours ceinturé à mon siège, je ne peux qu’assister, impuissant, à la chute de la carcasse. Le sol approche à une vitesse insensée. Chaque seconde martèle dans mon crâne une vérité implacable : l’impact est inévitable.\n\nJ’arrache mon pistolet de son étui et vide mon chargeur vers les lames monstrueuses qui éventrent l’appareil. Les balles ricochent sur le métal, avalées par les rafales de vent. L’ombre semble insensible à mon assaut. L’avion gémit, se disloque. La chute est inévitable.",
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
+      "choices": [
+        {
+          "label": "Attraper un parachute (END 22)",
+          "stat": "endurance",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page10",
+              "chance": 22
+            },
+            {
+              "type": "failure",
+              "nextPage": "page11"
+            }
+          ]
+        },
+        {
+          "label": "Se détacher (AGI 22)",
+          "stat": "agilite",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page12",
+              "chance": 22
+            },
+            {
+              "type": "failure",
+              "nextPage": "page13"
+            }
+          ]
+        },
+        {
+          "label": "Prier (MAG 24)",
+          "stat": "magie",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page14",
+              "chance": 24
+            },
+            {
+              "type": "failure",
+              "nextPage": "page15"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page6",
+      "text": "Je me détache et me lance à travers la cabine, bousculé par les secousses. Des morceaux de carlingue arrachés volent comme des lames autour de moi. J’atteins presque le cockpit, mais déjà la structure cède… L’impact m’emporte.\n\nJ’atteins le cockpit au moment précis où le pare-brise éclate sous la pression. Une pluie de débris scintillants se répand dans la cabine. Les éclats de verre me lacèrent le visage.\n\nJe bondis sur le siège du copilote et agrippe le manche à deux mains, mais la scène qui s’offre à moi me glace le sang : le pilote, toujours attaché, gît la tête rejetée en arrière. Ses yeux, blanchâtres et vitreux, saignent lentement, dessinant des traînées écarlates sur ses joues figées.\n\nJe n’ai pas le temps de comprendre. Dans un hurlement de métal, la bête frappe de nouveau. Le fuselage cède, l’avion se brise en deux.\n\nLa chute libre commence. Je me cramponne au siège, fouetté par le blizzard et transpercé par le froid mortel de l’Antarctique. Le monde n’est plus qu’un chaos de glace, de vent et de hurlements. Chaque respiration est un combat. Chaque battement de cœur résonne comme un glas dans le vacarme de la fin du monde.",
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
+      "choices": [
+        {
+          "label": "Suite",
+          "nextPage": "page16"
+        }
+      ],
+      "results": {
+        "vie": -1,
+        "horreur": 0
+      }
+    },
+    {
+      "id": "page7",
+      "text": "Je me détache et me lance à travers la cabine, bousculé par les secousses. Des morceaux de carlingue arrachés volent comme des lames. Je lutte pour avancer, balancé en tous sens par les secousses, le métal grince de plus en plus tout autour de moi. J’avance dans l’allée, chaque pas un défi pour ne pas être projeté au sol.\n\nLes secousses secouent l’avion comme un jouet, et chaque mouvement devient une lutte contre le chaos.\n\nAlors que je me glisse sous un débris suspendu pour atteindre le cockpit, une des griffes du monstre m’atteint. La douleur fuse, déchirant mon bras et me déséquilibrant. Mes doigts glissent sur le sol gelé et je sens le métal et les éclats de verre m’érafler.\n\nMalgré la blessure, je continue à avancer, le souffle court, la peur martelant chaque battement de mon cœur. Le cockpit n’est plus très loin… si seulement je parviens à tenir jusque-là.\n\nJe bondis sur le siège du copilote et agrippe le manche à deux mains, mais la scène qui s’offre à moi me glace le sang : le pilote, toujours attaché, gît la tête rejetée en arrière. Ses yeux, blanchâtres et vitreux, saignent lentement, dessinant des traînées écarlates sur ses joues figées.\n\nJe n’ai pas le temps de comprendre. Dans un hurlement de métal, la bête frappe de nouveau. Le fuselage cède, l’avion se brise en deux.\n\nLa chute libre commence. Je me cramponne au siège, fouetté par le blizzard et transpercé par le froid mortel de l’Antarctique. Le monde n’est plus qu’un chaos de glace, de vent et de hurlements.",
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
+      "choices": [
+        {
+          "label": "Suite",
+          "nextPage": "page16"
+        }
+      ],
+      "results": {
+        "vie": -2,
+        "horreur": 0
+      }
+    },
+    {
+      "id": "page8",
+      "text": "Mon regard accroche un compartiment de sécurité éventré : à l’intérieur, un parachute. Je tends la main, luttant contre les bourrasques. Mes doigts se referment sur la toile au moment où le fuselage se brise. En voyant les griffes monstrueuses éventrer la carlingue, une seule pensée me traverse : sauter, et vite.\n\nMes yeux accrochent un sac de parachute ballotant à portée de main. Je tends le bras, luttant contre les secousses qui menacent de me projeter dans le vide.\n\nMes doigts glissent, manquent leur prise… puis s’accrochent enfin à la sangle. Dans un effort désespéré, je tire le sac contre moi et l’enroule autour de mon torse, comme si ma vie en dépendait — et c’est le cas.\n\nUne nouvelle déchirure secoue l’appareil. Dans un hurlement de métal, le fuselage se brise en deux. L’air s’engouffre dans la cabine avec une violence inouïe, aspirant débris et bagages dans un chaos tourbillonnant.\n\nCette fois, je ne lâche pas. Le vide m’arrache du siège, le froid me transperce, le blizzard m’aveugle… mais mes bras restent crispés sur le parachute.\n\nLa chute est vertigineuse. Le sol approche à une vitesse folle.\n\nEt dans cette tempête de glace et de peur, une lueur d’espoir subsiste : j’ai peut-être une chance de survivre.",
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
+      "choices": [
+        {
+          "label": "Ouvrir le parachute (INT 18)",
+          "stat": "intelligence",
+          "outcomes": [
+            {
+              "type": "success",
+              "nextPage": "page17",
+              "chance": 18
+            },
+            {
+              "type": "failure",
+              "nextPage": "page18"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page9",
+      "text": "Mon regard accroche un compartiment de sécurité éventré : à l’intérieur, un parachute. Je tends la main, luttant contre les bourrasques. Mes doigts se referment sur la toile au moment où le fuselage se brise. En voyant les griffes monstrueuses éventrer la carlingue, une seule pensée me traverse : sauter, et vite.\n\nMes yeux accrochent un sac de parachute à portée de main. Je tends le bras, luttant contre les secousses qui me projettent dans tous les sens.\n\nMes doigts effleurent la toile… mais une ultime déchirure secoue l’appareil. Dans un hurlement de métal, le fuselage se brise en deux. L’air s’engouffre dans la cabine avec une force démente, aspirant tout ce qui n’est pas arrimé : bagages, débris… et le parachute.\n\nJe m’agrippe à mon siège au moment où le vide m’avale. Le froid s’écrase contre mon visage comme mille lames de glace. Le blizzard m’aveugle, chaque rafale m’arrache un peu plus de souffle et de lucidité.\n\nLa chute est interminable. Et l’obscurité me guette.",
+      "audio": [
+        "https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"
+      ],
+      "results": {
+        "horreur": 1
+      },
+      "choices": [
+        {
+          "label": "Suite",
+          "nextPage": "page19"
+        }
+      ]
+    },
+{
+  "id": "page10",
+  "text": "Dans un ultime effort, je tâtonne sous mon siège, cherchant désespérément le parachute fixé à la structure.\n\nMon corps est engourdi par le froid mordant, chaque geste est une torture, mes muscles refusent d’obéir. Je saisis enfin le parachute et parviens, malgré mes doigts lourds, à l’enfiler sur mon ventre.\n\nJe l’attache d’un geste tremblant et tire sur la poignée dans un dernier sursaut de lucidité.\n\nLa toile s’arrache dans un claquement sec, et ma chute est brutalement stoppée. Le choc est si violent qu’il m’arrache un cri, avant que l’obscurité ne m’engloutisse. Je reprends lentement conscience, étendu sur un sol gelé, dur comme du marbre, recouvert d’un manteau de neige immaculée. Autour de moi, des débris d’avion sont éparpillés, certains encore léchés par des flammes vacillantes qui crépitent dans le silence glacé.\n\nLe ciel, étrangement limpide, arbore un bleu éclatant. Le soleil, bas sur l’horizon, caresse ma peau d’une chaleur trompeuse, presque rassurante. Contre toute attente, je suis vivant. Cette simple pensée m’emplit d’un sentiment d’apaisement fugace…\n\nMais déjà, l’angoisse refait surface. Mes membres engourdis me répondent mal tandis que je me relève en titubant, balayant le paysage du regard à la recherche d’un signe de vie, d’un survivant, d’un repère…\n\nEt puis cette pensée, brutale, s’impose à mon esprit. Cette chose.\nLa simple évocation du monstre me glace plus sûrement que le vent polaire. Mes poils se hérissent, mes entrailles se tordent. Était-ce un cauchemar dû au choc… ou est-elle encore là, quelque part, tapie dans le blanc infini ?",
   "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
   "choices": [
-    { 
-      "label": "Tirer sur les griffes (PER 15)",
-      "stat":"perception",
-      "outcomes": [
-        { "type": "success", "nextPage": "page4", "chance": 15 }, 
-        { "type": "failure", "nextPage": "page5"}
-      ]
-    },
-    { 
-      "label": "Aller dans le cockpit (END 15)",
-      "stat":"endurance",
-      "outcomes": [
-        { "type": "success", "nextPage": "page6", "chance": 15 },
-        { "type": "failure", "nextPage": "page7" }
-      ]
-    },
-    { 
-      "label": "Attraper un parachute (AGI 19)",
-      "stat":"agilite",
-      "outcomes": [
-        { "type": "success", "nextPage": "page8", "chance": 19 },
-        { "type": "failure", "nextPage": "page9"}
-      ]
+    {
+      "label": "suite",
+      "nextPage": "page20"
     }
   ]
 },
 {
-  "id": "page4",
-  "text": " Les balles éclatent le plafond, ricochent dans la cabine et arrachent des gerbes d’étincelles. La créature recule, lâche prise… mais seulement pour revenir à l’assaut. Un choc titanesque secoue l’appareil. Le flanc de l’avion se déchire comme une feuille de papier. La bête a frappé. Le fuselage se brise en deux dans un vacarme d’apocalypse. Un torrent d’air glacial s’engouffre aussitôt dans l’habitacle. Le blizzard s’invite à bord, mêlé de grêle et de fragments de glace. Les rafales me lacèrent le visage, ma vision se brouille.\n \n Toujours ceinturé à mon siège, je ne peux qu’assister, impuissant, à la chute de la carcasse. Le sol approche à une vitesse insensée. Chaque seconde martèle dans mon crâne une vérité implacable : l’impact est inévitable",
+  "id": "page11",
+  "text": "Dans un ultime effort, je tâtonne sous mon siège, cherchant désespérément le parachute fixé à la structure.\n\nMon corps est engourdi par le froid mordant, chaque geste est une torture, mes muscles refusent d’obéir. Je sens la sangle du parachute, mais mes doigts gelés glissent dessus sans parvenir à la saisir.\n\nLe froid me paralyse, chaque seconde réduit mes forces à néant.\n\nMes paupières s’alourdissent alors que la tempête déchire mon corps et mon esprit. La dernière chose que je perçois est la silhouette monstrueuse qui fond sur moi, avant que la nuit ne m’emporte.\n\nJe reprends lentement conscience, étendu sur un sol gelé, dur comme du marbre, recouvert d’un manteau de neige immaculée. Autour de moi, des débris d’avion sont éparpillés, certains encore léchés par des flammes vacillantes qui crépitent dans le silence glacé.\n\nLe ciel, étrangement limpide, arbore un bleu éclatant. Le soleil, bas sur l’horizon, caresse ma peau d’une chaleur trompeuse, presque rassurante. Contre toute attente, je suis vivant. Cette simple pensée m’emplit d’un sentiment d’apaisement fugace…\n\nMais déjà, l’angoisse refait surface. Mes membres engourdis me répondent mal tandis que je me relève en titubant, balayant le paysage du regard à la recherche d’un signe de vie, d’un survivant, d’un repère…\n\nEt puis cette pensée, brutale, s’impose à mon esprit. Cette chose.\nLa simple évocation du monstre me glace plus sûrement que le vent polaire. Mes poils se hérissent, mes entrailles se tordent. Était-ce un cauchemar dû au choc… ou est-elle encore là, quelque part, tapie dans le blanc infini ?",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+  "results": {
+    "vie": -2
+  },
+  "choices": [
+    {
+      "label": "Suite",
+      "nextPage": "page20"
+    }
+  ]
+},
+{
+  "id": "page12",
+  "text": "Dans un ultime effort, alors que je dégringole encore prisonnier de mon siège arraché, je lutte pour atteindre la sangle.\n\nLe vent hurle autour de moi, cinglant ma peau de mille aiguilles glacées. Le froid engourdit mes membres, chaque geste devient une épreuve insurmontable.\n\nMes doigts tremblants glissent sur le métal de la boucle de sécurité. La ceinture m’écrase la poitrine à chaque rafale, me clouant à ce siège qui menace de devenir mon tombeau.\n\nJ’insiste, mes mains luttant contre le gel et la panique, alors que le vide m’engloutit toujours plus vite. Mes doigts trouvent enfin la boucle, et dans un déclic sec, la ceinture cède.\n\nMon corps est projeté hors du siège, aspiré par le vide. La liberté a un goût amer : le blizzard me gifle aussitôt, m’arrache le souffle et brouille ma vision.\n\nLa toile s’arrache dans un claquement sec, et ma chute est brutalement stoppée. Le choc est si violent qu’il m’arrache un cri, avant que l’obscurité ne m’engloutisse. Je reprends lentement conscience, étendu sur un sol gelé, dur comme du marbre, recouvert d’un manteau de neige immaculée. Autour de moi, des débris d’avion sont éparpillés, certains encore léchés par des flammes vacillantes qui crépitent dans le silence glacé.\n\nLe ciel, étrangement limpide, arbore un bleu éclatant. Le soleil, bas sur l’horizon, caresse ma peau d’une chaleur trompeuse, presque rassurante. Contre toute attente, je suis vivant. Cette simple pensée m’emplit d’un sentiment d’apaisement fugace…\n\nMais déjà, l’angoisse refait surface. Mes membres engourdis me répondent mal tandis que je me relève en titubant, balayant le paysage du regard à la recherche d’un signe de vie, d’un survivant, d’un repère…\n\nEt puis cette pensée, brutale, s’impose à mon esprit. Cette chose.\nLa simple évocation du monstre me glace plus sûrement que le vent polaire. Mes poils se hérissent, mes entrailles se tordent. Était-ce un cauchemar dû au choc… ou est-elle encore là, quelque part, tapie dans le blanc infini ?",
   "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
   "choices": [
-    { 
-      "label": "Attraper un parachute (END 22)",
-      "stat":"endurance",
+    {
+      "label": "Suite",
+      "nextPage": "page20"
+    }
+  ]
+},
+{
+  "id": "page13",
+  "text": "Dans un ultime effort, alors que je dégringole encore prisonnier de mon siège arraché, je lutte pour atteindre la sangle.\n\nLe vent hurle autour de moi, cinglant ma peau de mille aiguilles glacées. Le froid engourdit mes membres, chaque geste devient une épreuve insurmontable.\n\nMes doigts tremblants glissent sur le métal de la boucle de sécurité. La ceinture m’écrase la poitrine à chaque rafale, me clouant à ce siège qui menace de devenir mon tombeau.\n\nJ’insiste, mes mains luttant contre le gel et la panique, alors que le vide m’engloutit toujours plus vite. Mes doigts glissent une fois de plus sur la boucle, engourdis par le gel. La ceinture refuse de céder.\n\nLe froid mord mes os, le vent rugit à mes oreilles, et je sens déjà mes forces s’éteindre. Toujours prisonnier de mon siège, je ne suis plus qu’un fardeau de chair et de métal emporté par le vide. La panique se dissipe dans une étrange torpeur… et l’obscurité m’enveloppe.\n\nJe reprends lentement conscience, étendu sur un sol gelé, dur comme du marbre, recouvert d’un manteau de neige immaculée. Autour de moi, des débris d’avion sont éparpillés, certains encore léchés par des flammes vacillantes qui crépitent dans le silence glacé.\n\nLe ciel, étrangement limpide, arbore un bleu éclatant. Le soleil, bas sur l’horizon, caresse ma peau d’une chaleur trompeuse, presque rassurante. Contre toute attente, je suis vivant. Cette simple pensée m’emplit d’un sentiment d’apaisement fugace…\n\nMais déjà, l’angoisse refait surface. Mes membres engourdis me répondent mal tandis que je me relève en titubant, balayant le paysage du regard à la recherche d’un signe de vie, d’un survivant, d’un repère…\n\nEt puis cette pensée, brutale, s’impose à mon esprit. Cette chose.\nLa simple évocation du monstre me glace plus sûrement que le vent polaire. Mes poils se hérissent, mes entrailles se tordent. Était-ce un cauchemar dû au choc… ou est-elle encore là, quelque part, tapie dans le blanc infini ?",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+  "results": {
+    "vie": "-2",
+    "horreur": "+1"
+  },
+  "choices": [
+    {
+      "label": "Suite",
+      "nextPage": "page20"
+    }]
+},
+{
+  "id": "page14",
+  "text": "Toujours prisonnier de mon siège, je tombe au-dessus de l’océan de glace, impuissant.\n\nMes paupières se ferment, et dans un souffle j’invoque un dieu, n’importe lequel, s’il en existe un. Le froid s’infiltre dans chaque fibre de mon corps, gelant mes pensées, engourdissant mes muscles, et pourtant mon esprit reste paisible. Autour de moi, les débris virevoltent dans une danse macabre, emportés dans le tumulte de la tempête.\n\nLa chute s’allonge, interminable. Puis, soudain, un choc brutal : un objet me heurte violemment, et l’obscurité s’abat sur moi comme un linceul. Je reprends lentement conscience, étendu sur un sol gelé, dur comme du marbre, recouvert d’un manteau de neige immaculée. Autour de moi, des débris d’avion sont éparpillés, certains encore léchés par des flammes vacillantes qui crépitent dans le silence glacé.\n\nLe ciel, étrangement limpide, arbore un bleu éclatant. Le soleil, bas sur l’horizon, caresse ma peau d’une chaleur trompeuse, presque rassurante. Contre toute attente, je suis vivant. Cette simple pensée m’emplit d’un sentiment d’apaisement fugace…\n\nMais déjà, l’angoisse refait surface. Mes membres engourdis me répondent mal tandis que je me relève en titubant, balayant le paysage du regard à la recherche d’un signe de vie, d’un survivant, d’un repère…\n\nEt puis cette pensée, brutale, s’impose à mon esprit. Cette chose.\nLa simple évocation du monstre me glace plus sûrement que le vent polaire. Mes poils se hérissent, mes entrailles se tordent. Était-ce un cauchemar dû au choc… ou est-elle encore là, quelque part, tapie dans le blanc infini ?",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+  "results": {
+    "horreur": -1,
+    "magie": 1
+  },
+  "choices": [
+    {
+      "label": "Suite",
+      "nextPage": "page20"
+    }]
+},
+{
+  "id": "page15",
+  "text": "Toujours prisonnier de mon siège, je tombe au-dessus de l’océan de glace, impuissant.\n\nMes paupières se ferment, et dans un souffle j’invoque un dieu, n’importe lequel, s’il en existe un. Je tente de garder les yeux ouverts, de rester lucide, mais le blizzard se déchaîne. Chaque rafale me déchire, chaque morsure de glace s’enfonce un peu plus profondément dans ma chair.\n\nLe froid triomphe. Mon souffle se brise, mes pensées s’éteignent, et mes prières se dissolvent dans le néant alors que la conscience me quitte. Je reprends lentement conscience, étendu sur un sol gelé, dur comme du marbre, recouvert d’un manteau de neige immaculée. Autour de moi, des débris d’avion sont éparpillés, certains encore léchés par des flammes vacillantes qui crépitent dans le silence glacé.\n\nLe ciel, étrangement limpide, arbore un bleu éclatant. Le soleil, bas sur l’horizon, caresse ma peau d’une chaleur trompeuse, presque rassurante. Contre toute attente, je suis vivant. Cette simple pensée m’emplit d’un sentiment d’apaisement fugace…\n\nMais déjà, l’angoisse refait surface. Mes membres engourdis me répondent mal tandis que je me relève en titubant, balayant le paysage du regard à la recherche d’un signe de vie, d’un survivant, d’un repère…\n\nEt puis cette pensée, brutale, s’impose à mon esprit. Cette chose.\nLa simple évocation du monstre me glace plus sûrement que le vent polaire. Mes poils se hérissent, mes entrailles se tordent. Était-ce un cauchemar dû au choc… ou est-elle encore là, quelque part, tapie dans le blanc infini ?",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+  "choices": [
+    {
+      "label": "Suite",
+      "nextPage": "page21"
+    }
+  ]
+},
+{
+  "id": "page16",
+  "text": "Je reprends connaissance, étendu sur un sol gelé et rocailleux. La neige recouvre par endroits le terrain accidenté, masquant les aspérités et rendant chaque mouvement pénible. La tempête s’est tue, mais l’accalmie n’apporte aucun réconfort : le ciel, d’un bleu limpide, met cruellement en valeur l’immensité glaciale qui m’entoure.\n\nL’air est si froid qu’il transperce mes vêtements trop légers comme mille poignards plantés dans ma chair. Chaque souffle est une brûlure glacée qui me lacère les poumons. Le vent, puissant et continu, hurle dans mes oreilles, me rappelant que cette terre est un désert hostile où l’homme n’a pas sa place.",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+  "choices": [
+    {
+      "label": "Suite",
+      "nextPage": "page21"
+    }
+  ]
+},
+{
+  "id": "page17",
+  "text": "Je chute à travers la tempête, le parachute solidement attaché dans mon dos.\n\nLe vent hurle comme un millier de voix, arrachant mon souffle, fouettant mes vêtements, secouant mon corps comme une poupée de chiffon.\n\nAutour de moi, les débris de l’avion tournoient dans une danse mortelle, silhouettes sombres prêtes à me faucher au moindre faux mouvement. Il faut ouvrir le parachute… mais pas trop tôt, pas trop tard. Une erreur, et le blizzard me déchiquetera ou un morceau de métal viendra me transpercer.\n\nLe froid mord mon visage comme du feu, mes paupières se collent de givre, et mes pensées deviennent floues. Rester lucide est une épreuve en soi, et la douleur dans mon crâne rend chaque seconde plus insupportable.\n\nLe sol approche. Il faut choisir. Le froid s’infiltre dans chaque fibre de mon corps, gelant mes pensées, engourdissant mes muscles, mon esprit pourtant est paisible. Autour de moi, les débris virevoltent dans une danse macabre, emportés dans le tumulte de la tempête.\n\nLa chute s’allonge, interminable. Puis, soudain, un choc brutal : un objet me heurte violemment, et l’obscurité s’abat sur moi comme un linceul.",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+   "choices": [
+    {
+      "label": "Suite",
+      "nextPage": "page20"
+    }
+  ]
+},
+{
+  "id": "page18",
+  "text": "Je chute à travers la tempête, le parachute solidement attaché dans mon dos.\n\nLe vent hurle comme un millier de voix, arrachant mon souffle, fouettant mes vêtements, secouant mon corps comme une poupée de chiffon.\n\nAutour de moi, les débris de l’avion tournoient dans une danse mortelle, silhouettes sombres prêtes à me faucher au moindre faux mouvement. Il faut ouvrir le parachute… mais pas trop tôt, pas trop tard. Une erreur, et le blizzard me déchiquetera ou un morceau de métal viendra me transpercer.\n\nLe froid mord mon visage comme du feu, mes paupières se collent de givre, et mes pensées deviennent floues. Rester lucide est une épreuve en soi, et la douleur dans mon crâne rend chaque seconde plus insupportable.\n\nLe sol approche. Il faut choisir. Je tire sur la poignée, et le parachute s’arrache de son étui dans un claquement sec. Pendant une fraction de seconde, l’espoir jaillit…\n\nMais la tempête me frappe aussitôt. Les bourrasques hurlantes tordent la toile, les cordages se nouent et s’emmêlent dans une confusion mortelle. Le parachute claque, se déchire, se gonfle à moitié avant de se replier brutalement.\n\nJe sens mon estomac se soulever, mon corps aspiré par le vide sans frein. La peur me submerge, me broie, jusqu’à ce que mon esprit bascule dans l’abîme. Les ténèbres se referment sur moi, impitoyables.",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+  "results": {
+    "horreur": 1
+  },
+  "choices": [
+    {
+      "label": "Suite",
+      "nextPage": "page19"
+    }
+  ]
+},
+{
+  "id": "page19",
+  "text": "Je reprends lentement conscience, étendu sur un sol gelé, dur comme du marbre, recouvert d’un manteau de neige immaculée. Autour de moi, des débris d’avion sont éparpillés, certains encore léchés par des flammes vacillantes qui crépitent dans le silence glacé.\n\nLe ciel, étrangement limpide, arbore un bleu éclatant. Le soleil, bas sur l’horizon, caresse ma peau d’une chaleur trompeuse, presque rassurante. Contre toute attente, je suis vivant. Cette simple pensée m’emplit d’un sentiment d’apaisement fugace…\n\nMais déjà, l’angoisse refait surface. Mes membres engourdis me répondent mal tandis que je me relève en titubant, balayant le paysage du regard à la recherche d’un signe de vie, d’un survivant, d’un repère…\n\nEt puis cette pensée, brutale, s’impose à mon esprit. Cette chose.\nLa simple évocation du monstre me glace plus sûrement que le vent polaire. Mes poils se hérissent, mes entrailles se tordent. Était-ce un cauchemar dû au choc… ou est-elle encore là, quelque part, tapie dans le blanc infini ?",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+  "choices": [
+    {
+      "label": "Suite",
+      "nextPage": "page21"
+    }
+  ]
+},
+{
+  "id": "page20",
+  "text": "Je reprends lentement conscience, étendu sur un sol gelé, dur comme du marbre, recouvert d’un manteau de neige immaculée. Autour de moi, des débris d’avion sont éparpillés, certains encore léchés par des flammes vacillantes qui crépitent dans le silence glacé.\n\nLe ciel, étrangement limpide, arbore un bleu éclatant. Le soleil, bas sur l’horizon, caresse ma peau d’une chaleur trompeuse, presque rassurante. Contre toute attente, je suis vivant. Cette simple pensée m’emplit d’un sentiment d’apaisement fugace…\n\nMais déjà, l’angoisse refait surface. Mes membres engourdis me répondent mal tandis que je me relève en titubant, balayant le paysage du regard à la recherche d’un signe de vie, d’un survivant, d’un repère…\n\nEt puis cette pensée, brutale, s’impose à mon esprit. Cette chose.\nLa simple évocation du monstre me glace plus sûrement que le vent polaire. Mes poils se hérissent, mes entrailles se tordent. Était-ce un cauchemar dû au choc… ou est-elle encore là, quelque part, tapie dans le blanc infini ?",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+  "choices": [
+    {
+      "label": "Suite",
+      "nextPage": "page21"
+    }
+  ]
+},
+{
+  "id": "page21",
+  "text": "Après un bref instant à reprendre mes esprits, je parviens à me redresser péniblement. Mes membres sont engourdis, mes muscles lourds comme du plomb. Chaque geste demande un effort immense, mais la douleur confirme une chose : je suis encore vivant.\n\nLe soleil éclaire faiblement l’horizon, projetant une lumière oblique sur le paysage gelé. Je sais que lorsqu’il frôlera l’horizon, l’obscurité polaire s’étendra, apportant avec elle un froid encore plus mortel et implacable.\n\nIl me faut agir vite.\n\n[[Observer le paysage (PER 12) | observer_paysage]]\n[[Examiner le sol et les débris (PER 20) | observer_crash]]",
+  "audio": ["https://jdr-app-ten.vercel.app/public/audio/lovecraft-horror-ambient-289897.mp3"],
+  "choices": [
+    {
+      "label": "Observer le paysage (PER 12)",
+      "stat": "perception",
       "outcomes": [
-        { "type": "success", "nextPage": "page10", "chance": 22 }, 
-        { "type": "failure", "nextPage": "page11"}
+        { "type": "success", "nextPage": "page22", "chance": 12 },
+        { "type": "failure", "nextPage": "page23" }
       ]
     },
-    { 
-      "label": "Se détacher (AGI 22)",
-      "stat":"agilite",
+    {
+      "label": "Examiner le sol et les débris (PER 20)",
+      "stat": "perception",
       "outcomes": [
-        { "type": "success", "nextPage": "page6", "chance": 15 },
-        { "type": "failure", "nextPage": "page7" }
-      ]
-    },
-    { 
-      "label": "Prier (MAG 24)",
-      "stat":"magie",
-      "outcomes": [
-        { "type": "success", "nextPage": "page8", "chance": 19 },
-        { "type": "failure", "nextPage": "page9"}
+        { "type": "success", "nextPage": "page24", "chance": 20 },
+        { "type": "failure", "nextPage": "page25" }
       ]
     }
   ]
 }
+
+
+
   ]
 }

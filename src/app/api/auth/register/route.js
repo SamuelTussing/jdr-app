@@ -1,4 +1,5 @@
 import { connectDB } from "@/lib/mongodb"
+import mongoose from "mongoose"
 import User from "@/models/User"
 import bcrypt from "bcryptjs"
 

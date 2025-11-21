@@ -17,7 +17,7 @@ export async function POST(req) {
     // Vérifie si l’utilisateur existe
     const user = await User.findOne({ username })
     if (!user) {
-      return NextResponse.json({ error: "Utilisateur non trouvé" }, { status: 404 })
+      return NextResponse.json({ error: "Utilisateur non trouvé." }, { status: 404 })
     }
  
     // Vérifie le mot de passe

@@ -8,7 +8,7 @@ export function middleware(req) {
 
     if (!token) {
       // Pas de token → redirection vers login
-      return NextResponse.redirect(new URL("/admin_login", req.url))
+      return NextResponse.redirect(new URL("/adminWorld", req.url))
     }
 
     // Décode le JWT
@@ -16,7 +16,7 @@ export function middleware(req) {
 
     // Vérifie le rôle admin
     if (decoded.role !== "admin") {
-      return NextResponse.redirect(new URL("/adminWorld", req.url))
+      return NextResponse.redirect(new URL("/admin_login", req.url))
     }
 
     // Tout est ok → accès autorisé

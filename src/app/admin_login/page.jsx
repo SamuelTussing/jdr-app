@@ -10,38 +10,35 @@ export default function AuthPage() {
   const [loginData, setLoginData] = useState({ username: "", password: "" })
 
   // Connexion
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-                                  username,
-                                  password,
-                                  scope: "admin"
-          }),
-      })
+ const handleLogin = async (e) => {
+  e.preventDefault()
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: loginData.username,
+        password: loginData.password,
+        scope: "admin"
+      }),
+    })
 
-      const data = await res.json()
+    const data = await res.json()
 
-      if (!res.ok) {
-        alert(data.error || "Erreur de connexion")
-        return
-      }
-
-      console.log("Login success:", data)
-
-      // ⚡ Stocke l'utilisateur en sessionStorage pour la page d'accueil
-      //sessionStorage.setItem("user", JSON.stringify(data.user))
-
-      // Redirection vers la page d'accueil
-      router.push("/adminWorld")
-    } catch (err) {
-      console.error("Erreur login:", err)
-      alert("Erreur serveur")
+    if (!res.ok) {
+      alert(data.error || "Erreur de connexion")
+      return
     }
+
+    console.log("Login success:", data)
+
+    // Redirection vers le backoffice
+    router.push("/adminWorld")
+  } catch (err) {
+    console.error("Erreur login:", err)
+    alert("Erreur serveur")
   }
+}
 
 
   return (

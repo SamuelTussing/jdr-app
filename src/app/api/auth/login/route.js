@@ -8,7 +8,8 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 export async function POST(req) {
   try {
-    const { username, password } = await req.json()
+    const { username, password, scope } = await req.json()
+
     if (!username || !password) {
       return NextResponse.json({ error: "Champs manquants" }, { status: 400 })
     }
@@ -25,18 +26,34 @@ export async function POST(req) {
       return NextResponse.json({ error: "Mot de passe incorrect" }, { status: 401 })
     }
 
-    // ⭐ Générer un JWT
+    // 🔒 BLOQUER LE BACKOFFICE AUX NON-ADMINS
+    if (scope === "admin" && user.role !== "admin") {
+      return NextResponse.json(
+        { error: "Accès réservé aux administrateurs" },
+        { status: 403 }
+      )
+    }
+
+    // ⭐ JWT avec rôle
     const token = jwt.sign(
-      { userId: user._id, username: user.username, email: user.email },
+      {
+        userId: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role
+      },
       JWT_SECRET,
       { expiresIn: "7d" }
     )
 
-    // 🔥 Retourner le token dans un cookie sécurisé
     const response = NextResponse.json(
       {
         message: "Connexion réussie",
-        user: { username: user.username, email: user.email }
+        user: {
+          username: user.username,
+          email: user.email,
+          role: user.role
+        }
       },
       { status: 200 }
     )
@@ -45,10 +62,10 @@ export async function POST(req) {
       name: "auth_token",
       value: token,
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7 // 7 jours
+      maxAge: 60 * 60 * 24 * 7
     })
 
     return response

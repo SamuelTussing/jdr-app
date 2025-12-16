@@ -16,7 +16,11 @@ export default function AuthPage() {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginData),
+          body: JSON.stringify({
+                                  username,
+                                  password,
+                                  scope: "admin"
+          }),
       })
 
       const data = await res.json()
@@ -46,7 +50,7 @@ export default function AuthPage() {
         <div className="auth-forms">
           {/* Login Form */}
           <div className="auth-form">
-            <h2 className="auth-title">Connexion</h2>
+            <h2 className="auth-title">Backoffice Connexion</h2>
             <form onSubmit={handleLogin}>
               <div className="form-group">
                 <label htmlFor="login-username">Username</label>

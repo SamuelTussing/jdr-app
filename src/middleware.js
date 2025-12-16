@@ -8,7 +8,7 @@ export function middleware(req) {
 
     if (!token) {
       // Pas de token → redirection vers login
-      return NextResponse.redirect(new URL("/adminWorld", req.url))
+      return NextResponse.redirect(new URL("/admin_login", req.url))
     }
 
     // Décode le JWT
@@ -24,7 +24,7 @@ export function middleware(req) {
 
   } catch (err) {
     // Token invalide ou expiré
-    return NextResponse.redirect(new URL("/admin_login", req.url))
+    return NextResponse.redirect(new URL("/adminWorld", req.url))
   }
 }
 

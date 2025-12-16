@@ -49,6 +49,15 @@ const UserSchema = new mongoose.Schema(
         addedAt: { type: Date, default: Date.now },
       },
     ],
+    cart: [
+      {
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+        },
+        addedAt: { type: Date, default: Date.now },
+      },
+    ],
 
     // 👉 Ajout du champ saves
     saves: {

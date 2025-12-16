@@ -1,3 +1,5 @@
+"use client"
+
 import TopBar from "../accueil/components/TopBar"
 import Header from "../accueil/components/Header"
 import Footer from "../accueil/components/Footer"

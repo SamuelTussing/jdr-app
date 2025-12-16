@@ -7,33 +7,32 @@ import "./admin.css"
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import jwt from "jsonwebtoken"
 
 export default function AdminWorld() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = document.cookie
-      .split("; ")
-      .find((c) => c.startsWith("auth_token="))
-      ?.split("=")[1]
+    const checkAdmin = async () => {
+      try {
+        const res = await fetch("/api/auth/verify", {
+          method: "GET",
+          credentials: "include", // envoie les cookies httpOnly
+        })
 
-    if (!token) {
-      router.push("/admin_login")
-      return
-    }
+        if (!res.ok) {
+          router.push("/admin_login")
+          return
+        }
 
-    try {
-      const decoded = jwt.decode(token)
-      if (decoded?.role !== "admin") {
+        // si tout est ok
+        setLoading(false)
+      } catch (err) {
         router.push("/admin_login")
-        return
       }
-      setLoading(false)
-    } catch {
-      router.push("/admin_login")
     }
+
+    checkAdmin()
   }, [])
 
   if (loading) return <p>Chargement...</p>

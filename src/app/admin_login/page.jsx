@@ -33,7 +33,7 @@ export default function AuthPage() {
     console.log("Login success:", data)
 
     // Redirection vers le backoffice
-    router.push("/admin/adminWorld")
+    router.push("/adminWorld")
   } catch (err) {
     console.error("Erreur login:", err)
     alert("Erreur serveur")

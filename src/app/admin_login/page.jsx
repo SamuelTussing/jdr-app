@@ -34,7 +34,6 @@ export default function AuthPage() {
 
     // Redirection vers le backoffice
     router.push("/admin/adminWorld")
-    window.location.href = "/admin/adminWorld"
   } catch (err) {
     console.error("Erreur login:", err)
     alert("Erreur serveur")

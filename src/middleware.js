@@ -29,5 +29,5 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/adminWorld/:path*"], // protège toutes les pages sous /adminWorld
+  matcher: ["/admin/:path*"], // protège toutes les pages sous /adminWorld
 }

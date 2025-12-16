@@ -33,10 +33,10 @@ export default function AuthPage() {
       console.log("Login success:", data)
 
       // ⚡ Stocke l'utilisateur en sessionStorage pour la page d'accueil
-      sessionStorage.setItem("user", JSON.stringify(data.user))
+      //sessionStorage.setItem("user", JSON.stringify(data.user))
 
       // Redirection vers la page d'accueil
-      router.push("/admin_login")
+      router.push("/adminWorld")
     } catch (err) {
       console.error("Erreur login:", err)
       alert("Erreur serveur")

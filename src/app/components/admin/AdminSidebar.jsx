@@ -1,11 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
-
-export default function AdminSidebar({ isOpen, onToggle }) {
-  const [activeTab, setActiveTab] = useState("dashboard")
-
+export default function AdminSidebar({ isOpen, onToggle, activeTab, onTabChange }) {
   const menuItems = [
     {
       id: "dashboard",
@@ -66,11 +61,10 @@ export default function AdminSidebar({ isOpen, onToggle }) {
 
       <nav className="sidebar-nav">
         {menuItems.map((item) => (
-          <Link
+          <button
             key={item.id}
-            href={item.href}
             className={`nav-item ${activeTab === item.id ? "active" : ""}`}
-            onClick={() => setActiveTab(item.id)}
+            onClick={() => onTabChange(item.id)}
           >
             <span className="nav-icon">{item.icon}</span>
             {isOpen && (
@@ -79,7 +73,7 @@ export default function AdminSidebar({ isOpen, onToggle }) {
                 {item.badge && <span className="nav-badge">{item.badge}</span>}
               </>
             )}
-          </Link>
+          </button>
         ))}
       </nav>
 

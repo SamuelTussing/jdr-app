@@ -3,6 +3,12 @@
 import AdminLayout from "../components/admin/AdminLayout"
 import AdminHeader from "../components/admin/AdminHeader"
 import DashboardContent from "../components/admin/DashboardContent"
+import OrdersContent from "../components/admin/OrdersContent"
+import ProductsContent from "../components/admin/ProductsContent"
+import CustomersContent from "../components/admin/CustomersContent"
+import AnalyticsContent from "../components/admin/AnalyticsContent"
+import MarketingContent from "../components/admin/MarketingContent"
+import SettingsContent from "../components/admin/SettingsContent"
 import "./admin.css"
 
 import { useEffect, useState } from "react"
@@ -37,10 +43,35 @@ export default function AdminWorld() {
 
   if (loading) return <p>Chargement...</p>
 
+    const renderContent = (activeTab) => {
+    switch (activeTab) {
+      case "dashboard":
+        return <DashboardContent />
+      case "orders":
+        return <OrdersContent />
+      case "products":
+        return <ProductsContent />
+      case "customers":
+        return <CustomersContent />
+      case "analytics":
+        return <AnalyticsContent />
+      case "marketing":
+        return <MarketingContent />
+      case "settings":
+        return <SettingsContent />
+      default:
+        return <DashboardContent />
+    }
+  }
+
   return (
-    <AdminLayout>
-      <AdminHeader />
-      <DashboardContent />
+<AdminLayout>
+      {(activeTab) => (
+        <>
+          <AdminHeader />
+          {renderContent(activeTab)}
+        </>
+      )}
     </AdminLayout>
   )
 }

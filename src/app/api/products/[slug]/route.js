@@ -43,15 +43,6 @@ export async function GET(req, { params }) {
       )
     }
 
-    // 🚧 Vérifier l’achat
-    const hasBought = user.achats?.[slug] === true
-
-    if (!hasBought) {
-      return NextResponse.json(
-        { error: "Accès refusé : jeu non acheté" },
-        { status: 403 }
-      )
-    }
 
     // 🎮 Retourner les données du jeu
     const product = await Product.findOne({ slug })
